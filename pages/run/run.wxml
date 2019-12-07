@@ -1,0 +1,9 @@
+<view class="view">
+    跑鸭项目启动
+</view>
+<view class="view">
+    <van-rate value="{{ value }}" bind:change="onChange" />
+</view>
+<view class="view">
+    <van-button type="primary">预祝成功</van-button>
+</view>

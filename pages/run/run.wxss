@@ -1,0 +1,13 @@
+/* pages/run/run.wxss */
+.view{
+    text-align: center;
+}
+.view:first-child{
+    margin: 50% auto 0;
+}
+.view:nth-child(2){
+    margin: 10rpx;
+}
+.view:last-child{
+    margin: 120rpx;
+}

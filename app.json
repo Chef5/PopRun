@@ -1,0 +1,17 @@
+{
+    "pages": [
+        "pages/run/run"
+    ],
+    "window": {
+        "backgroundTextStyle": "light",
+        "navigationBarBackgroundColor": "#fff",
+        "navigationBarTitleText": "跑鸭",
+        "navigationBarTextStyle": "black"
+    },
+    "style": "v2",
+    "sitemapLocation": "sitemap.json",
+    "usingComponents": {
+        "van-button": "@vant/weapp/button",
+        "van-rate": "@vant/weapp/rate"
+    }
+}
