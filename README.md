@@ -1,10 +1,5 @@
 # 跑鸭
 
-[![npm package][npm-package]][npm-package-url]
-[![dependencies][dependencies]][dependencies-url]
-[![devDependencies][devDependencies]][devDependencies-url]
-
-[![license][license]][license-url]
 
 ## 依赖安装
 ```
