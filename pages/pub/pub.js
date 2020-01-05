@@ -1,4 +1,4 @@
-// pages/run/run.js
+// pages/pub/pub.js
 Page({
 
     /**

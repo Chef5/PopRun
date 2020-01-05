@@ -1,12 +1,41 @@
 {
     "pages": [
-        "pages/run/run"
+        "pages/run/run",
+        "pages/moments/moments",
+        "pages/pub/pub",
+        "pages/user/user"
     ],
     "window": {
         "backgroundTextStyle": "light",
-        "navigationBarBackgroundColor": "#fff",
+        "navigationBarBackgroundColor": "#83B582",
         "navigationBarTitleText": "跑鸭",
-        "navigationBarTextStyle": "black"
+        "navigationBarTextStyle": "white"
+    },
+    "tabBar": {
+      "backgroundColor": "#83B582",
+      "color": "#707070",
+      "selectedColor": "#fff",
+      "list": [{
+        "pagePath": "pages/run/run",
+        "text": "跑鸭",
+        "iconPath": "imgs/tabbar/run.png",
+        "selectedIconPath": "/imgs/tabbar/run-w.png"
+      },{
+        "pagePath": "pages/moments/moments",
+        "text": "动态",
+        "iconPath": "imgs/tabbar/moments.png",
+        "selectedIconPath": "/imgs/tabbar/moments-w.png"
+      },{
+        "pagePath": "pages/pub/pub",
+        "text": "广场",
+        "iconPath": "imgs/tabbar/pub.png",
+        "selectedIconPath": "/imgs/tabbar/pub-w.png"
+      },{
+        "pagePath": "pages/user/user",
+        "text": "个人",
+        "iconPath": "imgs/tabbar/user.png",
+        "selectedIconPath": "/imgs/tabbar/user-w.png"
+      }]
     },
     "style": "v2",
     "sitemapLocation": "sitemap.json",

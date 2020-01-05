@@ -1,4 +1,4 @@
-// pages/run/run.js
+// pages/moments/moments.js
 Page({
 
     /**
