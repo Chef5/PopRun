@@ -1,0 +1,63 @@
+<!--components/w-moments-item/index.wxml-->
+<view class="container">
+    <view class="nav">
+        <image src="{{data.img}}"></image>
+    </view>
+    <view class="main">
+        <view class="title">{{data.title}}</view>
+        <view class="info">{{data.info}}</view>
+        <view class="content">
+            <view class="content-text">
+                <text>{{data.content.text}}</text>
+            </view>
+            <view class="content-img">
+                <!-- 多图 -->
+                <view 
+                    wx:if="{{data.images.length > 1}}"
+                    class="image-wrap" 
+                    wx:for="{{data.images}}"
+                    wx:for-item="item"
+                    wx:key="item"
+                    style="width: calc(calc(100% / {{data.images.length > 3 ? 3 : data.images.length}}) - 20rpx);">
+                    <view 
+                        class="image"
+                        style="background-image:url({{item.url}});">
+                    
+                    </view>
+                </view>
+                <!-- 单图 -->
+                <view 
+                    wx:if="{{data.images.length == 1}}"
+                    class="image-wrap-single" 
+                    wx:for="{{data.images}}"
+                    wx:for-item="item"
+                    wx:key="item"
+                    style="width:{{imageWidth}}rpx;height:{{imageHeight}}rpx;background-image:url({{item.url}});">
+                </view>
+            </view>
+        </view>
+        <view class="more">
+            <view class="more-time">14分前</view>
+            <van-transition
+                show="{{showmore}}"
+                name="fade-up"
+                duration="500"
+                custom-class="more-show">
+                <van-icon name="good-job-o" size="20px" custom-class="more-show-icon"></van-icon>
+                <van-icon name="smile-comment-o" size="20px" custom-class="more-show-icon">></van-icon>
+            </van-transition>
+            <view class="more-m">
+                <van-icon name="more-o" size="20px" bindtap="doShowmore"></van-icon>
+            </view>
+        </view>
+        <view>
+            <image
+                wx:for="{{data.likes}}"
+                wx:for-item="item"
+                wx:key="item" 
+                src="{{item.img}}"
+                class="image-like">
+            </image>
+        </view>
+    </view>
+</view>

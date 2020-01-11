@@ -1,0 +1,7 @@
+{
+    "component": true,
+    "usingComponents": {
+        "van-icon": "@vant/weapp/icon/index",
+        "van-transition": "@vant/weapp/transition/index"
+    }
+}
