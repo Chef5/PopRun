@@ -95,7 +95,7 @@
 }
 .more-show{
     width: 50px;
-    margin-right: 12px;
+    /* margin-right: 12px; */
     display: flex;
     flex-direction: row;
 }
@@ -106,12 +106,62 @@
 }
 .more-m{
     text-align: right;
+    width: 34px;
     padding-right: 24rpx;
 }
 /* 点赞 */
+.likes{
+    width: 100%;
+}
 .image-like{
     width: 40rpx;
     height: 40rpx;
     border-radius: 3px;
     margin-left: 3px;
+}
+/* 评论 */
+.comments{
+    width: 100%;
+}
+.comment{
+    margin-top: 8rpx;
+    width: 100%;
+    text-align: left;
+    font-size: 30rpx;
+    line-height: 34rpx;
+    letter-spacing: 1px;
+} 
+.comment text{
+    text-align: left;
+    font-size: 30rpx;
+    color: #2020a3;
+}
+.input{
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    display: flex;
+    padding: 16rpx;
+    background: #fff;
+    border-top: 1px solid rgb(243, 241, 241);
+    flex-direction: row;
+}
+.input input{
+    display: inline-block;
+    flex: 1;
+    border-left: 2px solid rgb(243, 241, 241);
+    background: #fff;
+    border-radius: 3px;
+    text-indent: 3px;
+    font-size: 32rpx;
+}
+.input-confirm{
+    margin-right: 28rpx;
+    margin-left: 8rpx;
+    font-size: 28rpx;
+    text-align: center;
+    color: #fff;
+    background: #83B582;
+    padding: 0 14rpx 0;
+    border-radius: 4px;
 }
