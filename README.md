@@ -1,7 +1,7 @@
 # 跑鸭
 
 ## 先关文档链接
-**各个账号密码记录在 http://api.nunet.cn:3000 网站里，这个是我自己服务器搭的**
+**各个账号密码记录在 http://api.nunet.cn:3000 网站，跑鸭项目wiki里，这个是我自己服务器搭的**
 
 - 接口文档：http://api.nunet.cn:3000/project/10/interface/api 
 - 产品原型：https://orgnext.modao.cc/team/panel/teyfrxdefault
