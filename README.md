@@ -6,7 +6,7 @@
 - 接口文档：http://api.nunet.cn:3000/project/10/interface/api 
 - 产品原型：https://orgnext.modao.cc/team/panel/teyfrxdefault
 - 开发手册：https://www.yuque.com/hg64tq
-- 后端项目：
+- 后端项目：https://github.com/Patrick-Jun/PopRun-b
 
 ## 依赖安装
 ```
