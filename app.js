@@ -29,10 +29,12 @@ App({
       ]
     }
   },
-  /**
+  /*******************************
    * 公共方法区
+   *******************************/
+  /**
+   * 设置tabbar状态
    */
-  //1.设置tabbar状态
   setTabbar: function(index, value){
     if(value.number==0 || value.number==null || value.number==undefined){//取消数字，设置红点
       wx.removeTabBarBadge({
@@ -52,6 +54,18 @@ App({
         index: index,
         text: value.number+'',
       })
+    }
+  },
+  /**
+   * 获取基础配置
+   */
+  config: {
+    //获取请求环境
+    getHostUrl: function(){
+      // let hosturl = "http://127.0.0.1:8000/api/"; //后端本地
+      let hosturl = "http://dev.run.nunet.cn/api/";  //开发环境
+      // let hosturl = "http://run.nunet.cn/api/";   //线上环境
+      return hosturl;
     }
   }
 })
