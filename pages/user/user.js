@@ -1,4 +1,5 @@
 // pages/user/user.js
+const app = getApp();
 Page({
 
     /**
@@ -6,6 +7,41 @@ Page({
      */
     data: {
 
+    },
+    /**
+     * 注册并获取用户信息
+     */
+    userReg: function(){
+        app.getUserInfo();
+        this.setData({
+            userinfo: wx.getStorageSync('user')
+        })
+    },
+    /**
+     * 获取用户信息：在线获取，不依赖本地
+     */
+    getUserInfoOnline: function(){
+        let that = this;
+        app.getOpenid().then(
+            (openid)=>{
+                wx.request({
+                    url: app.config.getHostUrl()+'/api/user/getUser',
+                    method: 'post',
+                    data: {
+                        openid: openid
+                    },
+                    success: (res)=>{
+                        that.setData({
+                            userinfo: JSON.stringify(res.data)
+                        })
+                    }
+                })
+            }
+        ).catch(
+            (err)=>{
+                console.log(err)
+            }
+        )
     },
 
     /**

@@ -1,3 +1,8 @@
 <!--pages/user/user.wxml-->
-<text>pages/user/user.wxml</text>
+    <button open-type="getUserInfo">授权登录</button>
+    <button bindtap="userReg">注册、存储返回值</button>
+    <button bindtap="getUserInfoOnline">获取用户信息（已注册）</button>
+<view>
+    {{userinfo}}
+</view>
 <w-tabbar></w-tabbar>
