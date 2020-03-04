@@ -1,10 +1,14 @@
 // components/w-moments-item/index.js
+const app = getApp();
 Component({
     /**
      * 组件的属性列表
      */
     properties: {
-
+        moment: {
+            type: Object,  //数据类型
+            value: null    //默认值
+        }
     },
 
     /**
@@ -21,15 +25,13 @@ Component({
         imageHeight: "",
         //动态数据
         data: {
-            uid: 0,
+            rid: 0,
             img: "/imgs/default/girl.jpg",
             nickname: "不减十斤不改名不减十斤不改名不减十斤不改名不减十斤不改名",
             info: "包谷子大学",
             pubtime: 1578823269806,
-            content: {
-                text: " 这里是文  字\n部分这里是文字部分这里\n是文部分这里是文字部分这里是文字部分这里是文字部分这里是文字部分这里\n是文字部分"
-            },
-            images: [
+            text: " 这里是文  字\n部分这里是文字部分这里\n是文部分这里是文字部分这里是文字部分这里是文字部分这里是文字部分这里\n是文字部分",
+            imgs: [
                 {
                     url: "/imgs/default/1.jpg",
                     width: "683",
@@ -178,14 +180,19 @@ Component({
                     pubtime: 1578823299806
                 }
             ]
-        }
+        },
+        user: JSON.parse(wx.getStorageSync('user')),  //获取当前用户信息
     },
     /**
      * 生命周期
      */
     attached: function() {
-        let that = this
-        that._initData(that.data.data.images,that)
+        let that = this;
+        // console.log(that.properties.moment);
+        that.setData({
+            data: that.properties.moment
+        });
+        that._initData(that.data.data.imgs.thumbnail,that)
     },
     /**
      * 组件的方法列表
@@ -209,10 +216,14 @@ Component({
         },
         // 点击图片，查看大图
         showBigimg: function(e){
-            this.setData({
-                singleimgurl: e.currentTarget.dataset.url,
-                showsingleimg: true
+            wx.previewImage({
+                current: e.currentTarget.dataset.url, // 当前显示图片的http链接
+                urls: [e.currentTarget.dataset.url,e.currentTarget.dataset.url] // 需要预览的图片http链接列表
             })
+            // this.setData({
+            //     singleimgurl: e.currentTarget.dataset.url,
+            //     showsingleimg: true
+            // })
         },
         // 关闭大图
         onClose: function(){
@@ -231,6 +242,21 @@ Component({
         // 点赞
         doLike: function(){
             let that = this;
+            wx.request({
+              url: app.config.getHostUrl()+'/api/moments/doLike',
+              method: 'post',
+              data: {
+                 "rid": that.data.user.rid,
+                 "moid":that.data.data.moid
+              },
+              success: (res)=>{
+                // console.log(res);
+                that.refreshThis(that.data.data.moid, "likes");                                                                                       
+              },
+              fail: (res)=>{
+                console.log(res);
+              }
+            })
             that.setData({
                 showmore: false
             })
@@ -256,17 +282,69 @@ Component({
             if(e.detail.value=="" || that.data.input=="") return;
             let data = that.data.data;
             let placeholder = that.data.placeholder;
-            data.comments.push({
-                uid: 1,
-                nickname: "测试号",
-                comment: placeholder != "期待神评" ? placeholder+": "+that.data.input : that.data.input,
-                pubtime: 1578823299806
-            });
+            // data.comments.push({
+            //     uid: 1,
+            //     nickname: "测试号",
+            //     comment: placeholder != "期待神评" ? placeholder+": "+that.data.input : that.data.input,
+            //     pubtime: 1578823299806
+            // });
+            wx.request({
+                url: app.config.getHostUrl()+'/api/moments/doComment',
+                method: 'post',
+                data: {
+                   "rid": that.data.user.rid,
+                   "moid": that.data.data.moid,
+                   "comment": placeholder != "期待神评" ? placeholder+": "+that.data.input : that.data.input,
+                },
+                success: (res)=>{
+                    // console.log(res);
+                    that.refreshThis(that.data.data.moid, "comments");                                                                                 
+                },
+                fail: (res)=>{
+                  console.log(res);
+                }
+            })
             that.setData({
                 data: data,
                 input: "",
                 showcomment: false,
             })
+        },
+        /**
+         * 更新数据
+         * @param {*} moid 动态id
+         * @param {*} type 更新位置
+         */
+        refreshThis: function(moid, type){
+            if(!moid) return;
+            let that = this;
+            wx.request({
+                url: app.config.getHostUrl()+'/api/moments/getMomentById',
+                data: {
+                    moid: moid
+                },
+                header: {'content-type':'application/json'},
+                method: 'GET',
+                dataType: 'json',
+                success: (result)=>{
+                    let localData = that.data.data;
+                    switch(type){
+                        case "likes": {
+                            localData.likes = result.data.data.likes;
+                            break;
+                        }
+                        case "comments": {
+                            localData.comments = result.data.data.comments;
+                            break;
+                        }
+                    }
+                    that.setData({
+                        data: localData
+                    });
+                },
+                fail: ()=>{},
+                complete: ()=>{}
+            });
         }
     }
 })

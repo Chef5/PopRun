@@ -33,7 +33,8 @@ Page({
                     success: (res)=>{
                         that.setData({
                             userinfo: JSON.stringify(res.data)
-                        })
+                        });
+                        wx.setStorageSync('user', JSON.stringify(res.data.data))
                     }
                 })
             }

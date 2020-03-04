@@ -1,2 +1,4 @@
 <!--pages/moments/moments.wxml-->
-<w-moments-item></w-moments-item>
+<view wx:for="{{moments}}" wx:for-item="moment" wx:key="moment">
+    <w-moments-item moment="{{moment}}"></w-moments-item>
+</view>

@@ -8,40 +8,37 @@
         <view class="info">{{data.info}}</view>
         <view class="content">
             <view class="content-text">
-                <text>{{data.content.text}}</text>
+                <text>{{data.text}}</text>
             </view>
             <view class="content-img">
                 <!-- 多图 -->
                 <view 
-                    wx:if="{{data.images.length > 1}}"
+                    wx:if="{{data.imgs.thumbnail.length > 1}}"
                     class="image-wrap" 
-                    wx:for="{{data.images}}"
+                    wx:for="{{data.imgs.thumbnail}}"
                     wx:for-item="item"
+                    wx:for-index="index"
                     wx:key="item"
-                    style="width: calc(calc(100% / {{data.images.length > 3 ? 3 : data.images.length}}) - 20rpx);">
+                    style="width: calc(calc(100% / {{data.imgs.thumbnail.length > 3 ? 3 : data.imgs.thumbnail.length}}) - 20rpx);">
                     <view 
                         class="image"
                         catchtap="showBigimg"
-                        data-url="{{item.url}}"
+                        data-url="{{data.imgs.original[index].url}}"
                         style="background-image:url({{item.url}});">
-                    
                     </view>
                 </view>
                 <!-- 单图 -->
                 <view 
-                    wx:if="{{data.images.length == 1}}"
+                    wx:if="{{data.imgs.thumbnail.length == 1}}"
                     class="image-wrap-single" 
-                    wx:for="{{data.images}}"
-                    wx:for-item="item"
-                    wx:key="item"
                     catchtap="showBigimg"
-                    data-url="{{item.url}}"
-                    style="width:{{imageWidth}}rpx;height:{{imageHeight}}rpx;background-image:url({{item.url}});">
+                    data-url="{{data.imgs.original[0].url}}"
+                    style="width:{{imageWidth}}rpx;height:{{imageHeight}}rpx;background-image:url({{data.imgs.thumbnail[0].url}});">
                 </view>
             </view>
         </view>
         <view class="more">
-            <view class="more-time">14分钟前</view>
+            <view class="more-time">{{data.created_at}}</view>
             <view class="more-show">
                 <van-transition
                     show="{{showmore}}"
@@ -76,6 +73,7 @@
                 wx:for-item="item"
                 wx:key="item"
                 src="{{item.img}}"
+                data-rid="{{item.rid}}"
                 class="image-like">
             </image>
         </view>
@@ -85,7 +83,9 @@
                 wx:for="{{data.comments}}"
                 wx:for-item="item"
                 wx:key="item"
+                data-coid="{{item.coid}}"
                 data-nickname="{{item.nickname}}"
+                data-rid="{{item.rid}}"
                 catchtap="doComment">
                 <text>{{item.nickname}}：</text>{{item.comment}}
             </view>
