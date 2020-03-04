@@ -1,5 +1,7 @@
 {
   "usingComponents": {
-    "w-moments-item": "/components/w-moments-item/index"
+    "w-moments-item": "/components/w-moments-item/index",
+    "van-icon": "@vant/weapp/icon/index",
+    "van-popup": "@vant/weapp/popup/index"
   }
 }

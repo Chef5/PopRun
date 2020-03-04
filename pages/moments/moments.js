@@ -1,12 +1,14 @@
 // pages/moments/moments.js
 const app = getApp();
+// 滑动手势变量
+var startX, endX, moveFlag = true;
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-
+        isShowMenu: false
     },
 
     /**
@@ -113,5 +115,54 @@ Page({
                 })
             }
         )
+    },
+
+    // 跳转到新建页面
+    openNewMoment: function() {
+        console.log("打开新建动态页面");
+        this.setData({
+            isShowMenu: false
+        });
+        wx.navigateTo({
+            url: './newMoment/newMoment',
+            success: (result)=>{
+                console.log("跳转到新建页面成功")
+            },
+            fail: ()=>{},
+            complete: ()=>{}
+        });
+    },
+
+    touchStart: function (e) {
+        startX = e.touches[0].pageX; // 获取触摸时的原点
+        moveFlag = true;
+    },
+    // 触摸移动事件
+    touchMove: function (e) {
+        endX = e.touches[0].pageX; // 获取触摸时的原点
+        if (moveFlag) {
+            if (startX - endX > 50) {
+                console.log("move to left");
+                this.setData({
+                    isShowMenu: true
+                })
+                moveFlag = false;
+            }
+            // if (endX - startX > 50) {
+            //     console.log("move to right");
+            //     this.setData({
+            //         isShowMenu: false
+            //     })
+            //     moveFlag = false;
+            // }
+        }
+    },
+    
+    // 关闭侧滑菜单
+    onMenuClose: function(){
+        this.setData({
+            isShowMenu: false
+        })
     }
+    
 })
