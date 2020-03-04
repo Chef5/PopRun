@@ -1,2 +1,36 @@
 <!--pages/moments/newMoment/newMoment.wxml-->
-<text>pages/moments/newMoment/newMoment.wxml</text>
+<van-notify id="van-notify" />
+<view class="body">
+    <view class="text">
+        <textarea
+            class="textarea"  
+            placeholder="Say something..." 
+            auto-focus="true"
+            auto-height="true"
+            maxlength="500"
+            bindinput="onInput"
+        >
+            
+        </textarea>
+    </view>
+
+    <view class="imgs">
+        <van-uploader
+            file-list="{{ fileList }}"
+            max-count="9"
+            preview-size="100"
+            bind:after-read="onReadfile"
+            bind:delete="onDeleteImg"
+        />
+    </view>
+
+    <view class="other">
+        <van-cell-group>
+            <van-cell title="位置" icon="location-o" />
+        </van-cell-group>
+    </view>
+    
+    <view class="publish">
+        <van-button type="primary" bind:click="onPublish" >发布</van-button>
+    </view>
+</view>

@@ -1,1 +1,21 @@
 /* pages/moments/newMoment/newMoment.wxss */
+.body{
+    padding: 10rpx;
+}
+.textarea{
+    /* border:1px solid #d8d7d7; */
+    width:100%;
+    min-height: 300rpx;
+}
+.imgs{
+    margin-top: 22rpx;
+}
+.other{
+    margin-top: 8rpx;
+}
+.publish{
+    margin-top: 66rpx;
+    width: 100%;
+    height: 200rpx;
+    text-align: center;
+}

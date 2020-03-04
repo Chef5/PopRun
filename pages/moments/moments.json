@@ -3,5 +3,6 @@
     "w-moments-item": "/components/w-moments-item/index",
     "van-icon": "@vant/weapp/icon/index",
     "van-popup": "@vant/weapp/popup/index"
-  }
+  },
+  "enablePullDownRefresh": false
 }
