@@ -47,6 +47,7 @@
     "sitemapLocation": "sitemap.json",
     "usingComponents": {
         "van-button": "@vant/weapp/button/index",
-        "van-notify": "@vant/weapp/notify/index"
+        "van-notify": "@vant/weapp/notify/index",
+        "van-dialog": "@vant/weapp/dialog/index"
     }
 }

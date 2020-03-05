@@ -1,4 +1,6 @@
 // pages/moments/moments.js
+import Notify from '@vant/weapp/notify/notify';
+
 const app = getApp();
 // 滑动手势变量
 var startX, endX, moveFlag = true;
@@ -31,15 +33,15 @@ Page({
      */
     onShow: function () {
         let that = this;
-        let moments = that.data.moments;
+        that.setData({ moments: [] });
         that.getMoments()
             .then((res)=>{
                 console.log(res)
-                if(res.data.data.moments.length != 0){
-                    res.data.data.moments.forEach(element => {
-                        moments.push(element);
-                    });
-                    that.setData({ moments });
+                if(res.data.isSuccess){
+                    Notify({ type: 'success', message: res.data.msg });
+                    that.setData({ moments: res.data.data.moments });
+                }else{
+                    Notify({ type: 'danger', message: res.data.msg });
                 }
             })
             .catch((res)=>{
@@ -144,7 +146,7 @@ Page({
     touchMove: function (e) {
         endX = e.touches[0].pageX; // 获取触摸时的原点
         if (moveFlag) {
-            if (startX - endX > 50) {
+            if (startX - endX > 200) {
                 console.log("move to left");
                 this.setData({
                     isShowMenu: true

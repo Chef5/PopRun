@@ -10,14 +10,14 @@ Page({
      */
     data: {
         text: "",
-        fileList: [],
-        user: JSON.parse(wx.getStorageSync('user')),  //获取当前用户信息
+        fileList: []
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+        let that = this;
         let pages = getCurrentPages();
         prevPage = pages[pages.length-2];
     },
@@ -49,10 +49,15 @@ Page({
         fileList.forEach(element => {
             delete element.url;
         });
+        let user = app.getUser();
+        if(!user){
+            user = wx.getStorageSync('user');
+            if(!user) return;
+        }
         wx.request({
             url: app.config.getHostUrl()+'/api/moments/doMoment',
             data: {
-                rid: that.data.user.rid,
+                rid: user.rid,
                 text: that.data.text,
                 imgs: fileList
             },
@@ -74,8 +79,9 @@ Page({
                     //     .catch((res)=>{
                     //         console.log(res)
                     //     })
-                    
-                    wx.navigateBack();
+                    setTimeout(function(){
+                        wx.navigateBack();
+                    }, 1200);
                 }else{
                     Notify({ type: 'danger', message: result.data.msg });
                 }

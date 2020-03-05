@@ -1,4 +1,6 @@
 //app.js
+import Dialog from '@vant/weapp/dialog/dialog';
+import Notify from '@vant/weapp/notify/notify';
 App({
   onLaunch: function () {
     var that = this;
@@ -56,6 +58,7 @@ App({
       })
     }
   },
+
   /**
    * 获取基础配置
    */
@@ -68,6 +71,7 @@ App({
       return hosturl;
     }
   },
+
   /**
    * 微信获取用户openid
    */
@@ -107,7 +111,7 @@ App({
     );
   },
   /**
-   * 微信授权
+   * 微信授权注册
    */
   getUserInfo: function(){
     let that = this;
@@ -159,5 +163,68 @@ App({
         }
       },
     })
+  },
+
+  /** 
+   * 获取当前用户数据、判断是否注册
+  */
+  getUser: function(){
+    let that = this;
+    let user = wx.getStorageSync('user');
+    if(user){
+      user = JSON.parse(user);
+      return user;
+    }else{
+      // 判断是否注册
+      that.getOpenid().then(
+        (openid)=>{
+            wx.request({
+                url: that.config.getHostUrl()+'/api/user/getUser',
+                method: 'post',
+                data: {
+                    openid: openid
+                },
+                success: (res)=>{
+                    if(res.data.data != null){ //已注册，未登录
+                      Dialog.confirm({
+                        title: '提示',
+                        message: '当前操作需要登录才能进行，请登录'
+                      }).then(() => {
+                        Notify({ type: 'success', message: res.data.msg });
+                        wx.setStorageSync('user', JSON.stringify(res.data.data));
+                        user = res.data.data;
+                      }).catch(() => {
+                        //点击取消，啥也不干
+                        Notify({ type: 'warning', message: "取消登录" });
+                      });
+                    }else{ //未注册
+                      Dialog.confirm({
+                        title: '提示',
+                        message: '您还未授权注册，是否立即授权注册？'
+                      }).then(() => {
+                        that.getUserInfo();
+                      }).catch(() => {
+                        //点击取消，啥也不干
+                        Notify({ type: 'warning', message: "取消注册" });
+                      });
+                    }
+                }
+            })
+        }
+      ).catch(
+          (err)=>{
+              console.log(err);
+              Dialog.alert({
+                title: '提示',
+                message: err,
+
+              }).then(() => {
+                // on close
+              });
+          }
+      )
+      return user;
+    }
   }
+
 })

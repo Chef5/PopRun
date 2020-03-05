@@ -1,4 +1,6 @@
 <!--pages/moments/moments.wxml-->
+<van-dialog id="van-dialog" />
+<van-notify id="van-notify" />
 <view class="body"  bindtouchstart="touchStart" bindtouchmove="touchMove" >
     <view wx:for="{{moments}}" wx:for-item="moment" wx:key="moment">
         <w-moments-item moment="{{moment}}"></w-moments-item>

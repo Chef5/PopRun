@@ -1,5 +1,6 @@
 <!--pages/moments/newMoment/newMoment.wxml-->
 <van-notify id="van-notify" />
+<van-dialog id="van-dialog" />
 <view class="body">
     <view class="text">
         <textarea
