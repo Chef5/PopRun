@@ -1,6 +1,10 @@
 <!--pages/moments/moments.wxml-->
 <van-dialog id="van-dialog" />
 <van-notify id="van-notify" />
+<van-toast id="van-toast" />
+
+<van-loading size="24px" vertical custom-class="loading" wx:if="{{isShowloading}}">加载中...</van-loading>
+
 <view class="body"  bindtouchstart="touchStart" bindtouchmove="touchMove" >
     <view wx:for="{{moments}}" wx:for-item="moment" wx:key="moment">
         <w-moments-item moment="{{moment}}"></w-moments-item>

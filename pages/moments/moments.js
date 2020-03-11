@@ -1,5 +1,6 @@
 // pages/moments/moments.js
 import Notify from '@vant/weapp/notify/notify';
+import Toast from '@vant/weapp/toast/toast';
 
 const app = getApp();
 // 滑动手势变量
@@ -11,7 +12,10 @@ Page({
      */
     data: {
         isShowMenu: false,
-        moments: []
+        isShowloading: false,
+        moments: [],
+        pageindex: 0,
+        pagesize: 10,
     },
 
     /**
@@ -19,6 +23,24 @@ Page({
      */
     onLoad: function (options) {
         let that = this;
+        that.setData({ moments: [] });
+        that.getMoments()
+            .then((res)=>{
+                console.log(res)
+                if(res.data.isSuccess){
+                    Notify({ type: 'success', message: res.data.msg });
+                    that.setData({ 
+                        moments: res.data.data.moments,
+                        pageindex: res.data.data.pageindex,
+                        pagesize : res.data.data.pagesize
+                    });
+                }else{
+                    Notify({ type: 'danger', message: res.data.msg });
+                }
+            })
+            .catch((res)=>{
+                console.log(res)
+            })
     },
 
     /**
@@ -32,21 +54,7 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-        let that = this;
-        that.setData({ moments: [] });
-        that.getMoments()
-            .then((res)=>{
-                console.log(res)
-                if(res.data.isSuccess){
-                    Notify({ type: 'success', message: res.data.msg });
-                    that.setData({ moments: res.data.data.moments });
-                }else{
-                    Notify({ type: 'danger', message: res.data.msg });
-                }
-            })
-            .catch((res)=>{
-                console.log(res)
-            })
+
     },
 
     /**
@@ -60,16 +68,19 @@ Page({
      * 页面相关事件处理函数--监听用户下拉动作
      */
     onPullDownRefresh: function () {
-        // "enablePullDownRefresh": false  暂不处理
-        let that = this, moments = [];
-        that.getMoments()
+        let that = this, moments = [], pagesize = this.data.pagesize;
+        that.setData({ moments });
+        that.getMoments(0, pagesize)
             .then((res)=>{
                 console.log(res)
                 if(res.data.data.moments.length != 0){
                     res.data.data.moments.forEach(element => {
                         moments.push(element);
                     });
-                    that.setData({ moments });
+                    that.setData({ 
+                        moments,
+                        pageindex: res.data.data.pageindex
+                    });
                 }
             })
             .catch((res)=>{
@@ -81,7 +92,30 @@ Page({
      * 页面上拉触底事件的处理函数
      */
     onReachBottom: function () {
+        let that = this;
+        let moments = that.data.moments;
+        let pageindex = that.data.pageindex;
+        let pagesize = that.data.pagesize;
 
+        that.getMoments(pageindex, pagesize)
+            .then((res)=>{
+                console.log(res)
+                if(res.data.data.moments.length != 0){
+                    res.data.data.moments.forEach(element => {
+                        moments.push(element);
+                    });
+                    that.setData({ 
+                        moments,
+                        pageindex: res.data.data.pageindex,
+                        pagesize : res.data.data.pagesize
+                    });
+                }else{
+                    Toast('没有更多了');
+                }
+            })
+            .catch((res)=>{
+                console.log(res);
+            })
     },
 
     /**
@@ -94,9 +128,16 @@ Page({
     /**
      * 获取动态
      */
-    getMoments: function() {
-        //获取当前页和页面大小，暂时省略
-        let pageindex= 0, pagesize = 10;
+    getMoments: function(pageindex, pagesize) {
+        let that = this;
+        that.setData({
+            isShowloading: true
+        });
+        //获取当前页和页面大小
+        if(!pageindex && !pagesize){
+            pageindex = this.data.pageindex;
+            pagesize = this.data.pagesize;
+        }
         return new Promise(
             (resolve, reject) => {
                 wx.request({
@@ -112,9 +153,15 @@ Page({
                             // 服务器故障  标识：500
                             reject({error: 500, errMsg: "服务器故障", data: res});
                         }
+                        that.setData({
+                            isShowloading: false
+                        });
                     },
                     fail: (res)=>{
                         // 请求错误
+                        that.setData({
+                            isShowloading: false
+                        });
                         reject({error: 400, errMsg:"请求错误", data: res});
                     }
                 })

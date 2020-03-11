@@ -4,5 +4,5 @@
     "van-icon": "@vant/weapp/icon/index",
     "van-popup": "@vant/weapp/popup/index"
   },
-  "enablePullDownRefresh": false
+  "enablePullDownRefresh": true
 }
