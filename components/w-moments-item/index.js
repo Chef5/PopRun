@@ -1,5 +1,6 @@
 // components/w-moments-item/index.js
 const app = getApp();
+const time2cn = require('../../utils/time2cn');
 Component({
     /**
      * 组件的属性列表
@@ -32,6 +33,7 @@ Component({
     attached: function() {
         let that = this;
         // console.log(that.properties.moment);
+        that.properties.moment.created_at = time2cn.time2cn(that.properties.moment.created_at);
         that.setData({
             data: that.properties.moment
         });
