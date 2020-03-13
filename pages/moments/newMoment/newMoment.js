@@ -66,19 +66,9 @@ Page({
             success: (result)=>{
                 if(result.data.isSuccess){
                     Notify({ type: 'success', message: result.data.msg });
-                    // let moments = [];
-                    // prevPage.getMoments()
-                    //     .then((res)=>{
-                    //         if(res.data.data.moments.length != 0){
-                    //             res.data.data.moments.forEach(element => {
-                    //                 moments.push(element);
-                    //             });
-                    //             prevPage.setData({ moments });
-                    //         }
-                    //     })
-                    //     .catch((res)=>{
-                    //         console.log(res)
-                    //     })
+                    let moments = [];
+                    prevPage.setData({ moments });
+                    prevPage.refreshMoments();
                     setTimeout(function(){
                         wx.navigateBack();
                     }, 1200);
