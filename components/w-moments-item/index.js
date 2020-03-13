@@ -32,10 +32,14 @@ Component({
      */
     attached: function() {
         let that = this;
+        let user = user = wx.getStorageSync('user');
+        if(user) user = JSON.parse(user);
+        else user = {};
         // console.log(that.properties.moment);
         that.properties.moment.created_at = time2cn.time2cn(that.properties.moment.created_at);
         that.setData({
-            data: that.properties.moment
+            data: that.properties.moment,
+            user: user
         });
         that._initData(that.data.data.imgs.thumbnail,that)
     },
@@ -164,6 +168,13 @@ Component({
                 input: "",
                 showcomment: false,
             })
+        },
+        // 删除动态
+        doDeleteMoment: function(){
+            let that = this;
+            that.triggerEvent("doDeleteMoment", {
+                "moid": that.data.data.moid
+            });
         },
         /**
          * 更新数据

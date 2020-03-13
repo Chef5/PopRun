@@ -7,7 +7,7 @@
 
 <view class="body"  bindtouchstart="touchStart" bindtouchmove="touchMove" >
     <view wx:for="{{moments}}" wx:for-item="moment" wx:key="moment">
-        <w-moments-item moment="{{moment}}"></w-moments-item>
+        <w-moments-item moment="{{moment}}" bind:doDeleteMoment="doDeleteMoment"></w-moments-item>
     </view>
 </view>
 

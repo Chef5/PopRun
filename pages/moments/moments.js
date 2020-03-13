@@ -22,25 +22,7 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        let that = this;
-        that.setData({ moments: [] });
-        that.getMoments()
-            .then((res)=>{
-                console.log(res)
-                if(res.data.isSuccess){
-                    Notify({ type: 'success', message: res.data.msg });
-                    that.setData({ 
-                        moments: res.data.data.moments,
-                        pageindex: res.data.data.pageindex,
-                        pagesize : res.data.data.pagesize
-                    });
-                }else{
-                    Notify({ type: 'danger', message: res.data.msg });
-                }
-            })
-            .catch((res)=>{
-                console.log(res)
-            })
+        this.refreshMoments();
     },
 
     /**
@@ -68,24 +50,7 @@ Page({
      * 页面相关事件处理函数--监听用户下拉动作
      */
     onPullDownRefresh: function () {
-        let that = this, moments = [], pagesize = this.data.pagesize;
-        that.setData({ moments });
-        that.getMoments(0, pagesize)
-            .then((res)=>{
-                console.log(res)
-                if(res.data.data.moments.length != 0){
-                    res.data.data.moments.forEach(element => {
-                        moments.push(element);
-                    });
-                    that.setData({ 
-                        moments,
-                        pageindex: res.data.data.pageindex
-                    });
-                }
-            })
-            .catch((res)=>{
-                console.log(res)
-            })
+        this.refreshMoments();
     },
 
     /**
@@ -169,6 +134,29 @@ Page({
         )
     },
 
+    // 刷新动态
+    refreshMoments: function(){
+        let that = this, pagesize = this.data.pagesize;
+        that.setData({ moments:[] });  // 需要清空，不然不更新？why
+        that.getMoments(0, pagesize)
+            .then((res)=>{
+                console.log(res)
+                if(res.data.isSuccess){
+                    Notify({ type: 'success', message: res.data.msg });
+                    that.setData({ 
+                        moments: res.data.data.moments,
+                        pageindex: res.data.data.pageindex,
+                        pagesize : res.data.data.pagesize
+                    });
+                }else{
+                    Notify({ type: 'danger', message: res.data.msg });
+                }
+            })
+            .catch((res)=>{
+                console.log(res)
+            })
+    },
+
     // 跳转到新建页面
     openNewMoment: function() {
         console.log("打开新建动态页面");
@@ -214,6 +202,36 @@ Page({
     onMenuClose: function(){
         this.setData({
             isShowMenu: false
+        })
+    },
+
+    // 删除动态
+    doDeleteMoment: function(e){
+        let that = this;
+        let user = app.getUser();
+        if(!user){
+            user = wx.getStorageSync('user');
+            if(!user) return;
+        }
+        wx.request({
+            url: app.config.getHostUrl()+'/api/moments/delMoment',
+            method: 'post',
+            data: {
+               "rid": user.rid,
+               "moid": e.detail.moid
+            },
+            success: (res)=>{
+                if(res.data.isSuccess){
+                    // let moments  = that.data.moments;  //这样删了，页面为何不生效
+                    // moments.splice(moments.findIndex(item=>item.moid==e.detail.moid),1);
+                    that.refreshMoments();
+                }else{
+                    Notify({ type: 'danger', message: res.data.msg });
+                }                                                                       
+            },
+            fail: (res)=>{
+              console.log(res);
+            }
         })
     }
     

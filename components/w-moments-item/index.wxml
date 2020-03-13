@@ -38,7 +38,10 @@
             </view>
         </view>
         <view class="more">
-            <view class="more-time">{{data.created_at}}</view>
+            <view class="more-time">
+                {{data.created_at}}
+                <text wx:if="{{data.rid == user.rid}}" catch:tap="doDeleteMoment"> 删除</text>
+            </view>
             <view class="more-show">
                 <van-transition
                     show="{{showmore}}"
