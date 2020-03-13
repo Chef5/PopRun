@@ -95,22 +95,27 @@ Page({
 
     /**
      * 添加图片
+     * 遗留：不能保证上传完成的顺序
      * @param {*} file 
      */
     onReadfile: function (event) {
         let that = this;
         const { file } = event.detail;
-        wx.uploadFile({
-            url: app.config.getHostUrl()+'/api/main/uploadImg',
-            filePath: file.path,
-            name: 'img',
-            success(res) {
-                let rd = JSON.parse(res.data);
-                const { fileList = [] } = that.data;
-                fileList.push({ ...rd.data, url: rd.data.thumbnail });
-                that.setData({ fileList });
-            }
-        });
+        if(file.length>0){
+            file.forEach((item)=>{
+                wx.uploadFile({
+                    url: app.config.getHostUrl()+'/api/main/uploadImg',
+                    filePath: item.path,
+                    name: 'img',
+                    success(res) {
+                        let rd = JSON.parse(res.data);
+                        const { fileList = [] } = that.data;
+                        fileList.push({ ...rd.data, url: rd.data.thumbnail });
+                        that.setData({ fileList });
+                    }
+                });
+            })
+        }
     },
 
     /**

@@ -18,7 +18,10 @@
     <view class="imgs">
         <van-uploader
             file-list="{{ fileList }}"
+            accept="image"
+            sizeType="original"
             max-count="9"
+            multiple="true"
             preview-size="100"
             bind:after-read="onReadfile"
             bind:delete="onDeleteImg"
