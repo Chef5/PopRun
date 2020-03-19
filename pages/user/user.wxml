@@ -1,8 +1,67 @@
-<!--pages/user/user.wxml-->
+
+<van-row>
+    <van-col span="24">
+        <view class="head-con">
+            <view class="head-edit">
+                <van-icon name="edit" size="1.5em" color="white" />
+            </view>
+            <view class="head-img">
+                <van-image
+                    width="100"
+                    height="100"
+                    round
+                    fit="cover"
+                    src="{{user.img}}"
+                    />
+            </view>
+            <view class="head-name">
+                <view>{{user.nickname}}<text class="head-name-lv">lv0</text> </view>
+                <view class="head-name-honor">赤脚</view>
+            </view>
+            <view class="head-info">
+                {{user.info || '来操场，我们一起跑鸭！'}}
+            </view>
+        </view>
+    </van-col>
+</van-row>
+
+<van-row>
+    <van-col span="12">
+        <view class="menu-run">
+            我的运动
+        </view>
+    </van-col>
+    <van-col span="12">
+        <view class="menu-run">
+            我的动态
+        </view>
+    </van-col>
+</van-row>
+
+
+<van-row>
+    <van-col span="24">
+        <view class="body-modal">
+            <van-divider contentPosition="center" customStyle="color: #1989fa;border-color: #1989fa;font-size: 18px;">勋章墙</van-divider>
+            <view class="body-modal-box">
+                
+            </view>
+        </view>
+    </van-col>
+</van-row>
+
+
+<van-row>
+    <van-col span="24">
+        <view class="body-setting">
+            系统设置
+        </view>
+    </van-col>
+</van-row>
+
+
+
     <button open-type="getUserInfo">授权登录</button>
     <button bindtap="userReg">注册、存储返回值</button>
     <button bindtap="getUserInfoOnline">获取用户信息（已注册）</button>
-<view>
-    {{userinfo}}
-</view>
-<w-tabbar></w-tabbar>
+    

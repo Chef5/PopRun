@@ -1,1 +1,40 @@
-/* pages/user/user.wxss */
+/* 顶部容器 */
+.head-con{
+    text-align: center;
+    background-color: teal;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 66rpx 0rpx;
+}
+.head-edit{
+    position: absolute;
+    right: 10rpx;
+    top: 10rpx;
+}
+.head-img{
+    
+}
+.head-name-lv{
+    display: inline-block;
+    margin-left: 10rpx;
+    width: 60rpx;
+    height: 34rpx;
+    line-height: 34rpx;
+    font-size: 30rpx;
+    background-color: violet;
+    color: white;
+    border-radius: 4px;
+}
+.head-name-honor{
+    background-color: turquoise;
+    border-radius: 8px;
+    color: white;
+    letter-spacing: 15px;
+    padding: 5rpx 0rpx;
+}
+.head-info{
+    letter-spacing: 1px;
+    color: white;
+}

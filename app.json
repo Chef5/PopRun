@@ -50,6 +50,10 @@
         "van-notify": "@vant/weapp/notify/index",
         "van-dialog": "@vant/weapp/dialog/index",
         "van-toast": "@vant/weapp/toast/index",
-        "van-loading": "@vant/weapp/loading/index"
+        "van-loading": "@vant/weapp/loading/index",
+        "van-row": "@vant/weapp/row/index",
+        "van-col": "@vant/weapp/col/index",
+        "van-icon": "@vant/weapp/icon/index",
+        "van-image": "@vant/weapp/image/index"
     }
 }
