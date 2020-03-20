@@ -1,0 +1,8 @@
+
+<van-image
+  width="60"
+  height="60"
+  fit="contain"
+  src="/imgs/test/modal.png"
+/>
+<text >2020.01.21</text>

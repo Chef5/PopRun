@@ -1,40 +1,85 @@
+/* 整个页面 */
+.main{
+    background-color: teal;
+}
 /* 顶部容器 */
 .head-con{
     text-align: center;
     background-color: teal;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     padding: 66rpx 0rpx;
 }
+/* 编辑预览图标 */
 .head-edit{
     position: absolute;
     right: 10rpx;
     top: 10rpx;
 }
+.icon-head{
+    width: 50rpx;
+    text-align: center;
+}
+/* 头像 */
 .head-img{
     
 }
-.head-name-lv{
+/* 昵称，等级，称号 */
+.head-name-n text{
     display: inline-block;
     margin-left: 10rpx;
-    width: 60rpx;
     height: 34rpx;
     line-height: 34rpx;
     font-size: 30rpx;
-    background-color: violet;
-    color: white;
     border-radius: 4px;
+    color: white;
+}
+.head-name-lv{
+    width: 60rpx;
+    padding: 3rpx 5rpx;
+    background-color: violet;
 }
 .head-name-honor{
+    width: 150rpx;
+    padding: 5rpx;
     background-color: turquoise;
-    border-radius: 8px;
-    color: white;
-    letter-spacing: 15px;
-    padding: 5rpx 0rpx;
 }
+/* 签名 */
 .head-info{
+    font-size: 30rpx;
+    margin-top: 10rpx;
     letter-spacing: 1px;
     color: white;
+}
+/* 我的运动，我的动态 */
+.menu{
+    border-radius: 20px 20px 0px 0px;
+    background-color: white;
+}
+.menu-card{
+    margin: 15px auto;
+    width: 90%;
+    height: 120rpx;
+    background-color: #f152f1;
+    border-radius: 15rpx;
+}
+/* 勋章墙 */
+.modal{
+    background-color: white;
+}
+.head-modal{
+    z-index: 100;
+}
+.body-modal{
+    margin-top: -30rpx;
+}
+.body-modal-title{
+    display: inline-block;
+    width: 90rpx;
+}
+/* 设置 */
+.body-setting{
+    background-color: white;
+    border-top: 1px solid #f1f1f1;
 }

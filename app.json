@@ -4,7 +4,8 @@
         "pages/moments/moments",
         "pages/pub/pub",
         "pages/user/user",
-        "pages/moments/newMoment/newMoment"
+        "pages/moments/newMoment/newMoment",
+        "pages/user/setting/setting"
     ],
     "window": {
         "backgroundTextStyle": "light",
