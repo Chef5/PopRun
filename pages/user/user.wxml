@@ -19,7 +19,7 @@
                     <view>{{user.nickname}}</view>
                     <view class="head-name-n">
                         <van-tag plain type="success" size="medium">lv0</van-tag>
-                        <van-tag mark type="success" size="medium">赤脚</van-tag>
+                        <van-tag mark type="success" size="medium">赤脚汉子</van-tag>
                         <!-- <text class="head-name-lv">lv0</text> -->
                         <!-- <text class="head-name-honor">赤脚</text> -->
                     </view>
@@ -56,9 +56,9 @@
                 </view>
             </van-cell>
             <view class="body-modal">
-                <van-grid column-num="4" gutter="{{ 10 }}" border="{{false}}">
-                    <van-grid-item use-slot wx:for="{{ 4 }}" wx:for-item="index">
-                        <w-modals-item></w-modals-item>
+                <van-grid column-num="4" border="{{false}}">
+                    <van-grid-item use-slot wx:for="{{ medals }}" wx:for-item="medal" wx:key="index" wx:if="{{index<4}}">
+                        <w-modals-item medal="{{medal}}"></w-modals-item>
                     </van-grid-item>
                 </van-grid>
             </view>

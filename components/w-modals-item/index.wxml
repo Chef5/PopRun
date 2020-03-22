@@ -1,8 +1,13 @@
 
-<van-image
+
+<view class="count" wx:if="{{ data.type == 1 }}">
+  <van-tag round type="warning">3</van-tag>
+</view>
+<view class="img">
+  <van-image
   width="60"
   height="60"
   fit="contain"
-  src="/imgs/test/modal.png"
-/>
-<text >2020.01.21</text>
+  src="{{ data.img }}"/>
+  <view class="name">{{ data.name }}</view>
+</view>

@@ -1,4 +1,6 @@
 {
     "component": true,
-    "usingComponents": {}
+    "usingComponents": {
+        "van-tag": "@vant/weapp/tag/index"
+    }
 }
