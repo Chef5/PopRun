@@ -14,6 +14,7 @@ Component({
      * 组件的初始数据
      */
     data: {
+        isShowDetail: false,
         data: {}  //用于展示
     },
 
@@ -32,6 +33,11 @@ Component({
      * 组件的方法列表
      */
     methods: {
-
+        showDetail: function(){
+            this.setData({ isShowDetail:true })
+        },
+        onClose: function(){
+            this.setData({ isShowDetail:false })
+        }
     }
 })

@@ -3,7 +3,7 @@
 <view class="count" wx:if="{{ data.type == 1 }}">
   <van-tag round type="warning">3</van-tag>
 </view>
-<view class="img">
+<view class="img" catch:tap="showDetail">
   <van-image
   width="60"
   height="60"
@@ -11,3 +11,20 @@
   src="{{ data.img }}"/>
   <view class="name">{{ data.name }}</view>
 </view>
+
+<!-- 详细弹窗 -->
+<van-popup show="{{ isShowDetail }}" closeable round bind:close="onClose">
+  <view class="detail">
+    <view class="d-img">
+      <van-image
+        width="120"
+        height="120"
+        fit="contain"
+        src="{{ data.img }}"/>
+    </view>
+    <view class="d-name">{{ data.name }}</view>
+    <view class="d-count">（不可重复获得）</view>
+    <view class="d-desc">{{ data.desc }}</view>
+    <view class="d-time">{{ data.created_at }}</view>
+  </view>
+</van-popup>
