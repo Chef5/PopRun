@@ -18,8 +18,10 @@
                 <view class="head-name">
                     <view>{{user.nickname}}</view>
                     <view class="head-name-n">
-                        <van-tag plain type="success" size="medium">lv0</van-tag>
-                        <van-tag mark type="success" size="medium">赤脚汉子</van-tag>
+                        <van-tag plain type="success" size="medium">{{honors.desc}}</van-tag>
+                        <van-tag mark type="success" size="medium">
+                            {{honors.name}}{{user.sex=="2" ? "妹子":"汉子"}}
+                        </van-tag>
                         <!-- <text class="head-name-lv">lv0</text> -->
                         <!-- <text class="head-name-honor">赤脚</text> -->
                     </view>
@@ -51,7 +53,7 @@
                 <view slot="title">
                     <view class="van-cell-text">
                         <text class="body-modal-title">勋章墙</text>
-                        <van-tag round type="warning">14</van-tag>
+                        <van-tag round type="warning">{{medals_count}}</van-tag>
                     </view>
                 </view>
             </van-cell>
