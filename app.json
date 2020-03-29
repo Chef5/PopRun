@@ -3,7 +3,9 @@
         "pages/run/run",
         "pages/moments/moments",
         "pages/pub/pub",
-        "pages/user/user"
+        "pages/user/user",
+        "pages/moments/newMoment/newMoment",
+        "pages/user/setting/setting"
     ],
       "permission": {
         "scope.userLocation": {
@@ -17,34 +19,47 @@
         "navigationBarTextStyle": "white"
     },
     "tabBar": {
-      "backgroundColor": "#83B582",
-      "color": "#707070",
-      "selectedColor": "#fff",
-      "list": [{
-        "pagePath": "pages/run/run",
-        "text": "跑鸭",
-        "iconPath": "imgs/tabbar/run.png",
-        "selectedIconPath": "/imgs/tabbar/run-w.png"
-      },{
-        "pagePath": "pages/moments/moments",
-        "text": "动态",
-        "iconPath": "imgs/tabbar/moments.png",
-        "selectedIconPath": "/imgs/tabbar/moments-w.png"
-      },{
-        "pagePath": "pages/pub/pub",
-        "text": "广场",
-        "iconPath": "imgs/tabbar/pub.png",
-        "selectedIconPath": "/imgs/tabbar/pub-w.png"
-      },{
-        "pagePath": "pages/user/user",
-        "text": "个人",
-        "iconPath": "imgs/tabbar/user.png",
-        "selectedIconPath": "/imgs/tabbar/user-w.png"
-      }]
+        "backgroundColor": "#83B582",
+        "color": "#707070",
+        "selectedColor": "#fff",
+        "list": [
+            {
+                "pagePath": "pages/run/run",
+                "text": "跑鸭",
+                "iconPath": "imgs/tabbar/run.png",
+                "selectedIconPath": "/imgs/tabbar/run-w.png"
+            },
+            {
+                "pagePath": "pages/moments/moments",
+                "text": "动态",
+                "iconPath": "imgs/tabbar/moments.png",
+                "selectedIconPath": "/imgs/tabbar/moments-w.png"
+            },
+            {
+                "pagePath": "pages/pub/pub",
+                "text": "广场",
+                "iconPath": "imgs/tabbar/pub.png",
+                "selectedIconPath": "/imgs/tabbar/pub-w.png"
+            },
+            {
+                "pagePath": "pages/user/user",
+                "text": "个人",
+                "iconPath": "imgs/tabbar/user.png",
+                "selectedIconPath": "/imgs/tabbar/user-w.png"
+            }
+        ]
     },
     "sitemapLocation": "sitemap.json",
     "usingComponents": {
-        "van-button": "@vant/weapp/button",
-        "van-rate": "@vant/weapp/rate/index"
+        "van-rate": "@vant/weapp/rate/index",
+        "van-button": "@vant/weapp/button/index",
+        "van-notify": "@vant/weapp/notify/index",
+        "van-dialog": "@vant/weapp/dialog/index",
+        "van-toast": "@vant/weapp/toast/index",
+        "van-loading": "@vant/weapp/loading/index",
+        "van-row": "@vant/weapp/row/index",
+        "van-col": "@vant/weapp/col/index",
+        "van-icon": "@vant/weapp/icon/index",
+        "van-image": "@vant/weapp/image/index"
     }
 }

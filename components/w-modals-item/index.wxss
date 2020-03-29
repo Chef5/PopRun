@@ -1,0 +1,66 @@
+/* 累计获得次数 */
+.count{
+    position: absolute;
+    top: 30rpx;
+    right: 20rpx;
+    z-index: 10;
+}
+
+/* 图片 */
+.img{
+    position: relative;
+    text-align: center;
+    width: 100%;
+}
+/* 勋章名称 */
+.name{
+    width: 100%;
+    font-size: 24rpx;
+    color: #747272;
+    /* white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important; */
+}
+
+/* 详细显示 */
+.detail{
+    width: 560rpx;
+    height: 720rpx;
+}
+.d-img{
+    width: 100%;
+    text-align: center;
+    margin-top: 70rpx;
+}
+.d-name{
+    width: 100%;
+    margin-top: 10rpx;
+    text-align: center;
+    font-size: 38rpx;
+    color: blueviolet;
+    font-weight: 700;
+}
+.d-count{
+    width: 100%;
+    text-align: center;
+    font-size: 24rpx;
+    color:  #919191;
+}
+.d-desc{
+    margin: 30rpx auto;
+    width: 80%;
+    border: rgb(233, 231, 229) 1px solid;
+    padding: 12rpx 30rpx;
+    border-radius: 5px;
+    min-height: 200rpx;
+    font-size: 30rpx;
+    color: #504e4e;
+}
+.d-time{
+    width: 100%;
+    position: absolute;
+    bottom: 50rpx;
+    text-align: center;
+    font-size: 22rpx;
+    color: #afabab;
+}

@@ -1,0 +1,30 @@
+
+
+<view class="count" wx:if="{{ data[0].type == 1 }}">
+  <van-tag round type="warning">{{ data.length }}</van-tag>
+</view>
+<view class="img" catch:tap="showDetail">
+  <van-image
+  width="60"
+  height="60"
+  fit="contain"
+  src="{{ data[0].img }}"/>
+  <view class="name">{{ data[0].name }}</view>
+</view>
+
+<!-- 详细弹窗 -->
+<van-popup show="{{ isShowDetail }}" closeable round bind:close="onClose">
+  <view class="detail">
+    <view class="d-img">
+      <van-image
+        width="120"
+        height="120"
+        fit="contain"
+        src="{{ data[0].img }}"/>
+    </view>
+    <view class="d-name">{{ data[0].name }}</view>
+    <view class="d-count">{{ data[0].type == 1 ? '累计获得：'+data.length+'枚' : '（不可重复获得）'}}</view>
+    <view class="d-desc">{{ data[0].desc }}</view>
+    <view class="d-time">{{ data[data.length-1].created_at }}</view>
+  </view>
+</van-popup>

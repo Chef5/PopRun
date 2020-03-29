@@ -1,1 +1,16 @@
 /* pages/moments/moments.wxss */
+.menu{
+    width: 50px;
+    padding: 50rpx 10rpx;
+    border-radius: 36rpx 0 0 36rpx;
+    background-color: white;
+}
+.add-icon{
+    position: fixed;
+    top: 50%;
+    right: 0rpx;
+}
+.add-background{
+    background-color: white;
+    border-radius: 50%;
+}

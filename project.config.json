@@ -6,14 +6,14 @@
 	"setting": {
 		"urlCheck": false,
 		"es6": true,
+		"enhance": true,
 		"postcss": true,
-		"minified": true,
+		"minified": false,
 		"newFeature": true,
 		"coverView": true,
 		"nodeModules": true,
 		"autoAudits": false,
-		"showShadowRootInWxmlPanel": true,
-		"scopeDataCheck": false,
+		"showShadowRootInWxmlPanel": false,
 		"uglifyFileName": false,
 		"checkInvalidKey": true,
 		"checkSiteMap": true,
@@ -22,10 +22,11 @@
 			"ignore": [],
 			"disablePlugins": [],
 			"outputPath": ""
-		}
+		},
+		"scopeDataCheck": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.9.4",
+	"libVersion": "2.9.5",
 	"appid": "wxfcd3e1af4fbeadfe",
 	"projectname": "PopRun",
 	"debugOptions": {
@@ -62,6 +63,21 @@
 					"id": -1,
 					"name": "动态",
 					"pathName": "pages/moments/moments",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "新建分享",
+					"pathName": "pages/moments/newMoment/newMoment",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/user/user",
+					"pathName": "pages/user/user",
+					"query": "个人中心",
 					"scene": null
 				}
 			]

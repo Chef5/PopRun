@@ -1,0 +1,115 @@
+<!--components/w-moments-item/index.wxml-->
+<view class="container" bindtap="cancelAll">
+    <view class="nav">
+        <image src="{{data.img}}"></image>
+    </view>
+    <view class="main">
+        <view class="title">{{data.nickname}}</view>
+        <view class="info">{{data.info}}</view>
+        <view class="content">
+            <view class="content-text">
+                <text>{{data.text}}</text>
+            </view>
+            <view class="content-img">
+                <!-- 多图 -->
+                <view 
+                    wx:if="{{data.imgs.thumbnail.length > 1}}"
+                    class="image-wrap" 
+                    wx:for="{{data.imgs.thumbnail}}"
+                    wx:for-item="item"
+                    wx:for-index="index"
+                    wx:key="item"
+                    style="width: calc(calc(100% / {{data.imgs.thumbnail.length > 3 ? 3 : data.imgs.thumbnail.length}}) - 20rpx);">
+                    <view 
+                        class="image"
+                        catchtap="showBigimg"
+                        data-url="{{data.imgs.original[index].url}}"
+                        style="background-image:url({{item.url}});">
+                    </view>
+                </view>
+                <!-- 单图 -->
+                <view 
+                    wx:if="{{data.imgs.thumbnail.length == 1}}"
+                    class="image-wrap-single" 
+                    catchtap="showBigimg"
+                    data-url="{{data.imgs.original[0].url}}"
+                    style="width:{{imageWidth}}rpx;height:{{imageHeight}}rpx;background-image:url({{data.imgs.thumbnail[0].url}});">
+                </view>
+            </view>
+        </view>
+        <view class="more">
+            <view class="more-time">
+                {{data.created_at}}
+                <text wx:if="{{data.rid == user.rid}}" catch:tap="doDeleteMoment"> 删除</text>
+            </view>
+            <view class="more-show">
+                <van-transition
+                    show="{{showmore}}"
+                    name="fade-up"
+                    duration="300">
+                    <van-icon
+                        name="good-job-o"
+                        size="20px"
+                        custom-class="more-show-icon"
+                        catchtap="doLike">
+                    </van-icon>
+                </van-transition>
+                <van-transition
+                    show="{{showmore}}"
+                    name="fade-up"
+                    duration="400">
+                    <van-icon
+                        name="smile-comment-o"
+                        size="20px"
+                        custom-class="more-show-icon"
+                        catchtap="doComment">
+                    </van-icon>
+                </van-transition>
+            </view>
+            <view class="more-m" catchtap="doShowmore">
+                <van-icon name="more-o" size="20px"></van-icon>
+            </view>
+        </view>
+        <view class="likes">
+            <image
+                wx:for="{{data.likes}}"
+                wx:for-item="item"
+                wx:key="item"
+                src="{{item.img}}"
+                data-rid="{{item.rid}}"
+                class="image-like">
+            </image>
+        </view>
+        <view class="comments">
+            <view
+                class="comment"
+                wx:for="{{data.comments}}"
+                wx:for-item="item"
+                wx:key="item"
+                data-coid="{{item.coid}}"
+                data-nickname="{{item.nickname}}"
+                data-rid="{{item.rid}}"
+                catchtap="doComment">
+                <text>{{item.nickname}}：</text>{{item.comment}}
+            </view>
+        </view>
+    </view>
+</view>
+<view class="input" wx:if="{{showcomment}}">
+    <input
+        placeholder="{{placeholder}}"
+        cursor-spacing="0"
+        value="{{input}}"
+        focus="true"
+        confirm-type="done"
+        bindinput="handleInput"
+        bindconfirm="commentConfirm">
+    </input>
+    <view class="input-confirm" catchtap="commentConfirm">评论</view>
+</view>
+<van-popup show="{{showsingleimg}}" closeable="true" bind:close="onClose">
+    <image
+        src="{{singleimgurl}}"
+        style="margin-bottom:-4px">
+    </image>
+</van-popup>

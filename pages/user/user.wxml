@@ -1,3 +1,106 @@
-<!-- pages/user/user.wxml -->
-<text>pages/user/user.wxml</text>
-<w-tabbar></w-tabbar>
+<view class="main">
+    <van-row>
+        <van-col span="24">
+            <view class="head-con">
+                <view class="head-edit">
+                    <van-icon name="eye-o" custom-class="icon-head" size="1.2em" color="white" />
+                    <van-icon name="edit" custom-class="icon-head" size="1.2em" color="white" />
+                </view>
+                <view class="head-img">
+                    <van-image
+                        width="100"
+                        height="100"
+                        round
+                        fit="cover"
+                        src="{{user.img}}"
+                        />
+                </view>
+                <view class="head-name">
+                    <view>{{user.nickname}}</view>
+                    <view class="head-name-n">
+                        <van-tag plain type="success" size="medium">{{honors.desc}}</van-tag>
+                        <van-tag mark type="success" size="medium">
+                            {{honors.name}}{{user.sex=="2" ? "妹子":"汉子"}}
+                        </van-tag>
+                        <!-- <text class="head-name-lv">lv0</text> -->
+                        <!-- <text class="head-name-honor">赤脚</text> -->
+                    </view>
+                </view>
+                <view class="head-info">
+                    {{user.info || '来操场，我们一起跑鸭！'}}
+                </view>
+            </view>
+        </van-col>
+    </van-row>
+
+    <van-row custom-class="menu">
+        <van-col span="12">
+            <view class="menu-card menu-card-run">
+                我的运动
+            </view>
+        </van-col>
+        <van-col span="12">
+            <view class="menu-card menu-card-run">
+                我的动态
+            </view>
+        </van-col>
+    </van-row>
+
+
+    <van-row custom-class="modal">
+        <van-col span="24">
+            <van-cell value="更多" custom-class="head-modal" icon="medal-o" is-link>
+                <view slot="title">
+                    <view class="van-cell-text">
+                        <text class="body-modal-title">勋章墙</text>
+                        <van-tag round type="warning">{{medals_count}}</van-tag>
+                    </view>
+                </view>
+            </van-cell>
+            <view class="body-modal">
+                <van-grid column-num="4" border="{{false}}">
+                    <van-grid-item use-slot wx:for="{{ medals }}" wx:for-item="medal" wx:key="index" wx:if="{{index<4}}">
+                        <w-modals-item medal="{{medal}}"></w-modals-item>
+                    </van-grid-item>
+                </van-grid>
+            </view>
+        </van-col>
+    </van-row>
+
+
+    <view class="body-setting">
+        <van-row>
+            <van-col span="24">
+                <view>
+                    <van-cell
+                        is-link
+                        title="设置"
+                        link-type="navigateTo"
+                        url="/pages/user/setting/setting"
+                        />
+                </view>
+            </van-col>
+        </van-row>
+
+        <van-row>
+            <van-col span="24">
+                <view>
+                    <van-cell
+                        is-link
+                        title="用户协议"
+                        link-type="navigateTo"
+                        url="/pages/user/setting/setting"
+                        />
+                </view>
+            </van-col>
+        </van-row>
+    </view>
+
+
+
+        <button open-type="getUserInfo">授权登录</button>
+        <button bindtap="userReg">注册、存储返回值</button>
+        <button bindtap="getUserInfoOnline">获取用户信息（已注册）</button>
+        
+
+</view>

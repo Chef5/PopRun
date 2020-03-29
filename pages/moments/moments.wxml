@@ -1,3 +1,30 @@
 <!--pages/moments/moments.wxml-->
-<text>pages/moments/moments.wxml</text>
-<w-tabbar></w-tabbar>
+<van-dialog id="van-dialog" />
+<van-notify id="van-notify" />
+<van-toast id="van-toast" />
+
+<van-loading size="24px" vertical custom-class="loading" wx:if="{{isShowloading}}">加载中...</van-loading>
+
+<view class="body"  bindtouchstart="touchStart" bindtouchmove="touchMove" >
+    <view wx:for="{{moments}}" wx:for-item="moment" wx:key="moment">
+        <w-moments-item moment="{{moment}}" bind:doDeleteMoment="doDeleteMoment"></w-moments-item>
+    </view>
+</view>
+
+
+<!-- <view class="add-icon">
+    <van-icon name="arrow-left" color="orange" size="32px" />
+</view> -->
+
+<van-popup
+    show="{{ isShowMenu }}"
+    position="right"
+    custom-class="menu"
+    bind:close="onMenuClose"
+    >
+    <view class="popup-main">
+        <view class="main-item" catch:tap="openNewMoment">
+            <van-icon name="add-o" color="orange" size="42px" custom-class="add-background" />
+        </view>
+    </view>
+</van-popup>
