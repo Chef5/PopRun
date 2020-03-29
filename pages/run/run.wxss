@@ -1,1 +1,278 @@
-/* pages/run/run.wxss */
+/**index.wxss**/
+/* 不加page无法全屏 */
+button {
+  padding: 0;
+  margin: 0;
+}
+page {
+  height: 100%;
+}
+
+.lf {
+  float: left
+}
+.rt {
+  float: right;
+}
+
+/* 隐藏滚动条样式 */
+.inner-container::-webkit-scrollbar {
+    display: none;
+}
+
+.view {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+ 
+map {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.speed {
+  background: #fff;
+  margin: 0 auto;
+  line-height: 350rpx;
+  opacity: 0.8;
+  width: 350rpx;
+  height: 350rpx;
+  border-radius: 50%;
+  text-align: center;
+  color: #409eff;
+  font-size: 50rpx;
+  font-weight: bold;
+}
+.start-btn {
+  position: absolute;
+  bottom: 0;
+  /* background: #fff; */
+  background: linear-gradient(to top, #83B582, transparent);
+  /* line-height: 350rpx; */
+  height: 350rpx;
+  width: 100%;
+  /* border-radius: 50%; */
+  text-align: center;
+  font-size: 50rpx;
+  font-weight: bold;
+}
+.start-btn button {
+  height: 200rpx;
+  width: 200rpx;
+  line-height: 200rpx;
+  border-radius: 50%;
+  /* background: #78B078; */
+  background: linear-gradient(to left top, #83B582, rgb(70,218,218));
+  color: #fff;
+  font-weight: bold;
+  margin: 0 auto;
+}
+.swiper-text {
+  width: 300rpx;
+  height: 48rpx;
+  line-height: 48rpx;
+  background: #555;
+  margin: 50rpx auto;
+  border-radius: 24rpx;
+}
+
+.swiper-text swiper {
+  height: 100%;
+}
+.swiper-text swiper-item {
+  font-size: 18rpx;
+  color: #fff;
+}
+/* 排行榜开始 */
+.ranking{
+  height: 100%;
+}
+.ranking-con {
+  height: 80vh;
+  width: 80vw;
+  background: #fff;
+}
+.ranking button {
+  position: absolute;
+  top: 20rpx;
+  right: 20rpx;
+  width: 80rpx;
+  height: 80rpx;
+  background: rgb(84, 126, 83);
+  padding-top: 15rpx;
+  border-radius: 50%;
+}
+
+.ranking button image {
+  width: 50rpx;
+  height: 50rpx;
+}
+
+.ranking-con .title {
+  text-align: center;
+  font-size: 28rpx;
+  color: #707070;
+  line-height: 50rpx;
+}
+.ranking-con .cell-group{
+  height: 590rpx;
+  overflow: auto;
+}
+.ranking-con .cell {
+  height: 100rpx;
+  background: red;
+  margin: 0 12rpx;
+  margin-top: 8rpx;
+  position: relative
+}
+
+.ranking-con .cell image {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+.ranking-con .cell .cell-info {
+  margin-left: 62rpx;
+  position: relative;
+}
+
+.ranking-con .cell .num {
+  height: 50rpx;
+  width: 50rpx;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+.ranking-con .cell .cell-info .photo {
+  height: 50rpx;
+  width: 50rpx;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+.ranking-con .cell .cell-info .text {
+  margin-left: 32px;
+}
+
+.ranking-con .cell .cell-info .name {
+  font-size: 14px;
+  /* line-height: 24px */
+}
+
+.ranking-con .cell .cell-info .detail {
+  color: #80848f;
+  font-size: 12px;
+  line-height: 1.2;
+}
+
+.ranking-con .my-cell {
+  background: blue;
+  position: fixed;
+  width: 517rpx;
+  bottom: 0;
+  margin: 0 12rpx;
+  margin-bottom: 8rpx;
+}
+
+/* 排行榜结束 */
+
+
+/* 正在跑步开始 */
+.running {
+  height: 100%;
+  background: linear-gradient(to top, #83B582, transparent);
+  text-align: center;
+  overflow: hidden;
+}
+.running .route {
+  color: #b4cab1;
+  margin: 100rpx 0;
+}
+.running .route .num {
+  font-size: 200rpx;
+  display: block;
+  /* font-family: fantasy; */
+}
+.running .text {
+  color:#fff;
+  line-height: 50rpx;
+}
+.running .tmsp {
+  overflow: hidden;
+  width: 300rpx;
+  margin: 0 auto;
+}
+.running .time text ,.running .avrSpeed text{
+  color: #999;
+  display: block;
+}
+.running .run-btn {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 300rpx
+}
+.running .run-btn button {
+  display: inline-block;
+  border-radius: 50%;
+  height: 150rpx;
+  width: 150rpx;
+  margin: 0 40rpx;
+  line-height: 150rpx;
+  color: #fff;
+}
+.running .run-btn .lf-btn {
+  background: rgb(160,234,95);
+}
+.running .run-btn .rt-btn {
+  background: rgb(255,90,86);
+}
+/* 正在跑步结束 */
+/* 跑步结束开始 */
+.go-back {
+  color: #80848f;
+  /* background: #fff; */
+  width: 150rpx;
+  line-height: 80rpx;
+}
+.runRes {
+  width: 96vw;
+  height: 300rpx;
+  margin: 0 auto;
+  background: linear-gradient(to left top, #83B582, rgb(70,218,218));
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  margin-bottom: 20rpx;
+  border-radius: 10rpx;
+  color: #fff;
+  text-align: center;
+  overflow: hidden;
+}
+
+.runRes .num {
+  display: block;
+  font-size: 80rpx;
+}
+.runRes .detail {
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  padding: 20rpx 30rpx;
+}
+.runRes .detail text {
+  display: block;
+}
+.runRes .share {
+  position: absolute;
+  right: 30rpx;
+  top: 20rpx;
+}
+/* 跑步结束结束 */

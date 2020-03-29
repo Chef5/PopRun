@@ -5,6 +5,11 @@
         "pages/pub/pub",
         "pages/user/user"
     ],
+      "permission": {
+        "scope.userLocation": {
+          "desc": "你的位置信息将用于小程序位置接口的效果展示"
+        }
+      },
     "window": {
         "backgroundTextStyle": "light",
         "navigationBarBackgroundColor": "#83B582",
@@ -37,10 +42,9 @@
         "selectedIconPath": "/imgs/tabbar/user-w.png"
       }]
     },
-    "style": "v2",
     "sitemapLocation": "sitemap.json",
     "usingComponents": {
         "van-button": "@vant/weapp/button",
-        "van-rate": "@vant/weapp/rate"
+        "van-rate": "@vant/weapp/rate/index"
     }
 }
