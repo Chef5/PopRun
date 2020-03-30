@@ -52,6 +52,10 @@
     letter-spacing: 1px;
     color: white;
 }
+/* 未注册登录 */
+.head-unsigned{
+    height: 96rpx;
+}
 /* 我的运动，我的动态 */
 .menu{
     border-radius: 20px 20px 0px 0px;
@@ -69,10 +73,10 @@
     background-color: white;
 }
 .head-modal{
-    z-index: 100;
+    z-index: 10;
 }
 .body-modal{
-    margin-top: -30rpx;
+    /* margin-top: -30rpx; */
 }
 .body-modal-title{
     display: inline-block;

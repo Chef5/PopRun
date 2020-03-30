@@ -65,8 +65,8 @@ App({
   config: {
     //获取请求环境
     getHostUrl: function(){
-      // let hosturl = "http://127.0.0.1:8000"; //后端本地
-      let hosturl = "http://dev.run.nunet.cn";  //开发环境
+      let hosturl = "http://127.0.0.1:8000"; //后端本地
+      // let hosturl = "http://dev.run.nunet.cn";  //开发环境
       // let hosturl = "http://run.nunet.cn";   //线上环境
       return hosturl;
     }
@@ -225,6 +225,53 @@ App({
       )
       return user;
     }
+  },
+
+  /**  
+   * 作用：检测用户是否注册，阻止未注册用户进行某些事件交互
+   * 需要：在页面加 <van-dialog id="van-dialog" />
+   * 不传user时: 会先获得openid，然后在线判断是否注册
+   */
+  checkUser: function(user){
+    let that = this;
+    if(!user){
+      that.showNoticToTraveler();
+      return false;
+    }else{
+      that.getOpenid().then(res => {
+        let openid = res;
+        wx.request({
+          url: that.config.getHostUrl() + '/api/user/getUser',
+          method: 'post',
+          data: {
+            openid: openid
+          },
+          success: function (res) {
+            if (res.statusCode == 200) {
+              if (res.data.isSuccess) {
+                wx.setStorageSync('user', JSON.stringify(res.data.data));
+              } else {
+                // 未注册情况
+                that.showNoticToTraveler();
+              }
+            } else {
+              // 服务器故障
+            }
+          },
+          fail: function (res) {
+            // 请求错误
+          }
+        })
+      })
+    }
+  },
+
+  // 未注册提示
+  showNoticToTraveler: function(){
+    Dialog.alert({
+      title: '提示',
+      message: '您还未注册，为了保障你的良好体验，请在个人中心点击授权注册'
+    });
   }
 
 })

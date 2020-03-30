@@ -1,3 +1,4 @@
+<van-dialog id="van-dialog" />
 <view class="main">
     <van-row>
         <van-col span="24">
@@ -15,7 +16,7 @@
                         src="{{user.img}}"
                         />
                 </view>
-                <view class="head-name">
+                <view class="head-name" wx:if="{{!isUnsigned}}">
                     <view>{{user.nickname}}</view>
                     <view class="head-name-n">
                         <van-tag plain type="success" size="medium">{{honors.desc}}</van-tag>
@@ -26,8 +27,12 @@
                         <!-- <text class="head-name-honor">赤脚</text> -->
                     </view>
                 </view>
-                <view class="head-info">
+                <view class="head-info" wx:if="{{!isUnsigned}}">
                     {{user.info || '来操场，我们一起跑鸭！'}}
+                </view>
+                <!-- 未注册情况 -->
+                <view class="head-unsigned" wx:if="{{isUnsigned}}">
+                    <van-button plain type="info" open-type="getUserInfo" bind:getuserinfo="getUserInfo" >授权注册/登录</van-button>
                 </view>
             </view>
         </van-col>
@@ -53,7 +58,7 @@
                 <view slot="title">
                     <view class="van-cell-text">
                         <text class="body-modal-title">勋章墙</text>
-                        <van-tag round type="warning">{{medals_count}}</van-tag>
+                        <van-tag round type="warning" wx:if="{{medals_count>0}}">{{medals_count}}</van-tag>
                     </view>
                 </view>
             </van-cell>
@@ -95,12 +100,5 @@
             </van-col>
         </van-row>
     </view>
-
-
-
-        <button open-type="getUserInfo">授权登录</button>
-        <button bindtap="userReg">注册、存储返回值</button>
-        <button bindtap="getUserInfoOnline">获取用户信息（已注册）</button>
-        
 
 </view>
