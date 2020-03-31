@@ -8,5 +8,6 @@
     "van-grid-item": "@vant/weapp/grid-item/index",
     "w-modals-item": "/components/w-modals-item/index",
     "van-popup": "@vant/weapp/popup/index"
-  }
+  },
+  "enablePullDownRefresh": true
 }

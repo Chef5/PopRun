@@ -1,5 +1,6 @@
 // pages/user/user.js
 const app = getApp();
+import Dialog from '@vant/weapp/dialog/dialog';
 Page({
 
   /**
@@ -13,17 +14,50 @@ Page({
     medals: [],
     isShowSettingMenu: false, //设置菜单
     isShowProtocol: false,    //用户协议
+    cacheSize: '0kB',         //缓存
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let that = this;
+    //初始化页面数据
+    this.initData();
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+    // app.checkUser()
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+    this.initData();
+  },
+
+  initData: function() {
     // 初始化用户数据
     // let user = that.getUserInfoFromLocal();
+    //初始化：获取用户数据
+    this.getUserData();
+    //初始化：缓存数据
+    this.setCacheSize();
+  },
 
-    //从服务器获取：判断是否注册、本地缓存
+  //从服务器获取：判断是否注册、本地缓存
+  getUserData: function(){
+    let that = this;
     app.getOpenid().then(res => {
       let openid = res;
       wx.request({
@@ -53,28 +87,6 @@ Page({
         }
       })
     })
-
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-    // app.checkUser()
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
   },
 
   /**
@@ -240,6 +252,35 @@ Page({
     this.setData({
       isShowProtocol: true
     })
+  },
+
+  // 查询并设置缓存数据
+  setCacheSize: function(){
+    let that = this;
+    wx.getStorageInfo({
+      success (res) {
+        that.setData({
+          cacheSize: res.currentSize+"KB"
+        })
+        // console.log(res.limitSize)
+      }
+    })
+  },
+
+  // 清除缓存
+  cleanCache: function(){
+    let that = this;
+    Dialog.confirm({
+      title: '提示',
+      zIndex: 200,  //设置的popup弹窗是100
+      message: '清除缓存数据，只会清除您本地的数据，并不会删除您在我们服务器上的数据'
+    }).then(() => {
+      // on confirm
+      wx.clearStorageSync();
+      that.setCacheSize();
+    }).catch(() => {
+      // on cancel
+    });
   },
 
 })

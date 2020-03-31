@@ -124,7 +124,7 @@
             link-type="navigateTo"
             url="setting/setting"
             />
-        <van-cell title="清除数据缓存" value="20kB" />
+        <van-cell title="清除数据缓存" bind:click="cleanCache" value="{{ cacheSize }}" />
     </van-cell-group>
 </van-popup>
 
