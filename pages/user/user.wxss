@@ -87,3 +87,23 @@
     background-color: white;
     border-top: 1px solid #f1f1f1;
 }
+
+/* 用户协议 */
+.protocol{
+    height: 80%;
+    width: 80%;
+    border-radius: 8px;
+}
+.protocol-title{
+    width: 100%;
+    text-align: center;
+    margin-top: 60rpx;
+    font-size: 36rpx;
+    font-weight: 700;
+}
+.protocol-body{
+    width: 90%;
+    margin: 50rpx auto;
+    font-size: 28rpx;
+    text-indent: 2em;
+}

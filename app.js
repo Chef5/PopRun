@@ -65,8 +65,8 @@ App({
   config: {
     //获取请求环境
     getHostUrl: function(){
-      let hosturl = "http://127.0.0.1:8000"; //后端本地
-      // let hosturl = "http://dev.run.nunet.cn";  //开发环境
+      // let hosturl = "http://127.0.0.1:8000"; //后端本地
+      let hosturl = "http://dev.run.nunet.cn";  //开发环境
       // let hosturl = "http://run.nunet.cn";   //线上环境
       return hosturl;
     }

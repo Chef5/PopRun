@@ -10,7 +10,9 @@ Page({
       img: "/imgs/default/girl.jpg"
     },  //用户数据
     isUnsigned: true,  //未注册
-    medals: []
+    medals: [],
+    isShowSettingMenu: false, //设置菜单
+    isShowProtocol: false,    //用户协议
   },
 
   /**
@@ -213,6 +215,31 @@ Page({
       nmedals.push(item);
     }
     return nmedals;
-  }
+  },
+
+  /** 
+   * 设置方法
+   */
+  // 关闭一些弹窗
+  onClose: function(){
+    this.setData({
+      isShowSettingMenu: false,  // 关闭菜单弹窗
+      isShowProtocol: false,     // 关闭用户协议
+    })
+  },
+
+  // 显示设置菜单
+  showSettingMenu: function(){
+    this.setData({
+      isShowSettingMenu: true
+    })
+  },
+
+  // 展示用户协议
+  showProtocol: function(){
+    this.setData({
+      isShowProtocol: true
+    })
+  },
 
 })
