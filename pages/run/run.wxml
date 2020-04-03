@@ -85,7 +85,7 @@
         </view>
       </view>
     </view>
-    <view wx-if="{{showRes}}">
+    <cover-view wx-if="{{showRes}}">
       <view class="go-back" bindtap="goBack">
       <i-icon type="return" size="28" color="#80848f" />返回
       </view>
@@ -112,11 +112,9 @@
           </view>
         </view>
       </view>
-
-
-    </view>
+    </cover-view>
   </map>
-  <view wx-if="{{showMain?false:true}}" class="running">
+  <cover-view wx-if="{{showMain?false:true}}" class="running">
     <view class="route">
       <text class="num">0.01</text>
       <text>公里</text>
@@ -136,5 +134,5 @@
       <button class="lf-btn" bindtap="pauseRun">{{pause}}</button>
       <button class="rt-btn" bindtap="endRun">结束</button>
     </view>
-  </view>
+  </cover-view>
 </view>
