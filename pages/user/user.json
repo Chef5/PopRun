@@ -6,6 +6,8 @@
     "van-cell-group": "@vant/weapp/cell-group/index",
     "van-grid": "@vant/weapp/grid/index",
     "van-grid-item": "@vant/weapp/grid-item/index",
-    "w-modals-item": "/components/w-modals-item/index"
-  }
+    "w-modals-item": "/components/w-modals-item/index",
+    "van-popup": "@vant/weapp/popup/index"
+  },
+  "enablePullDownRefresh": true
 }
