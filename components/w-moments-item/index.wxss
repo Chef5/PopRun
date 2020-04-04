@@ -82,6 +82,9 @@
     background-repeat: no-repeat;
     background-size: cover;
 }
+.flag-share{
+    
+}
 /* 更多 */
 .more{
     display: flex;
