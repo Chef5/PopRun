@@ -1,18 +1,7 @@
 <!--index.wxml-->
 <view class='view'>
+<!-- 跑步首页 -->
   <map wx-if="{{showMain}}" longitude="{{longitude}}" latitude="{{latitude}}" markers="{{markers}}" polyline="{{polyLine}}" show-location="true" covers="{{covers}}" show-location>
-    <!-- <cover-view>
-    经度：{{longitude}}
-    </cover-view>
-     <cover-view>
-    纬度：{{latitude}}S
-    </cover-view> -->
-    <!-- <cover-view class="speed">
-    速度：{{speed}}km/h
-    </cover-view> -->
-    <!-- <cover-view>
-    精度：{{accuracy}}
-    </cover-view> -->
     <view wx-if="{{showRes?false:true}}">
       <view class="ranking">
         <button bindtap="toggleRight1">
@@ -85,17 +74,18 @@
         </view>
       </view>
     </view>
+    <!-- 跑步结束板块 -->
     <view wx-if="{{showRes}}">
       <view class="go-back" bindtap="goBack">
-      <i-icon type="return" size="28" color="#80848f" />返回
+        <i-icon type="return" size="28" color="#80848f" />返回
       </view>
       <view class="runRes">
         <view>
           <text class="num">0.00</text>
           <text>公里</text>
         </view>
-        <view class="share rt">
-        <i-icon type="share" size="28" color="#fff" />
+        <view class="share rt" bindtap="shareRes">
+          <i-icon type="share" size="28" color="#fff" />
         </view>
         <view class="detail">
           <view class="time">
@@ -116,6 +106,7 @@
 
     </view>
   </map>
+  <!-- 跑步开始板块 -->
   <view wx-if="{{showMain?false:true}}" class="running">
     <view class="route">
       <text class="num">0.01</text>
@@ -128,7 +119,7 @@
       </view>
       <text class="text">|</text>
       <view class="avrSpeed rt">
-        <text>{{speed}}</text>
+        <text>{{speed}}km/h</text>
         <text>配速</text>
       </view>
     </view>
@@ -138,3 +129,6 @@
     </view>
   </view>
 </view>
+<view style='width:0px;height:0px;overflow:hidden;'>
+    <canvas canvas-id="springCanvas" style="width:328px;height:582px"></canvas>   
+</view> 

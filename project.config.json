@@ -79,6 +79,26 @@
 					"pathName": "pages/user/user",
 					"query": "个人中心",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "广场",
+					"pathName": "pages/pub/pub",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/run/run",
+					"pathName": "pages/run/run",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/run/run",
+					"pathName": "pages/run/run",
+					"scene": null
 				}
 			]
 		}

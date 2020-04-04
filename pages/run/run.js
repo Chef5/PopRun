@@ -1,8 +1,6 @@
 //index.js
 //获取应用实例
 const app = getApp()
-//跑步获取经纬度
-
 var point = [];
 var speedArr=[]
 var that2;
@@ -84,6 +82,7 @@ Page({
     hours: "00",
     timer:null,
     pause:"暂停",
+    preurl:"",
   },
   //事件处理函数
   bindViewTap: function() {},
@@ -217,7 +216,6 @@ startRun: function() {
 },
 repeat: function () {
     this.getlocation();
-    this.drawline();
     this.getTime();
 },
 // 暂停运动
@@ -245,11 +243,26 @@ endRun: function() {
   })
   clearInterval(this.data.timer);
   count=0;
+  this.setData({
+    secondes: "00",
+    minutes: "00",
+    hours: "00"
+  })
+  this.drawline();
 },
 // 返回主页
 goBack: function() {
   this.setData({
     showRes: false,
   })
-}
+},
+
+// 分享结果
+shareRes:function() {
+  // this.drawCanvas();//调用绘制函数
+  // wx.showLoading({
+  //   title: '努力生成中...'
+  // });
+},
+
 })
