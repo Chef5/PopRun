@@ -14,6 +14,7 @@
 		"nodeModules": true,
 		"autoAudits": false,
 		"showShadowRootInWxmlPanel": false,
+		"scopeDataCheck": true,
 		"uglifyFileName": false,
 		"checkInvalidKey": true,
 		"checkSiteMap": true,
@@ -22,8 +23,7 @@
 			"ignore": [],
 			"disablePlugins": [],
 			"outputPath": ""
-		},
-		"scopeDataCheck": true
+		}
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.9.5",
@@ -78,6 +78,12 @@
 					"name": "pages/user/user",
 					"pathName": "pages/user/user",
 					"query": "个人中心",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "用户修改",
+					"pathName": "pages/user/edit/edit",
 					"scene": null
 				}
 			]

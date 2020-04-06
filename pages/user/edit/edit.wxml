@@ -1,0 +1,114 @@
+<van-notify id="van-notify" />
+
+<view class="main" wx:if="{{ !isShowCropper }}">
+    <!-- 头像区 -->
+    <van-row custom-class="mt50">
+        <van-col span="24" custom-class="lc">
+            <van-image
+                width="100"
+                height="100"
+                round
+                fit="cover"
+                src="{{user.img}}"
+                />
+        </van-col>
+    </van-row>
+    <van-row>
+        <van-col span="24" custom-class="lc">
+            <van-button round type="info" bind:click="startChoose" size="small">选择图片</van-button>
+            <van-button wx:if="{{ imgNew }}" round type="info" bind:click="resetImg" size="small">还原</van-button>
+        </van-col>
+    </van-row>
+    <!-- 表单区 -->
+    <van-row custom-class="mt50">
+        <van-col span="24">
+            <van-cell-group>
+                <van-field
+                    value="{{ user.nickname }}"
+                    label="昵称"
+                    placeholder="请输入用户名"
+                    data-who="nickname"
+                    bind:change="onFieldChange"
+                    bind:confirm="onFieldConfirm"
+                    error="{{ false }}"
+                />
+                <van-cell title="性别" title-class="van-cell-title">
+                    <van-radio-group value="{{ user.sex }}" bind:change="onChange">
+                        <van-row>
+                            <van-col span="8">
+                                <van-radio name="0">保密</van-radio>
+                            </van-col>
+                            <van-col span="8">
+                                <van-radio name="1">汉子</van-radio>
+                            </van-col>
+                            <van-col span="8">
+                                <van-radio name="2">妹子</van-radio>
+                            </van-col>
+                        </van-row>
+                    </van-radio-group>
+                </van-cell>
+                <van-field
+                    value="{{ user.team }}"
+                    label="团队"
+                    placeholder="请输入团队"
+                    type="text"
+                    data-who="team"
+                    bind:change="onFieldChange"
+                    bind:confirm="onFieldConfirm"
+                    border="{{ false }}"
+                    error="{{ false }}"
+                />
+                <van-field
+                    value="{{ user.job }}"
+                    label="职业"
+                    placeholder="请输入职业"
+                    type="text"
+                    data-who="job"
+                    bind:change="onFieldChange"
+                    bind:confirm="onFieldConfirm"
+                    border="{{ false }}"
+                    error="{{ false }}"
+                />
+                <van-field
+                    value="{{ user.info }}"
+                    label="个人签名"
+                    placeholder="请输入签名"
+                    type="textarea"
+                    autosize
+                    data-who="info"
+                    bind:change="onFieldChange"
+                    bind:confirm="onFieldConfirm"
+                    border="{{ false }}"
+                    error="{{ false }}"
+                />
+            </van-cell-group>
+        </van-col>
+    </van-row>
+
+    <!-- 保存 -->
+    <van-row custom-class="lc mt50">
+        <van-button type="primary" bind:click="save">保存修改</van-button>
+    </van-row>
+</view>
+
+
+
+<image-cropper 
+    id="image-cropper"
+    show="{{ isShowCropper }}"
+    imgSrc="{{imgsrc}}" 
+    limit_move="{{true}}" 
+    disable_rotate="{{true}}"
+    width="{{width}}" 
+    height="{{height}}"
+    disable_width="{{true}}"
+    disable_heigth="{{true}}"
+    disable_ratio="{{true}}"
+    quality="0.7"
+    scale="1"
+    min_scale="0.3"
+    max_scale="5"
+    bindload="cropperload" 
+    bindimageload="loadimage" 
+    bindtapcut="clickcut">
+</image-cropper>

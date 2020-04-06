@@ -55,6 +55,30 @@ Page({
     this.setCacheSize();
   },
 
+  /**
+   * 跳转
+   */
+  //跳转到用户编辑页面
+  goToEdit: function(){
+    let that = this;
+    let user = that.data.user;
+    wx.navigateTo({
+      url: 'edit/edit',
+      events: {
+        // 获取被打开页面传送到当前页面的数据
+        whenUpdated: function(data) {
+          // console.log('修改成功返回的数据',data)
+          that.setData({ user: data })
+        },
+      },
+      success: (res)=>{
+        res.eventChannel.emit('getDataFromUserPage', user)
+      },
+      fail: ()=>{},
+      complete: ()=>{}
+    });
+  },
+
   //从服务器获取：判断是否注册、本地缓存
   getUserData: function(){
     let that = this;
