@@ -1,0 +1,9 @@
+{
+    "less.compile": {
+        "out":       true,   //输出编译
+        "compress":  false,   //压缩
+        "sourceMap": false,   //生成source map
+        "outExt": ".wxss",   //输出后缀
+        "relativeUrls": true //使用相对路径
+    }
+}
