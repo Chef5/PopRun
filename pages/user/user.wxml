@@ -40,13 +40,23 @@
 
     <van-row custom-class="menu">
         <van-col span="12">
-            <view class="menu-card menu-card-run">
-                我的运动
+            <view class="menu-card">
+                <view class="menu-card-icon">
+                    <van-icon name="fire" size="40" color="white" />
+                </view>
+                <view class="menu-card-title">
+                    我的运动
+                </view>
             </view>
         </van-col>
         <van-col span="12">
-            <view class="menu-card menu-card-run">
-                我的动态
+            <view class="menu-card">
+                <view class="menu-card-icon">
+                    <van-icon name="live" size="40" color="white" />
+                </view>
+                <view class="menu-card-title">
+                    我的动态
+                </view>
             </view>
         </van-col>
     </van-row>
