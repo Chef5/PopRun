@@ -1,5 +1,6 @@
 // pages/user/user.js
 const app = getApp();
+import Notify from '@vant/weapp/notify/notify';
 import Dialog from '@vant/weapp/dialog/dialog';
 Page({
 
@@ -98,9 +99,11 @@ Page({
               wx.setStorageSync('user', JSON.stringify(res.data.data));
               // 获取勋章称号
               that.getUserAll(res.data.data.rid);
+              Notify({ type: 'success', message: "刷新成功" });
             } else {
               // 未注册情况
               that.setData({isUnsigned: true})
+              Notify({ type: 'danger', message: "您还未注册" });
             }
           } else {
             // 服务器故障
@@ -108,6 +111,9 @@ Page({
         },
         fail: function (res) {
           // 请求错误
+        },
+        complete: function (){
+          app.stopRefresh();  //停止刷新状态的显示
         }
       })
     })

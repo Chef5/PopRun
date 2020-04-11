@@ -1,4 +1,5 @@
 <van-dialog id="van-dialog" />
+<van-notify id="van-notify" />
 <view class="main">
     <van-row>
         <van-col span="24">
