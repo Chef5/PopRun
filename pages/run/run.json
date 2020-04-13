@@ -7,6 +7,7 @@
     "i-tab": "../../dist/tab/index",
     "i-cell-group": "../../dist/cell-group/index",
     "i-cell": "../../dist/cell/index",
-    "i-icon": "../../dist/icon/index"
+    "i-icon": "../../dist/icon/index",
+    "van-dialog": "@vant/weapp/dialog/index"
   }
 }

@@ -1,7 +1,9 @@
 <!-- index.wxml -->
+<van-dialog id="van-dialog" />
 <view class='view'>
   <!-- 跑步首页 -->
-  <map wx-if="{{showMain}}" longitude="{{longitude}}" latitude="{{latitude}}" markers="{{markers}}" polyline="{{polyLine}}" show-location="true" covers="{{covers}}" show-location>
+  <map wx-if="{{showMain}}" longitude="{{longitude}}" latitude="{{latitude}}" markers="{{markers}}" polyline="{{polyLine}}" show-location="true" show-location>
+    <!-- 排行榜 -->
     <view wx-if="{{showRes?false:true}}">
       <view class="ranking">
         <button bindtap="toggleRight1">
@@ -16,11 +18,12 @@
                 <i-tab key="month" title="月榜"></i-tab>
               </i-tabs>
             </view>
+            <!-- 跑步列表 -->
             <view>
               <i-cell-group i-class="cell-group">
-                <i-cell i-class="cell" wx:for="{{rankArr}}" wx:key="id" is-link url="../../pages/user/user">
+                <i-cell i-class="cell" wx:for="{{rankArr}}" wx:key="id" is-link link-type="navigateTo" url="../../pages/user/user">
                   <view class="num lf">
-                    <image src="{{item.rankPho}}"></image>
+                    <image wx-if="{{isShowImg}}" src="{{item.rankPho}}"></image>
                   </view>
                   <view class="cell-info lf">
                     <view class="photo">
@@ -62,24 +65,25 @@
       <view class="start-btn">
         <button bindtap="startRun">开始</button>
         <view class="swiper-text">
-          <swiper circular="true" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+        <!-- 属性:衔接滑动、自动切换、滑动间隔、滑动时长 -->
+          <swiper circular="true" autoplay="true" interval="5000" duration="500">
             <block wx:for="{{text}}" wx:key="index">
               <swiper-item>
-                <view>{{item}}</view>
+                <view>{{text}}</view>
               </swiper-item>
             </block>
           </swiper>
         </view>
       </view>
     </view>
-    <cover-view wx-if="{{showRes}}">
+    <!-- 跑步结果 -->
+    <view wx-if="{{showRes}}">
       <view class="go-back" bindtap="goBack">
-        <i-icon type="return" size="28" color="#80848f" />
-        返回
+        <i-icon type="return" size="28" color="#80848f" /> 返回
       </view>
       <view class="runRes">
         <view>
-          <text class="num">0.00</text>
+          <text class="num">{{distance}}</text>
           <text>公里</text>
         </view>
         <view class="share rt" bindtap="shareRes">
@@ -87,24 +91,25 @@
         </view>
         <view class="detail">
           <view class="time">
-            <text>00:00:00</text>
+            <text>{{hours}}:{{minutes}}:{{secondes}}</text>
             <text>时长</text>
           </view>
           <view class="vraSpd">
-            <text>--</text>
+            <text>{{varSpeed}}</text>
             <text>平均配速</text>
           </view>
           <view class="heat">
-            <text>100</text>
+            <text>{{heat}}</text>
             <text>热量(千卡)</text>
           </view>
         </view>
       </view>
-    </cover-view>
+    </view>
   </map>
-  <cover-view wx-if="{{showMain?false:true}}" class="running">
+  <!-- 正在跑步 -->
+  <view wx-if="{{showMain?false:true}}" class="running">
     <view class="route">
-      <text class="num">0.01</text>
+      <text class="num">{{distance}}</text>
       <text>公里</text>
     </view>
     <view class="tmsp">
@@ -122,5 +127,5 @@
       <button class="lf-btn" bindtap="pauseRun">{{pause}}</button>
       <button class="rt-btn" bindtap="endRun">结束</button>
     </view>
-  </cover-view>
+  </view>
 </view>
