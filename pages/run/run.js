@@ -2,11 +2,15 @@
 //获取应用实例
 const app = getApp();
 import Dialog from '@vant/weapp/dialog/dialog';
+import Toast from '@vant/weapp/toast/toast';
+
 let point = [];
 let count=0;
 let distanceSum = 0;
 let speedArr=[];
 let timer=null;
+let params ={};
+
 //进行经纬度转换为距离的计算
 function Rad(d) {
   //经纬度转换成三角函数中度分表形式。
@@ -29,7 +33,7 @@ function distance(lat1, lng1, lat2, lng2) {
 }
 //最大最小速度，平均速度
 // function speed (speed) {
-//   let sum = 0, min = 0, max = 0, n = 1, varSpeed=0;
+//   let sum = 0, min = 0, max = 0, n = 1, avrSpeed=0;
 //   speed=Number(speed);
 //   if (speed<temp){
 //     max=temp;
@@ -42,8 +46,8 @@ function distance(lat1, lng1, lat2, lng2) {
 //   }
 //   sum+=speed;
 //   n++;
-//   varSpeed=sum/n;
-//   return { varSpeed: varSpeed, min:min, max:max};
+//   avrSpeed=sum/n;
+//   return { avrSpeed: avrSpeed, min:min, max:max};
 // }
 Page({
   data: {
@@ -118,19 +122,20 @@ Page({
     distance:"0.00",
     maxSpeed:"--",
     minSpeed:"--",
-    varSpeed:"--",
+    avrSpeed:"--",
     heat:"0",
     isShowImg:true,
   },
   //事件处理函数
   bindViewTap: function() {},
-  // 定位经纬度
   onLoad: function() {
     let that = this
     wx.showLoading({
       title: "定位中",
       mask: true
     });
+  // 定位经纬度
+
     this.getlocation();
     this.getText();
     //隐藏定位中信息进度
@@ -142,10 +147,10 @@ Page({
     wx.request({
       url: app.config.getHostUrl() + '/api/run/getHitokoto',
       success: (res) => {
-          that.setData({
-            text: res.data.hitokoto
-          });
-          console.log(res.data)
+        // res.data.data.forEach(e =>  that.data.text.push(e.hitokoto) )
+        that.setData({
+          text:res.data.data
+        })
       },
     })
   },
@@ -232,7 +237,7 @@ getlocation:function () {
         latitude: latitude,
         longitude: longitude,
       });
-      speedArr.push({speed})
+      speedArr.push(speed)
     },
     //定位失败回调
     fail: function () {
@@ -251,14 +256,58 @@ getDistance:function(){
     return distance(point[point.length - 2].latitude, point[point.length - 2].longitude, point[point.length - 1].latitude, point[point.length - 1].longitude);
   }
 },
-//最大最小速度，平均速度
-
-// 开始运动按钮
-startRun: function() {
-  let that=this;
+// 倒计时显示
+countDown(){
   this.setData({
     showMain: false
   })
+  const toast = Toast.loading({
+    duration: 0,       // 持续展示 toast
+    forbidClick: true, // 禁用背景点击
+    message: '倒计时 3 秒',
+    loadingType: 'spinner',
+    selector: '#custom-selector'
+  });
+
+  let second = 3;
+  const timer = setInterval(() => {
+    second--;
+    if (second) {
+      toast.setData({
+        message: `倒计时 ${second} 秒`
+      });
+    } else {
+      clearInterval(timer);
+      Toast.clear();
+      this.startRun();
+    }
+  }, 1000);
+},
+// 开始运动按钮
+startRun: function() {
+  let that=this;
+  let user = app.getUser();
+  if (!user) {
+    user = wx.getStorageSync('user');
+    if (!user) return;
+  }
+  wx.request({
+    url: app.config.getHostUrl() + '/api/run/doStart',
+    data: {
+      rid: user.rid,
+      time_start: this.formatDate(new Date()),
+      latitude_start:point[0].latitude,
+      longitude_start: point[0].longitude
+    },
+    header: { 'Content-Type': 'application/json' },
+    method: 'POST',
+    success: (result) => {
+      if (result.data.isSuccess) {
+        params = result.data.data
+        console.log(result.data.data)
+      } 
+    },
+  });
   timer = setInterval(that.repeat, 1000);
 },
 repeat: function () {
@@ -267,8 +316,8 @@ repeat: function () {
   this.getTime();
   this.setData({
     distance: (+that.getDistance()).toFixed(2),
-    // varSpeed: speed(that.speed),
   })
+  console.log(speedArr)
 },
 // 暂停运动
 pauseRun:function() {
@@ -291,15 +340,19 @@ pauseRun:function() {
 endRun: function() {
   clearInterval(timer);
   timer=null;
-  count = 0;
   let spdSum=0;
-  let that=this 
+  let that=this;
+  const endTime =this.formatDate(new Date());
+  const runTime = Math.ceil(count/60);
+  const endLat = point[point.length - 1].latitude
+  const endLog = point[point.length - 1].longitude
   this.setData({
     showMain: true,
     showRes: true,
   })
-  // 判断跑步路程是否大于100m,若小于则不进行保存
-  if(this.data.distance<=0.1){
+  // 判断跑步路程是否大于300m,若小于则不进行保存
+  if(this.data.distance>=0.3){
+    // 获取时间
     Dialog.alert({
       title: '提示',
       message: '当前运动距离太短，不会进行保存哦~'
@@ -309,25 +362,57 @@ endRun: function() {
     });
   } else{
     speedArr.forEach(e=>{
-      spdSum+=e;
-      return spdSum
+        spdSum += e;
     })
+    console.log(spdSum)
+    spdSum?spdSum:1;
     this.setData({
       distance: (+that.getDistance()).toFixed(2),
-      varSpeed: parseInt(spdSum / avrSpeed.length),
-      maxSpeed: Math.max(...speedArr),
-      minSpeed: Math.min(...speedArr),
+      avrSpeed: (spdSum / speedArr.length).toFixed(2),
+      maxSpeed: Math.max(...speedArr).toFixed(2),
+      minSpeed: Math.min(...speedArr).toFixed(2),
   // 热量 =体重（kg）* 距离（km）* 运动系数（k） 跑步：k=1.036
-      heat: (55 * that.data.distance * 1.036).toFixed(2),
+      heat: parseInt(55 * that.data.distance * 1.036),
     })
     this.drawline();
+    params.distance= that.data.distance
+    params.calorie= that.data.heat
+    params.speed_top= that.data.maxSpeed
+    params.speed_low= that.data.minSpeed
+    params.speed= that.data.avrSpeed
+    params.time_end= endTime
+    params.time_run= runTime
+    params.latitude_end= endLat
+    params.longitude_end= endLog
+    console.log(params)
+    wx.request({
+      url: app.config.getHostUrl() + '/api/run/doEnd',
+      data:params,
+      header: { 'Content-Type': 'application/json' },
+      method: 'POST',
+      success: (result) => {
+        // if (result.data.isSuccess) {
+          console.log("success" , result.data)
+        // } else {
+        // }
+      },
+    });
   }
 },
+//获取当前日期，以“-”连接
+formatDate (date) {
+  const that =this;
+    const year = date.getFullYear()
+    const month = date.getMonth() + 1
+    const day = date.getDate()
+    const hour = date.getHours()
+    const minute = date.getMinutes()
+    const second = date.getSeconds()
+    return [year, month, day].map(that.showNum).join('-') + ' ' + [hour, minute, second].map(that.showNum).join(':')
+  },
 // 返回主页
 goBack: function() {
 this.initData();
-  
- 
 },
   // 初始化数据
 initData() {
@@ -335,6 +420,7 @@ initData() {
   count = 0;
   distanceSum = 0;
   speedArr = [];
+  params={};
   this.getlocation();
   this.setData({
     showRes: false,
@@ -344,7 +430,7 @@ initData() {
     distance: "0.00",
     maxSpeed: "--",
     minSpeed: "--",
-    varSpeed: "--",
+    avrSpeed: "--",
     heat: "0",
     polyLine: [],
   })

@@ -80,6 +80,7 @@ map {
 
 .swiper-text swiper {
   height: 100%;
+  padding: 0 20rpx;
 }
 .swiper-text swiper-item {
   font-size: 18rpx;
