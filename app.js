@@ -272,6 +272,16 @@ App({
       title: '提示',
       message: '您还未注册，为了保障你的良好体验，请在个人中心点击授权注册'
     });
-  }
+  },
+
+  /**  
+   * 结束下拉刷新：当使用了下拉刷新，请求结束时调用
+  */
+  stopRefresh: function(){
+    //停止刷新
+    wx.stopPullDownRefresh();
+    // 隐藏顶部刷新图标
+    wx.hideNavigationBarLoading();
+  },
 
 })

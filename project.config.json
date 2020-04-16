@@ -14,6 +14,7 @@
 		"nodeModules": true,
 		"autoAudits": false,
 		"showShadowRootInWxmlPanel": false,
+		"scopeDataCheck": true,
 		"uglifyFileName": false,
 		"checkInvalidKey": true,
 		"checkSiteMap": true,
@@ -22,8 +23,7 @@
 			"ignore": [],
 			"disablePlugins": [],
 			"outputPath": ""
-		},
-		"scopeDataCheck": true
+		}
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.9.5",
@@ -82,22 +82,8 @@
 				},
 				{
 					"id": -1,
-					"name": "广场",
-					"pathName": "pages/pub/pub",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/run/run",
-					"pathName": "pages/run/run",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/run/run",
-					"pathName": "pages/run/run",
+					"name": "用户修改",
+					"pathName": "pages/user/edit/edit",
 					"scene": null
 				}
 			]

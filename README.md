@@ -19,6 +19,9 @@ npm install
 
 微信开发者工具-工具-构建npm
 
+## 插件安装
+- VS Code：Easy Less
+  > 配置文件在 /.vscode/settings.json
 
 ## LICENSE
 

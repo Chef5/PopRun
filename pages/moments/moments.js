@@ -151,6 +151,7 @@ Page({
                 }else{
                     Notify({ type: 'danger', message: res.data.msg });
                 }
+                app.stopRefresh();  //停止刷新状态的显示
             })
             .catch((res)=>{
                 console.log(res)

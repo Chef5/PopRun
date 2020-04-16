@@ -36,6 +36,9 @@
                     style="width:{{imageWidth}}rpx;height:{{imageHeight}}rpx;background-image:url({{data.imgs.thumbnail[0].url}});">
                 </view>
             </view>
+            <view class="flag-share" wx:if="{{ data.type==1 }}" >
+                <van-tag round type="warning">打卡分享</van-tag>
+            </view>
         </view>
         <view class="more">
             <view class="more-time">

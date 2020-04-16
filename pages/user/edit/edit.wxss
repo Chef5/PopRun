@@ -1,0 +1,12 @@
+.lc{
+    text-align: center;
+}
+.mt50{
+    margin-top: 50rpx;
+}
+.van-cell-title{
+    flex: none !important;
+    -webkit-flex: none !important;
+    max-width: 90px;
+    min-width: 90px;
+}

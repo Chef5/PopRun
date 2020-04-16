@@ -65,8 +65,22 @@
     margin: 15px auto;
     width: 90%;
     height: 120rpx;
-    background-color: #f152f1;
+    background-color: teal;
     border-radius: 15rpx;
+    display: flex;
+    flex-direction: row;
+    /* justify-content: center; */
+    align-items: center;
+}
+.menu-card-icon{
+    flex: 1;
+    padding-left: 20rpx;
+}
+.menu-card-title{
+    flex: 2;
+    line-height: 120rpx;
+    text-align: left;
+    color: white;
 }
 /* 勋章墙 */
 .modal{

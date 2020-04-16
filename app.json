@@ -5,13 +5,14 @@
         "pages/pub/pub",
         "pages/user/user",
         "pages/moments/newMoment/newMoment",
-        "pages/user/setting/setting"
+        "pages/user/setting/setting",
+        "pages/user/edit/edit"
     ],
-      "permission": {
+    "permission": {
         "scope.userLocation": {
-          "desc": "你的位置信息将用于小程序位置接口的效果展示"
+            "desc": "你的位置信息将用于小程序位置接口的效果展示"
         }
-      },
+    },
     "window": {
         "backgroundTextStyle": "light",
         "navigationBarBackgroundColor": "#83B582",

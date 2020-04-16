@@ -1,5 +1,6 @@
 // pages/user/user.js
 const app = getApp();
+import Notify from '@vant/weapp/notify/notify';
 import Dialog from '@vant/weapp/dialog/dialog';
 Page({
 
@@ -55,6 +56,30 @@ Page({
     this.setCacheSize();
   },
 
+  /**
+   * 跳转
+   */
+  //跳转到用户编辑页面
+  goToEdit: function(){
+    let that = this;
+    let user = that.data.user;
+    wx.navigateTo({
+      url: 'edit/edit',
+      events: {
+        // 获取被打开页面传送到当前页面的数据
+        whenUpdated: function(data) {
+          // console.log('修改成功返回的数据',data)
+          that.setData({ user: data })
+        },
+      },
+      success: (res)=>{
+        res.eventChannel.emit('getDataFromUserPage', user)
+      },
+      fail: ()=>{},
+      complete: ()=>{}
+    });
+  },
+
   //从服务器获取：判断是否注册、本地缓存
   getUserData: function(){
     let that = this;
@@ -74,9 +99,11 @@ Page({
               wx.setStorageSync('user', JSON.stringify(res.data.data));
               // 获取勋章称号
               that.getUserAll(res.data.data.rid);
+              Notify({ type: 'success', message: "刷新成功" });
             } else {
               // 未注册情况
               that.setData({isUnsigned: true})
+              Notify({ type: 'danger', message: "您还未注册" });
             }
           } else {
             // 服务器故障
@@ -84,6 +111,9 @@ Page({
         },
         fail: function (res) {
           // 请求错误
+        },
+        complete: function (){
+          app.stopRefresh();  //停止刷新状态的显示
         }
       })
     })

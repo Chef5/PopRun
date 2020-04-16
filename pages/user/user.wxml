@@ -1,11 +1,12 @@
 <van-dialog id="van-dialog" />
+<van-notify id="van-notify" />
 <view class="main">
     <van-row>
         <van-col span="24">
             <view class="head-con">
                 <view class="head-edit">
                     <van-icon name="eye-o" custom-class="icon-head" size="1.2em" color="white" />
-                    <van-icon name="edit" custom-class="icon-head" size="1.2em" color="white" />
+                    <van-icon name="edit" bind:click="goToEdit" custom-class="icon-head" size="1.2em" color="white" />
                 </view>
                 <view class="head-img">
                     <van-image
@@ -40,13 +41,23 @@
 
     <van-row custom-class="menu">
         <van-col span="12">
-            <view class="menu-card menu-card-run">
-                我的运动
+            <view class="menu-card">
+                <view class="menu-card-icon">
+                    <van-icon name="fire" size="40" color="white" />
+                </view>
+                <view class="menu-card-title">
+                    我的运动
+                </view>
             </view>
         </van-col>
         <van-col span="12">
-            <view class="menu-card menu-card-run">
-                我的动态
+            <view class="menu-card">
+                <view class="menu-card-icon">
+                    <van-icon name="live" size="40" color="white" />
+                </view>
+                <view class="menu-card-title">
+                    我的动态
+                </view>
             </view>
         </van-col>
     </van-row>
