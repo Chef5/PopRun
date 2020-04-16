@@ -1,0 +1,9 @@
+.pub {
+  padding: 0 12rpx;
+} 
+.block {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}

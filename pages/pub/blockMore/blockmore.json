@@ -1,0 +1,6 @@
+{
+  "usingComponents": {
+    "w-block-item": "/components/w-block-item/w-block-item",
+    "van-divider": "@vant/weapp/divider/index"
+  }
+}

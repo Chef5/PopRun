@@ -1,3 +1,32 @@
 <!--pages/pub/pub.wxml-->
-<text>pages/pub/pub.wxml</text>
-<w-tabbar></w-tabbar>
+<view class="pub">
+  <view class="swiper">
+    <!-- 属性:衔接滑动、自动切换、滑动间隔、滑动时长 -->
+    <swiper circular="true" autoplay="true" indicator-dots="true" interval="5000" duration="500">
+      <block wx:for="{{imgUrl}}" wx:key="index">
+        <swiper-item>
+          <image src="{{item}}"></image>
+        </swiper-item>
+      </block>
+    </swiper>
+  </view>
+  <van-divider contentPosition="center" customStyle="color: #83B582;border-color: #83B582;font-size: 30rpx;">活动广场</van-divider>
+  <view class="list">
+    <view class="list-con" wx:for="{{list}}" wx:key="index">
+      <w-list-item img-url="{{item.imgUrl}}" text-content="{{item.text}}" />
+    </view>
+    <view class="more">
+      <text bindtap="listMore">更多></text>
+    </view>
+  </view>
+  <van-divider contentPosition="center" customStyle="color: #83B582;border-color: #83B582;font-size: 30rpx;">教程分享</van-divider>
+  <view class="block">
+    <view class="block-con" wx:for="{{block}}" wx:key="index">
+      <w-block-item img-url="{{item.imgUrl}}" text-content="{{item.text}}" />
+    </view>
+  </view>
+  <view class="more">
+    <text bindtap="blockMore">更多></text>
+  </view>
+  
+</view>

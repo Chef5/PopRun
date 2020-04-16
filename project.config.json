@@ -84,6 +84,20 @@
 					"id": -1,
 					"name": "用户修改",
 					"pathName": "pages/user/edit/edit",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "活动广场",
+					"pathName": "pages/pub/pub",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "跑步教程",
+					"pathName": "pages/pub/blockMore/blockmore",
 					"scene": null
 				}
 			]

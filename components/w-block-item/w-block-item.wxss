@@ -1,0 +1,33 @@
+.list {
+  height: 450rpx;
+  width: 350rpx;
+  margin: 12rpx 0;
+  background: rgb(233, 232, 232);
+}
+.list-img {
+  width: 350rpx;
+  height: 350rpx;
+  margin: auto;
+}
+.list-img image{
+  width: 100%;
+  height: 100%;
+}
+.list-text {
+  /* width: 450rpx; */
+  padding:0 20rpx;
+  color: #444;
+}
+.list-text text {
+  display: block;
+  text-align: center;
+  vertical-align: middle;
+  width: 310rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+

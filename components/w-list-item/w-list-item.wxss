@@ -1,0 +1,32 @@
+.list {
+  height: 200rpx;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 1rpx #999 solid;
+  margin: 12rpx 0;
+}
+.list-img {
+  width: 160rpx;
+  height: 160rpx;
+  padding: 20rpx;
+}
+.list-img image{
+  width: 100%;
+  height: 100%;
+}
+.list-text {
+  width: 450rpx;
+  padding: 50rpx;
+  color: #444;
+ 
+}
+.list-text text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display:-webkit-box; /*将对象作为弹性伸缩盒子模型显示;*/
+  -webkit-line-clamp:2; /*设置文本显示两行*/
+  -webkit-box-orient:vertical;  /*从上到下排列子元素;*/
+}
+
+
