@@ -74,8 +74,8 @@
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "pages/user/user",
+					"id": 2,
+					"name": "个人中心",
 					"pathName": "pages/user/user",
 					"query": "个人中心",
 					"scene": null
@@ -98,6 +98,14 @@
 					"id": -1,
 					"name": "跑步教程",
 					"pathName": "pages/pub/blockMore/blockmore",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "隐私设置",
+					"pathName": "pages/user/privacy/privacy",
+					"query": "",
 					"scene": null
 				}
 			]

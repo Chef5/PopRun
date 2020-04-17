@@ -6,7 +6,8 @@
         "pages/user/user",
         "pages/moments/newMoment/newMoment",
         "pages/user/setting/setting",
-        "pages/user/edit/edit"
+        "pages/user/edit/edit",
+        "pages/user/privacy/privacy"
     ],
     "permission": {
         "scope.userLocation": {

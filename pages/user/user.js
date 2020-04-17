@@ -16,6 +16,7 @@ Page({
     isShowSettingMenu: false, //设置菜单
     isShowProtocol: false,    //用户协议
     cacheSize: '0kB',         //缓存
+    isShowloading: false,
   },
 
   /**
@@ -83,6 +84,9 @@ Page({
   //从服务器获取：判断是否注册、本地缓存
   getUserData: function(){
     let that = this;
+    that.setData({
+        isShowloading: true
+    });
     app.getOpenid().then(res => {
       let openid = res;
       wx.request({
@@ -99,7 +103,7 @@ Page({
               wx.setStorageSync('user', JSON.stringify(res.data.data));
               // 获取勋章称号
               that.getUserAll(res.data.data.rid);
-              Notify({ type: 'success', message: "刷新成功" });
+              // Notify({ type: 'success', message: "刷新成功" });
             } else {
               // 未注册情况
               that.setData({isUnsigned: true})
@@ -113,6 +117,9 @@ Page({
           // 请求错误
         },
         complete: function (){
+          that.setData({
+              isShowloading: false
+          });
           app.stopRefresh();  //停止刷新状态的显示
         }
       })

@@ -1,0 +1,17 @@
+<van-loading size="24px" vertical custom-class="loading" wx:if="{{isShowloading}}">加载中...</van-loading>
+
+<view class="main" wx:if="{{!isShowloading}}">
+    <!-- 表单区 -->
+    <van-cell-group>
+        <van-cell title="校区公开" title-class="title" center>
+            <van-switch slot="right-icon" checked="{{ privacy.team==1 }}" size="24px" bind:change="teamChange" />
+        </van-cell>
+        <van-cell title="职业公开" title-class="title" center>
+            <van-switch slot="right-icon" checked="{{ privacy.job==1 }}" size="24px" bind:change="jobChange" />
+        </van-cell>
+        <van-cell title="运动数据公开" title-class="title" center>
+            <van-switch slot="right-icon" checked="{{ privacy.run==1 }}" size="24px" bind:change="runChange" />
+        </van-cell>
+    </van-cell-group>
+
+</view>

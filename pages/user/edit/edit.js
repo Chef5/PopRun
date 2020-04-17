@@ -31,6 +31,7 @@ Page({
         //监听从上个页面传来的数据
         this.eventChannel.on('getDataFromUserPage', function(data) {
             // console.log('上个页面传来的',data)
+            data.sex = data.sex+''; //Vant bug性别需要转换成字符串才能默认选中
             that.setData({ 
                 user: data,
                 userOld: JSON.stringify(data), 

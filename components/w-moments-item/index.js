@@ -96,8 +96,12 @@ Component({
                 user = wx.getStorageSync('user');
                 if(!user) return;
             }
+            let api = '/api/moments/doLike';
+            if(that.data.data.likes.find((item)=>item.rid == user.rid)){
+                api = '/api/moments/doDislike'; //已点赞再次点击则取消点赞
+            }
             wx.request({
-              url: app.config.getHostUrl()+'/api/moments/doLike',
+              url: app.config.getHostUrl() + api,
               method: 'post',
               data: {
                  "rid": user.rid,
@@ -121,7 +125,7 @@ Component({
             that.setData({
                 showmore: false,
                 showcomment: true,
-                placeholder: e.currentTarget.dataset.nickname ? "re:" + e.currentTarget.dataset.nickname : "期待神评"
+                placeholder: e.currentTarget.dataset.nickname ? "[回复]" + e.currentTarget.dataset.nickname : "期待神评"
             })
         },
         // 获取输入框的值
