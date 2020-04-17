@@ -1,39 +1,49 @@
+const app = getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    imgUrl: ["/imgs/default/boy.jpg", "/imgs/default/boy.jpg", "/imgs/default/boy.jpg"],
+    swiperArr: [{
+      imgUrl: "/imgs/default/boy.jpg",
+      imgLink: "swiperDetail/swiperDetail"
+    }],
     list: [{
         imgUrl: "/imgs/default/girl.jpg",
-        text: "关于跑步，你要避免的坑关于跑步，你要避免的坑关于跑步，你要避免的坑关于跑步，你要避免的坑"
+        text: "关于跑步，你要避免的坑关于跑步，你要避免的坑关于跑步，你要避免的坑关于跑步，你要避免的坑",
+        link: "listDetail/listDetail",
       },
       {
         imgUrl: "/imgs/default/girl.jpg",
-        text: "关于跑步，你要避免的坑关于跑步，你要避免的坑关于跑步，你要避免的坑关于跑步，你要避免的坑"
+        text: "关于跑步，你要避免的坑关于跑步，你要避免的坑关于跑步，你要避免的坑关于跑步，你要避免的坑",
+        link: "listDetail/listDetail",
       },
       {
         imgUrl: "/imgs/default/girl.jpg",
-        text: "关于跑步，你要避免的坑关于跑步，你要避免的坑关于跑步，你要避免的坑关于跑步，你要避免的坑"
+        text: "关于跑步，你要避免的坑关于跑步，你要避免的坑关于跑步，你要避免的坑关于跑步，你要避免的坑",
+        link: "listDetail/listDetail",
       },
       {
         imgUrl: "/imgs/default/girl.jpg",
-        text: "关于跑步，你要避免的坑关于跑步，你要避免的坑关于跑步，你要避免的坑关于跑步，你要避免的坑"
+        text: "关于跑步，你要避免的坑关于跑步，你要避免的坑关于跑步，你要避免的坑关于跑步，你要避免的坑",
+        link: "listDetail/listDetail",
       },
       {
         imgUrl: "/imgs/default/girl.jpg",
-        text: "关于跑步，你要避免的坑关于跑步，你要避免的坑关于跑步，你要避免的坑关于跑步，你要避免的坑"
+        text: "关于跑步，你要避免的坑关于跑步，你要避免的坑关于跑步，你要避免的坑关于跑步，你要避免的坑",
+        link: "listDetail/listDetail",
       },
     ],
-    block:[
-      {
+    block: [{
         imgUrl: "/imgs/default/girl.jpg",
-        text: "关于跑步，你要避免的坑关于跑步，你要避免的坑关于跑步，你要避免的坑关于跑步，你要避免的坑"
+        text: "关于跑步，你要避免的坑关于跑步，你要避免的坑关于跑步，你要避免的坑关于跑步，你要避免的坑",
+        link: "blockDetail/blockDetail",
       },
       {
         imgUrl: "/imgs/default/girl.jpg",
-        text: "关于跑步，你要避免的坑关于跑步，你要避免的坑关于跑步，你要避免的坑关于跑步，你要避免的坑"
+        text: "关于跑步，你要避免的坑关于跑步，你要避免的坑关于跑步，你要避免的坑关于跑步，你要避免的坑",
+        link: "blockDetail/blockDetail",
       },
     ]
   },
@@ -42,7 +52,31 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    this.getSwiper();
+    this.getList();
+  },
 
+  // 获取轮播列表
+  getSwiper(){
+    wx.request({
+      url: app.config.getHostUrl() + '/api/pub/getSwipper',
+      success: (res) => {
+        // if (res.data.isSuccess) {
+          console.log(res.data)
+        // }
+      },
+    });
+  },
+
+  getList(){
+    wx.request({
+      url: app.config.getHostUrl() + '/api/pub/getList',
+      success: (res) => {
+        // if (res.data.isSuccess) {
+        console.log(res.data)
+        // }
+      },
+    });
   },
 
   /**
@@ -93,44 +127,5 @@ Page({
   onShareAppMessage: function() {
 
   },
-  listMore() {
-    wx.navigateTo({
-      url: 'listMore/listmore',
-      events: {
-        // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
-        acceptDataFromOpenedPage: function(data) {
-          console.log(data)
-        },
-        someEvent: function(data) {
-            console.log(data)
-          }
-      },
-      success: function(res) {
-        // 通过eventChannel向被打开页面传送数据
-        res.eventChannel.emit('acceptDataFromOpenerPage', {
-          data: 'test'
-        })
-      }
-    })
-  },
-  blockMore() {
-    wx.navigateTo({
-      url: 'blockMore/blockmore',
-      events: {
-        // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
-        acceptDataFromOpenedPage: function (data) {
-          console.log(data)
-        },
-        someEvent: function (data) {
-          console.log(data)
-        }
-      },
-      success: function (res) {
-        // 通过eventChannel向被打开页面传送数据
-        res.eventChannel.emit('acceptDataFromOpenerPage', {
-          data: 'test'
-        })
-      }
-    })
-  }
+
 })

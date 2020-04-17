@@ -2,11 +2,15 @@ Component({
   properties: {
     imgUrl: {
       type: String,
-      value: "/imgs/default/boy.jpg"
+      value: ""
     },
     textContent: {
       type: String,
       value: ""
+    },
+    link:{
+      type:String,
+      value:""
     }
   },
   data: {
@@ -14,5 +18,6 @@ Component({
   },
   methods: {
     // 这里是一个自定义方法
+  
   }
 })

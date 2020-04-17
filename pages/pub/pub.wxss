@@ -5,19 +5,7 @@ image {
   height: 100%;
   width: 100%;
 }
-.swiper {
-  /* margin-bottom: 20rpx; */
-}
-.more {
-  /* height: 20rpx; */
-  overflow: hidden;
 
-}
-.more text {
-  float: right;
-  color: #999;
-  text-decoration: underline;
-}
 .block {
   display: flex;
   justify-content: space-between;

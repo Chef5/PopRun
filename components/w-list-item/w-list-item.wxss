@@ -3,8 +3,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: 1rpx #999 solid;
+  border: 1rpx rgb(240, 240, 240) solid;
   margin: 12rpx 0;
+  /* background: rgb(240, 240, 240); */
+
 }
 .list-img {
   width: 160rpx;
@@ -17,7 +19,7 @@
 }
 .list-text {
   width: 450rpx;
-  padding: 50rpx;
+  padding: 0 50rpx;
   color: #444;
  
 }

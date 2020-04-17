@@ -1,9 +1,11 @@
 <!-- 这是自定义组件的内部WXML结构 -->
-<view class="list">
-  <view class="list-img">
-    <image src="{{imgUrl}}"></image>
+<navigator url="{{link}}">
+  <view class="list">
+    <view class="list-img">
+      <image src="{{imgUrl}}"></image>
+    </view>
+    <view class="list-text">
+      <text>{{textContent}}</text>
+    </view>
   </view>
-  <view class="list-text">
-    <text>{{textContent}}</text>
-  </view>
-</view>
+</navigator>

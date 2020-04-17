@@ -90,7 +90,7 @@ map {
 .ranking{
   height: 100%;
   position: relative;
-  z-index: 100;
+  z-index: 1000;
 }
 .ranking-con {
   height: 80vh;
@@ -248,7 +248,7 @@ map {
   width: 150rpx;
   line-height: 80rpx;
   position: relative;
-  z-index: 100;
+  z-index: 1000;
 }
 .runRes {
   width: 96vw;

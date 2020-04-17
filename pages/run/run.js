@@ -60,6 +60,7 @@ Page({
     text: [],
     showRight1: false,
     current: 'week',
+    // showWeek:true,
     rankArr: [{
         id: 1,
         name: "lym",
@@ -167,8 +168,11 @@ Page({
     detail
   }) {
     this.setData({
-      current: detail.key
+      current: detail.key,
+      // showWeek: detail.key
     });
+    console.log(detail)
+
   },
   // 排行榜前三名显示冠亚季图片 
   // showImg(){
@@ -227,6 +231,8 @@ getlocation:function () {
       let latitude = res.latitude
       let longitude = res.longitude
       let speed = res.speed<0?0:res.speed;
+      // 换算为km/h
+      speed=speed*3.6;
       let accuracy = res.accuracy
       that.setData({
         speed: Number(speed.toFixed(2)),
@@ -279,13 +285,13 @@ countDown(){
     } else {
       clearInterval(timer);
       Toast.clear();
+      this.startInterface();
       this.startRun();
     }
   }, 1000);
 },
-// 开始运动按钮
-startRun: function() {
-  let that=this;
+// 调用开始接口
+startInterface(){
   let user = app.getUser();
   if (!user) {
     user = wx.getStorageSync('user');
@@ -296,7 +302,7 @@ startRun: function() {
     data: {
       rid: user.rid,
       time_start: this.formatDate(new Date()),
-      latitude_start:point[0].latitude,
+      latitude_start: point[0].latitude,
       longitude_start: point[0].longitude
     },
     header: { 'Content-Type': 'application/json' },
@@ -304,10 +310,14 @@ startRun: function() {
     success: (result) => {
       if (result.data.isSuccess) {
         params = result.data.data
-        console.log(result.data.data)
-      } 
+      }
     },
   });
+},
+// 开始运动
+startRun: function() {
+  let that=this;
+ 
   timer = setInterval(that.repeat, 1000);
 },
 repeat: function () {
@@ -317,7 +327,6 @@ repeat: function () {
   this.setData({
     distance: (+that.getDistance()).toFixed(2),
   })
-  console.log(speedArr)
 },
 // 暂停运动
 pauseRun:function() {
@@ -351,7 +360,7 @@ endRun: function() {
     showRes: true,
   })
   // 判断跑步路程是否大于300m,若小于则不进行保存
-  if(this.data.distance>=0.3){
+  if(this.data.distance<=0.3){
     // 获取时间
     Dialog.alert({
       title: '提示',
@@ -364,7 +373,6 @@ endRun: function() {
     speedArr.forEach(e=>{
         spdSum += e;
     })
-    console.log(spdSum)
     spdSum?spdSum:1;
     this.setData({
       distance: (+that.getDistance()).toFixed(2),
@@ -384,17 +392,15 @@ endRun: function() {
     params.time_run= runTime
     params.latitude_end= endLat
     params.longitude_end= endLog
-    console.log(params)
     wx.request({
       url: app.config.getHostUrl() + '/api/run/doEnd',
       data:params,
       header: { 'Content-Type': 'application/json' },
       method: 'POST',
       success: (result) => {
-        // if (result.data.isSuccess) {
-          console.log("success" , result.data)
-        // } else {
-        // }
+        if (result.data.isSuccess) {
+          // console.log("success" , result.data)
+        }
       },
     });
   }

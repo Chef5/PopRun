@@ -2,7 +2,7 @@
   height: 450rpx;
   width: 350rpx;
   margin: 12rpx 0;
-  background: rgb(233, 232, 232);
+  background: rgb(240, 240, 240);
 }
 .list-img {
   width: 350rpx;

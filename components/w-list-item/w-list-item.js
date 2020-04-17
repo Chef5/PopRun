@@ -2,11 +2,15 @@ Component({
   properties: {
     imgUrl:{
       type:String,
-      value:"/imgs/default/boy.jpg"
+      value:""
     },
     textContent:{
       type:String,
       value:""
+    },
+    link: {
+      type: String,
+      value: ""
     }
   },
   data: {

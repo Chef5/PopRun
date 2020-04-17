@@ -98,6 +98,13 @@
 					"id": -1,
 					"name": "跑步教程",
 					"pathName": "pages/pub/blockMore/blockmore",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/run/run",
+					"pathName": "pages/run/run",
 					"scene": null
 				}
 			]
