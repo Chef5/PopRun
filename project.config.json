@@ -26,7 +26,7 @@
 		}
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.9.5",
+	"libVersion": "2.10.4",
 	"appid": "wxfcd3e1af4fbeadfe",
 	"projectname": "PopRun",
 	"debugOptions": {
@@ -74,8 +74,8 @@
 					"scene": null
 				},
 				{
-					"id": -1,
-					"name": "pages/user/user",
+					"id": 2,
+					"name": "个人中心",
 					"pathName": "pages/user/user",
 					"query": "个人中心",
 					"scene": null
@@ -103,8 +103,14 @@
 				},
 				{
 					"id": -1,
+<<<<<<< HEAD
 					"name": "pages/run/run",
 					"pathName": "pages/run/run",
+=======
+					"name": "隐私设置",
+					"pathName": "pages/user/privacy/privacy",
+					"query": "",
+>>>>>>> c3884db43c11ff38212b4d1b10f2e9ee8bad0ddc
 					"scene": null
 				}
 			]

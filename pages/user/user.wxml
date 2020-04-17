@@ -1,6 +1,8 @@
 <van-dialog id="van-dialog" />
 <van-notify id="van-notify" />
-<view class="main">
+<van-loading size="24px" vertical custom-class="loading" wx:if="{{isShowloading}}">加载中...</van-loading>
+
+<view class="main" wx:if="{{!isShowloading}}">
     <van-row>
         <van-col span="24">
             <view class="head-con">
@@ -29,7 +31,7 @@
                     </view>
                 </view>
                 <view class="head-info" wx:if="{{!isUnsigned}}">
-                    {{user.info || '来操场，我们一起跑鸭！'}}
+                    {{user.info || '这个人很懒，什么都没有留下'}}
                 </view>
                 <!-- 未注册情况 -->
                 <view class="head-unsigned" wx:if="{{isUnsigned}}">
@@ -133,7 +135,7 @@
             is-link
             title="隐私设置"
             link-type="navigateTo"
-            url="setting/setting"
+            url="privacy/privacy?rid={{user.rid}}"
             />
         <van-cell title="清除数据缓存" bind:click="cleanCache" value="{{ cacheSize }}" />
     </van-cell-group>

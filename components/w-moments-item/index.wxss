@@ -132,7 +132,7 @@
     text-align: left;
     font-size: 30rpx;
     line-height: 34rpx;
-    letter-spacing: 1px;
+    letter-spacing: 0.1px;
 } 
 .comment text{
     text-align: left;
@@ -148,6 +148,7 @@
     background: #fff;
     border-top: 1px solid rgb(243, 241, 241);
     flex-direction: row;
+    z-index:9999;
 }
 .input input{
     display: inline-block;
