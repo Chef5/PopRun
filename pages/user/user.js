@@ -71,6 +71,7 @@ Page({
         whenUpdated: function(data) {
           // console.log('修改成功返回的数据',data)
           that.setData({ user: data })
+          wx.setStorageSync('user', data);
         },
       },
       success: (res)=>{

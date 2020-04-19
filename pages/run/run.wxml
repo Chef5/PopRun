@@ -5,72 +5,69 @@
   <!-- 跑步首页 -->
   <map wx-if="{{showMain}}" longitude="{{longitude}}" latitude="{{latitude}}" markers="{{markers}}" polyline="{{polyLine}}" show-location="true" show-location>
     <view wx-if="{{showRes?false:true}}">
-    <!-- 排行榜 -->
-      <view class="ranking">
+      <!-- 排行榜 -->
+      <cover-view class="ranking">
         <button bindtap="toggleRight1">
-          <image src="../../imgs/run/ranking.png"></image>
+          <cover-image src="../../imgs/run/ranking.png"></cover-image>
         </button>
         <i-drawer i-class="ranking-body" mode="right" visible="{{showRight1}}" bind:close="toggleRight1">
-          <view class="ranking-con">
-            <view class="title">跑步排行榜</view>
-            <view>
-              <i-tabs current="{{ current }}" bindchange="handleChange">
-                <i-tab key="week" title="周榜"></i-tab>
-                <i-tab key="month" title="月榜"></i-tab>
-              </i-tabs>
-            </view>
-            <!-- 跑步列表 -->
-            <view class="rank-list">
-              <view wx-if="{{current=='week'?true:false}}">
-                <i-cell-group i-class="cell-group">
-                  <i-cell i-class="cell" wx:for="{{rankArr}}" wx:key="id" is-link link-type="navigateTo" url="user/user">
-                    <view class="num lf">
-                      <image wx-if="{{isShowImg}}" src="{{item.rankPho}}"></image>
-                    </view>
-                    <view class="cell-info lf">
-                      <view class="photo">
-                        <image src="{{item.pho}}"></image>
+        <view class="ranking-con">
+          <view class="title">跑步排行榜</view>
+          <view>
+            <van-tabs active="{{active}}" color="#409eff" border="none" bind:change="onRankChange">
+              <van-tab title="周榜" name="week">
+                <!-- 跑步列表 -->
+                <view class="rank-list">
+                    <i-cell-group i-class="cell-group">
+                      <i-cell i-class="cell" wx:for="{{rankArr}}" wx:key="id" is-link link-type="switchTab" url="../user/user?">
+                        <view class="num lf">
+                          <image src="../../imgs/run/one.png"></image>
+                        </view>
+                        <view class="cell-info lf">
+                          <view class="photo">
+                            <image src="{{item.img}}"></image>
+                          </view>
+                          <view class="text">
+                            <text class="name">{{item.nickname}}</text>
+                            <view>
+                              <text class="detail">{{item.sumD}}公里/</text>
+                              <text class="detail">{{item.sumT}}分钟/</text>
+                              <text class="detail">{{item.avgS}}/km</text>
+                            </view>
+                          </view>
+                        </view>
+                      </i-cell>
+                    </i-cell-group>
+                    <i-cell i-class="cell my-cell" link-type="switchTab" is-link url="../user/user">
+                      <view class="num lf">
+                        <image src="../../imgs/run/one.png"></image>
                       </view>
-                      <view class="text">
-                        <text class="name">{{item.name}}</text>
-                        <view>
-                          <text class="detail">{{item.route}}/</text>
-                          <text class="detail">{{item.time}}/</text>
-                          <text class="detail">{{item.avrSpeed}}</text>
+                      <view class="cell-info lf">
+                        <view class="photo">
+                          <image src="{{myRank.img}}"></image>
+                        </view>
+                        <view class="text">
+                          <text class="name">{{myRank.nickname}}</text>
+                          <view>
+                            <text class="detail">{{myRank.sumD}}公里/</text>
+                            <text class="detail">{{myRank.sumT}}分钟/</text>
+                            <text class="detail">{{myRank.avgS}}/km</text>
+                          </view>
                         </view>
                       </view>
-                    </view>
-                  </i-cell>
-                </i-cell-group>
-                <i-cell i-class="cell my-cell" is-link url="user/user">
-                  <view class="num lf">
-                    <image src="../../imgs/run/one.png"></image>
-                  </view>
-                  <view class="cell-info lf">
-                    <view class="photo">
-                      <image src="../../imgs/run/photo.png"></image>
-                    </view>
-                    <view class="text">
-                      <text class="name">lym</text>
-                      <view>
-                        <text class="detail">跑步总程/</text>
-                        <text class="detail">跑步总时长/</text>
-                        <text class="detail">平均速度</text>
-                      </view>
-                    </view>
-                  </view>
-                </i-cell>
-              </view>
-              <view wx-if="{{current=='month'?true:false}}">1243</view>
-            </view>
-            
+                    </i-cell>
+                </view>
+              </van-tab>
+              <van-tab title="月榜" name="month">内容 2</van-tab>
+            </van-tabs>
           </view>
+        </view>
         </i-drawer>
-      </view>
+      </cover-view>
       <view class="start-btn">
         <button bindtap="countDown">开始</button>
         <view class="swiper-text">
-        <!-- 属性:衔接滑动、自动切换、滑动间隔、滑动时长 -->
+          <!-- 属性:衔接滑动、自动切换、滑动间隔、滑动时长 -->
           <swiper circular="true" autoplay="true" interval="5000" duration="500">
             <block wx:for="{{text}}" wx:key="index">
               <swiper-item>

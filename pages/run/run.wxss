@@ -107,10 +107,10 @@ map {
   margin: 20rpx 20rpx;
 }
 
-.ranking button image {
+.ranking button cover-image {
   width: 50rpx;
   height: 50rpx;
-  margin: auto;
+  margin: 10rpx auto;
 }
 .rank-list {
   height: 66vh;
@@ -178,6 +178,7 @@ map {
   font-size: 12px;
   line-height: 1.2;
 }
+
 
 .rank-list .my-cell {
   /* background: blue; */
