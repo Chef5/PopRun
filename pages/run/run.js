@@ -139,6 +139,7 @@ Page({
 
     this.getlocation();
     this.getText();
+    this.getWeekRank();
     //隐藏定位中信息进度
     wx.hideLoading()
   },
@@ -171,8 +172,33 @@ Page({
       current: detail.key,
       // showWeek: detail.key
     });
-    console.log(detail)
+  },
+  // 获取周榜
+  getWeekRank(){
+    let that = this;
+    let user=app.getUser();
+    wx.request({
+      url: app.config.getHostUrl() + '/api/run/getWeekrank',
+      data:{team:user.team},
+      success: (res) => {
+        // res.data.data.forEach(e =>  that.data.text.push(e.hitokoto) )
+        console.log(res.data)
+      },
+    })
+  },
+  // 获取月榜
+  getMonthRank(){
+    let that = this;
+    let user=app.getUser();
 
+    wx.request({
+      url: app.config.getHostUrl() + '/api/run/getMonthrank',
+      data: { team: user.team },
+      success: (res) => {
+        // res.data.data.forEach(e =>  that.data.text.push(e.hitokoto) )
+        console.log(res.data)
+      },
+    })
   },
   // 排行榜前三名显示冠亚季图片 
   // showImg(){
@@ -219,7 +245,7 @@ showNum: function(num) {    
       }]
     });
   },
-  
+
 // 跑步获取经纬度
 getlocation:function () {
   let that=this;
@@ -230,12 +256,12 @@ getlocation:function () {
     success: function (res) {
       let latitude = res.latitude
       let longitude = res.longitude
-      let speed = res.speed<0?0:res.speed;
+      let speed = res.speed;
       // 换算为km/h
-      speed=speed*3.6;
+      // speed=speed*3.6;
       let accuracy = res.accuracy
       that.setData({
-        speed: Number(speed.toFixed(2)),
+        speed: speed<=0?"--":that.speedNum(speed),
         latitude:latitude,
         longitude:longitude
       })
@@ -243,7 +269,8 @@ getlocation:function () {
         latitude: latitude,
         longitude: longitude,
       });
-      speedArr.push(speed)
+      const speedArr_i=speed<=0?0:speed;
+      speedArr.push(speedArr_i)
     },
     //定位失败回调
     fail: function () {
@@ -253,6 +280,14 @@ getlocation:function () {
       })
     },
   })
+},
+// 速度单位换算m/s=>min s/km
+speedNum(speed){
+  //s/km
+  speed=1000/speed;
+  let s = this.showNum(parseInt(speed % 60));
+  let m = this.showNum(parseInt(speed / 60) % 60);
+  return m+"′"+s+"″";
 },
 // 显示路程
 getDistance:function(){
@@ -350,6 +385,7 @@ endRun: function() {
   clearInterval(timer);
   timer=null;
   let spdSum=0;
+  let spdAvr=0;
   let that=this;
   const endTime =this.formatDate(new Date());
   const runTime = Math.ceil(count/60);
@@ -360,7 +396,7 @@ endRun: function() {
     showRes: true,
   })
   // 判断跑步路程是否大于300m,若小于则不进行保存
-  if(this.data.distance<=0.3){
+  if(this.data.distance<=0.03){
     // 获取时间
     Dialog.alert({
       title: '提示',
@@ -369,16 +405,17 @@ endRun: function() {
       // on close
       that.goBack();
     });
-  } else{
+  } 
     speedArr.forEach(e=>{
         spdSum += e;
     })
-    spdSum?spdSum:1;
+    // spdSum?spdSum:1;
+    spdAvr = spdSum ? this.speedNum((spdSum / speedArr.length)):"--"
     this.setData({
       distance: (+that.getDistance()).toFixed(2),
-      avrSpeed: (spdSum / speedArr.length).toFixed(2),
-      maxSpeed: Math.max(...speedArr).toFixed(2),
-      minSpeed: Math.min(...speedArr).toFixed(2),
+      avrSpeed: spdAvr,
+      maxSpeed: Math.max(...speedArr)?that.speedNum(Math.max(...speedArr)):"--",
+      minSpeed: Math.min(...speedArr)?that.speedNum(Math.min(...speedArr)):"--",
   // 热量 =体重（kg）* 距离（km）* 运动系数（k） 跑步：k=1.036
       heat: parseInt(55 * that.data.distance * 1.036),
     })
@@ -403,7 +440,6 @@ endRun: function() {
         }
       },
     });
-  }
 },
 //获取当前日期，以“-”连接
 formatDate (date) {

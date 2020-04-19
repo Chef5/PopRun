@@ -103,14 +103,9 @@
 				},
 				{
 					"id": -1,
-<<<<<<< HEAD
-					"name": "pages/run/run",
-					"pathName": "pages/run/run",
-=======
 					"name": "隐私设置",
 					"pathName": "pages/user/privacy/privacy",
 					"query": "",
->>>>>>> c3884db43c11ff38212b4d1b10f2e9ee8bad0ddc
 					"scene": null
 				}
 			]

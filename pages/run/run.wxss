@@ -99,54 +99,54 @@ map {
   border-radius: 10rpx;
 }
 .ranking button {
-  position: absolute;
-  top: 20rpx;
-  right: 20rpx;
   width: 80rpx;
   height: 80rpx;
   background: rgb(84, 126, 83);
-  padding-top: 15rpx;
   border-radius: 50%;
+  float: right;
+  margin: 20rpx 20rpx;
 }
 
 .ranking button image {
   width: 50rpx;
   height: 50rpx;
-  margin-bottom: 10rpx;
+  margin: auto;
 }
-
+.rank-list {
+  height: 66vh;
+}
 .ranking-con .title {
   text-align: center;
   font-size: 28rpx;
   color: #707070;
-  line-height: 50rpx;
+  line-height: 6vh;
 }
-.ranking-con .cell-group{
-  height: 590rpx;
+.rank-list .cell-group{
+  height: 53vh;
   overflow: auto;
 }
-.ranking-con .cell {
-  height: 100rpx;
+.rank-list .cell {
+  height: 8vh;
   width: 516rpx;
   border-radius: 10rpx;
   /* background: red; */
-  border: 1px solid #409eff;
+  border: 1rpx solid #409eff;
   margin: 0 12rpx;
-  margin-top: 8rpx;
+  margin-top: 0.5vh;
   position: relative;
 }
 
-.ranking-con .cell image {
+.rank-list .cell image {
   width: 100%;
   height: 100%;
   overflow: hidden;
 }
-.ranking-con .cell .cell-info {
+.rank-list .cell .cell-info {
   margin-left: 62rpx;
   position: relative;
 }
 
-.ranking-con .cell .num {
+.rank-list .cell .num {
   height: 50rpx;
   width: 50rpx;
   position: absolute;
@@ -155,7 +155,7 @@ map {
   margin: auto;
 }
 
-.ranking-con .cell .cell-info .photo {
+.rank-list .cell .cell-info .photo {
   height: 50rpx;
   width: 50rpx;
   position: absolute;
@@ -164,27 +164,27 @@ map {
   margin: auto;
 }
 
-.ranking-con .cell .cell-info .text {
+.rank-list .cell .cell-info .text {
   margin-left: 32px;
 }
 
-.ranking-con .cell .cell-info .name {
+.rank-list .cell .cell-info .name {
   font-size: 14px;
   /* line-height: 24px */
 }
 
-.ranking-con .cell .cell-info .detail {
+.rank-list .cell .cell-info .detail {
   color: #80848f;
   font-size: 12px;
   line-height: 1.2;
 }
 
-.ranking-con .my-cell {
+.rank-list .my-cell {
   /* background: blue; */
   background: #72afec;
   position: fixed;
   bottom: 0;
-  margin-bottom: 8rpx;
+  margin-bottom: 0.5vh;
 }
 
 /* 排行榜结束 */
