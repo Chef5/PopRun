@@ -81,6 +81,21 @@ Page({
       complete: ()=>{}
     });
   },
+  //跳转到用户编辑页面
+  goToPreview: function(){
+    let that = this;
+    let user = that.data.user;
+    user.honors = that.data.honors;
+    user.medals = that.data.medals;
+    wx.navigateTo({
+      url: 'userPage/userPage',
+      success: (res)=>{
+        res.eventChannel.emit('getDataFromUserPage', user)
+      },
+      fail: ()=>{},
+      complete: ()=>{}
+    });
+  },
 
   //从服务器获取：判断是否注册、本地缓存
   getUserData: function(){

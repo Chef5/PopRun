@@ -41,14 +41,14 @@ Page({
      */
     onPublish: function () {
         let that = this;
-        if(that.data.text == ""){
-            Notify({ type: 'danger', message: "内容呢？！" });
-            return;
-        }
         const { fileList = [] } = that.data;
         fileList.forEach(element => {
             delete element.url;
         });
+        if(fileList.length == 0 && that.data.text == ""){
+            Notify({ type: 'danger', message: "文字或者图片，至少需要一样" });
+            return;
+        }
         let user = app.getUser();
         if(!user){
             user = wx.getStorageSync('user');

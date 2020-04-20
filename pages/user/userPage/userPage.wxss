@@ -1,0 +1,83 @@
+/* 整个页面 */
+.main {
+  background-color: teal;
+  padding: 60rpx 0rpx 10rpx 0rpx;
+  /* 签名 */
+}
+.main .head-img {
+  padding: 0rpx 20rpx;
+}
+.main .head-name-col {
+  height: 100px;
+  padding-top: 10px;
+}
+.main .head-name {
+  display: flex;
+  flex-direction: row;
+}
+.main .head-name .name {
+  color: #4747d8;
+  font-size: 38rpx;
+  font-weight: 700;
+  padding-right: 12rpx;
+}
+.main .head-name .head-name-n text {
+  display: inline-block;
+  margin-left: 10rpx;
+  height: 34rpx;
+  line-height: 34rpx;
+  font-size: 30rpx;
+  border-radius: 4px;
+  color: white;
+}
+.main .head-teamjob {
+  display: flex;
+  flex-direction: row;
+  margin-top: 12rpx;
+}
+.main .head-teamjob .job {
+  margin-left: 14rpx;
+}
+.main .head-run {
+  display: flex;
+  flex-direction: row;
+  margin-top: 12rpx;
+}
+.main .head-run text {
+  color: white;
+}
+.main .head-run .time {
+  margin-left: 14rpx;
+}
+.main .head-info {
+  font-size: 30rpx;
+  margin-top: 10rpx;
+  text-align: center;
+  letter-spacing: 1px;
+  color: white;
+}
+.main .run-data {
+  margin-top: 16rpx;
+  padding: 15rpx 0rpx;
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+}
+.main .run-data .item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.main .run-data .item .value {
+  color: white;
+}
+.main .run-data .item .name {
+  margin-top: 7rpx;
+}
+.head-modal {
+  background-color: white;
+  z-index: 10;
+}
+.head-modal .modal-title {
+  display: inline-block;
+}
