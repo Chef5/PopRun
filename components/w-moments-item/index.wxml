@@ -7,7 +7,7 @@
         <view class="title">{{data.nickname}}</view>
         <view class="info">{{data.info}}</view>
         <view class="content">
-            <view class="content-text">
+            <view class="content-text" wx:if="{{ data.text != null }}">
                 <text>{{data.text}}</text>
             </view>
             <view class="content-img">

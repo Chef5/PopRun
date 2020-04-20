@@ -1,0 +1,91 @@
+/* 整个页面 */
+.main{
+    background-color: teal;
+    padding: 60rpx 0rpx 10rpx 0rpx;
+    .head-img{
+        padding: 0rpx 20rpx;
+    }
+    .head-name-col{
+        height: 100px;
+        padding-top: 10px;
+    }
+    // 用户昵称等
+    .head-name{
+        display: flex;
+        flex-direction: row;
+        .name{
+            color: #4747d8;
+            font-size: 38rpx;
+            font-weight: 700;
+            padding-right: 12rpx;
+        }
+        .head-name-n text{
+            display: inline-block;
+            margin-left: 10rpx;
+            height: 34rpx;
+            line-height: 34rpx;
+            font-size: 30rpx;
+            border-radius: 4px;
+            color: white;
+        }
+    }
+    // 校区职业
+    .head-teamjob{
+        display: flex;
+        flex-direction: row;
+        margin-top: 12rpx;
+        .job {
+            margin-left: 14rpx;
+        }
+    }
+    .head-run{
+        display: flex;
+        flex-direction: row;
+        margin-top: 12rpx;
+        text{
+            color: white;
+        }
+        .time {
+            margin-left: 14rpx;
+        }
+    }
+    /* 签名 */
+    .head-info{
+        font-size: 30rpx;
+        margin-top: 10rpx;
+        text-align: center;
+        letter-spacing: 1px;
+        color: white;
+    }
+    // 运动数据
+    .run-data{
+        margin-top: 16rpx;
+        // border: 1px solid black;
+        padding: 15rpx 0rpx;
+        display: flex;
+        flex-direction: row;
+        text-align: center;
+        .item{
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            .value{
+                color: white
+            }
+            .name{
+                margin-top: 7rpx;
+            }
+        }
+    }
+}
+
+// 勋章
+.head-modal{
+    background-color: white;
+    z-index: 10;
+    .modal-title{
+        display: inline-block;
+        // width: 90rpx;
+    }
+}
+// 动态

@@ -1,0 +1,11 @@
+{
+  "usingComponents": {
+    "van-tag": "@vant/weapp/tag/index",
+    "w-modals-item": "/components/w-modals-item/index",
+    "van-cell": "@vant/weapp/cell/index",
+    "van-cell-group": "@vant/weapp/cell-group/index",
+    "van-grid": "@vant/weapp/grid/index",
+    "van-grid-item": "@vant/weapp/grid-item/index",
+    "w-moments-item": "/components/w-moments-item/index"
+  }
+}

@@ -7,7 +7,7 @@
         <van-col span="24">
             <view class="head-con">
                 <view class="head-edit">
-                    <van-icon name="eye-o" custom-class="icon-head" size="1.2em" color="white" />
+                    <van-icon name="eye-o" bind:click="goToPreview" custom-class="icon-head" size="1.2em" color="white" />
                     <van-icon name="edit" bind:click="goToEdit" custom-class="icon-head" size="1.2em" color="white" />
                 </view>
                 <view class="head-img">

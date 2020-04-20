@@ -1,0 +1,130 @@
+<van-notify id="van-notify" />
+
+<view class="main" wx:if="{{!isShowloading}}">
+    <van-row>
+        <van-col span="8">
+            <view class="head-img">
+                <van-image
+                    width="100"
+                    height="100"
+                    round
+                    fit="cover"
+                    src="{{user.img}}"
+                    />
+            </view>
+        </van-col>
+        
+        <van-col span="16" custom-class="head-name-col">
+            <view class="head-name">
+                <view class="name">{{user.nickname}}</view>
+                <view class="head-name-n">
+                    <van-tag plain type="success" size="medium">{{user.honors.desc}}</van-tag>
+                    <van-tag mark type="success" size="medium">
+                        {{user.honors.name}}{{user.sex=="2" ? "妹子":"汉子"}}
+                    </van-tag>
+                </view>
+            </view>
+            <view class="head-teamjob">
+                <van-icon name="diamond" size="20px" />
+                <view wx:if="{{ privacy.team==1 }}">{{user.team}}</view>
+                <view class="job" wx:if="{{ privacy.job==1 }}">{{user.job}}</view>
+                <view wx:if="{{ privacy.team!=1 }}">******</view>
+                <view class="job" wx:if="{{ privacy.job!=1 }}">***</view>
+            </view>
+            <view class="head-run">
+                <van-icon name="award" size="20px" />
+                <view wx:if="{{ privacy.run==1 }}">累计里程：<text>{{runs.sumD}}km</text></view>
+                <!-- <view class="time" wx:if="{{ privacy.run==1 }}">累计时长：{{user.sumT}}分钟</view> -->
+                <view wx:if="{{ privacy.run!=1 }}">累计里程：<text>***km</text></view>
+                <!-- <view class="time" wx:if="{{ privacy.run!=1 }}">累计时长：***分钟</view> -->
+            </view>
+        </van-col>
+    </van-row>
+
+    <van-row>
+        <view class="head-info">
+            {{user.info || '这个人很懒，什么都没有留下'}}
+        </view>
+    </van-row>
+    <!-- 运动数据 -->
+    <van-row>
+        <view class="run-data" wx:if="{{ privacy.run==1 }}">
+            <view class="item">
+                <view class="value">{{runs.times}}</view>
+                <view class="name">累计次数</view>
+            </view>
+            <view class="item">
+                <view class="value">{{runs.sumT}}分钟</view>
+                <view class="name">累计时长</view>
+            </view>
+            <view class="item">
+                <view class="value">{{runs.maxD}}km</view>
+                <view class="name">最大里程</view>
+            </view>
+            <view class="item">
+                <view class="value">{{runs.maxT}}分钟</view>
+                <view class="name">最大时长</view>
+            </view>
+            <view class="item">
+                <view class="value">{{runs.avgS}}</view>
+                <view class="name">平均速度</view>
+            </view>
+        </view>
+        <view class="run-data" wx:if="{{ privacy.run!=1 }}">
+            <view class="item">
+                <view class="value">***</view>
+                <view class="name">累计次数</view>
+            </view>
+            <view class="item">
+                <view class="value">***分钟</view>
+                <view class="name">累计时长</view>
+            </view>
+            <view class="item">
+                <view class="value">***km</view>
+                <view class="name">最大里程</view>
+            </view>
+            <view class="item">
+                <view class="value">***分钟</view>
+                <view class="name">最大时长</view>
+            </view>
+            <view class="item">
+                <view class="value">**'**"</view>
+                <view class="name">平均速度</view>
+            </view>
+        </view>
+    </van-row>
+</view>
+
+<!-- 勋章 -->
+<van-row>
+    <van-cell value="更多" custom-class="head-modal" icon="medal-o" is-link>
+        <view slot="title">
+            <view class="van-cell-text">
+                <text class="modal-title">{{ta}}获得的勋章</text>
+                <!-- <van-tag round type="warning" wx:if="{{user.medals.length>0}}">{{user.medals.length}}</van-tag> -->
+            </view>
+        </view>
+    </van-cell>
+    <view class="body-modal">
+        <van-grid column-num="4" border="{{false}}">
+            <van-grid-item use-slot wx:for="{{ user.medals }}" wx:for-item="medal" wx:key="index" wx:if="{{index<4}}">
+                <w-modals-item medal="{{medal}}"></w-modals-item>
+            </van-grid-item>
+        </van-grid>
+    </view>
+</van-row>
+
+<!-- 动态 -->
+<van-cell value="更多" custom-class="head-modal" icon="medal-o" is-link>
+    <view slot="title">
+        <view class="van-cell-text">
+            <text class="modal-title">{{ta}}的动态</text>
+            <!-- <van-tag round type="warning" wx:if="{{user.medals.length>0}}">{{user.medals.length}}</van-tag> -->
+        </view>
+    </view>
+</van-cell>
+<view class="body-moment">
+    <view wx:for="{{moments}}" wx:for-item="moment" wx:key="moment">
+        <w-moments-item moment="{{moment}}" bind:doDeleteMoment="doDeleteMoment"></w-moments-item>
+    </view>
+</view>
