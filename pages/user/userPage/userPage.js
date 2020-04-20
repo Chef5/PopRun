@@ -14,7 +14,6 @@ Page({
      */
     onLoad: function (options) {
         let that = this;
-        options.rid = 10;
         if(options.rid){ //从其他入口查看
             this.requestUserData(options.rid).then((res)=>{
                 res.medals = that.parseMedals(res.medals);
