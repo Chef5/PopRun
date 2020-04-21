@@ -1,0 +1,10 @@
+
+<van-loading size="24px" vertical custom-class="loading" wx:if="{{isShowloading}}">加载中...</van-loading>
+
+<view class="modals-body" wx:if="{{!isShowloading}}">
+    <van-grid column-num="4" border="{{false}}">
+        <van-grid-item use-slot wx:for="{{ medals }}" wx:for-item="medal" wx:key="index" wx:if="{{index<4}}">
+            <w-modals-item medal="{{medal}}"></w-modals-item>
+        </van-grid-item>
+    </van-grid>
+</view>

@@ -1,4 +1,5 @@
 <van-notify id="van-notify" />
+<van-loading size="24px" vertical custom-class="loading" wx:if="{{isShowloading}}">加载中...</van-loading>
 
 <view class="main" wx:if="{{!isShowloading}}">
     <van-row>
@@ -97,7 +98,7 @@
 
 <!-- 勋章 -->
 <van-row>
-    <van-cell value="更多" custom-class="head-modal" icon="medal-o" is-link>
+    <van-cell value="更多" custom-class="head-modal" icon="medal" is-link url="../modals/modals?rid={{user.rid}}&ta={{ta}}">
         <view slot="title">
             <view class="van-cell-text">
                 <text class="modal-title">{{ta}}获得的勋章</text>
@@ -115,7 +116,7 @@
 </van-row>
 
 <!-- 动态 -->
-<van-cell value="更多" custom-class="head-modal" icon="medal-o" is-link>
+<van-cell custom-class="head-modal" icon="live">
     <view slot="title">
         <view class="van-cell-text">
             <text class="modal-title">{{ta}}的动态</text>

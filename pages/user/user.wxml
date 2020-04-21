@@ -67,7 +67,7 @@
 
     <van-row custom-class="modal">
         <van-col span="24">
-            <van-cell value="更多" custom-class="head-modal" icon="medal-o" is-link>
+            <van-cell value="更多" custom-class="head-modal" icon="medal-o" is-link url="modals/modals?rid={{user.rid}}" >
                 <view slot="title">
                     <view class="van-cell-text">
                         <text class="body-modal-title">勋章墙</text>
