@@ -1,13 +1,14 @@
-const app = getApp();
-import Notify from '@vant/weapp/notify/notify';
+
 import Toast from '@vant/weapp/toast/toast';
+const app = getApp();
+
 Page({
 
     /**
      * 页面的初始数据
      */
     data: {
-        isShowloading: true,
+        isShowloading: true
     },
 
     /**
@@ -15,31 +16,14 @@ Page({
      */
     onLoad: function (options) {
         let that = this;
-        if(options.rid){ //从其他入口查看
-            this.requestUserData(options.rid).then((res)=>{
-                res.medals = that.parseMedals(res.medals);
-                that.setData({ user: res });
-                that.initData(options.rid);
-                that.parseSex(res.sex);
-            })
-        }else{  //从个人中心预览自己
-            this.eventChannel = this.getOpenerEventChannel();
-            this.eventChannel.on('getDataFromUserPage', function(data) {
-                that.setData({ user: data });
-                that.initData(data.rid);
-                that.parseSex(data.sex);
-            })
-        }
-
-        //获取动态
+        this.eventChannel = this.getOpenerEventChannel();
+        this.eventChannel.on('getDataFromUserPage', function(data) {
+            that.setData({ user: data });
+            that.initMoment();
+        })
     },
 
-    initData(rid){
-        this.requestUserRunData(rid);
-        this.requestUserPrivacy(rid);
-        this.initMoment();
-    },
-
+    
     // 初始化动态
     initMoment() {
         let moments = [], that = this;
@@ -53,7 +37,8 @@ Page({
                     that.setData({ 
                         moments,
                         pageindex: res.data.data.pageindex,
-                        pagesize : res.data.data.pagesize
+                        pagesize : res.data.data.pagesize,
+                        isShowloading: false
                     });
                 }else{
                     Toast('没有更多了');
@@ -63,7 +48,7 @@ Page({
                 console.log(res);
             })
     },
-    
+
     /**
      * 页面相关事件处理函数--监听用户下拉动作
      */
@@ -76,6 +61,13 @@ Page({
             app.stopRefresh();
             Notify({ type: 'success', message: '刷新成功' });
         })
+    },
+
+    /**
+     * 用户点击右上角分享
+     */
+    onShareAppMessage: function () {
+
     },
 
     /**
@@ -106,112 +98,6 @@ Page({
             .catch((res)=>{
                 console.log(res);
             })
-    },
-
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage: function () {
-
-    },
-
-    //获取用户数据
-    requestUserData (rid) {
-        return new Promise((resolve, reject)=>{
-            wx.request({
-                url: app.config.getHostUrl() + '/api/user/getUserAll',
-                data: { rid },
-                header: {'content-type':'application/json'},
-                method: 'post',
-                success: (result)=>{
-                    if(result.data.isSuccess){
-                        resolve(result.data.data);
-                    }else{
-                        reject(result.data.msg);
-                    }
-                },
-                fail: ()=>{
-                    reject('网络错误！');
-                },
-                complete: ()=>{}
-            });
-        })
-    },
-
-    //获取用户运动数据
-    requestUserRunData (rid) {
-        let that = this;
-        wx.request({
-            url: app.config.getHostUrl() + '/api/user/getMyRunsData',
-            data: { rid },
-            header: {'content-type':'application/json'},
-            method: 'GET',
-            success: (result)=>{
-                if(result.data.isSuccess){
-                    that.setData({
-                        runs: result.data.data
-                    })
-                }
-            },
-            fail: ()=>{},
-            complete: ()=>{}
-        });
-    },
-
-    //获取用户隐私设置
-    requestUserPrivacy (rid) {
-        let that = this;
-        wx.request({
-            url: app.config.getHostUrl() + '/api/user/getProvicy',
-            data: { rid },
-            header: {'content-type':'application/json'},
-            method: 'GET',
-            success: (result)=>{
-                if(result.data.isSuccess){
-                    that.setData({
-                        privacy: result.data.data,
-                        isShowloading: false
-                    })
-                }
-            },
-            fail: ()=>{},
-            complete: ()=>{}
-        });
-    },
-
-    // 处理勋章数据
-    parseMedals: function (medals) {
-        if(medals == []) return medals;
-        let nmedals = [];
-        for (let i = 0; i < medals.length; i++) {
-        if (medals[i] == undefined) continue;
-        let outer = medals[i];
-        let item = [outer]; //内循收集
-        for (let n = i + 1; n < medals.length; n++) {
-            if (outer.type == 0) break;
-            if (medals[n] == undefined) continue;
-            let inner = medals[n];
-            if (outer.meid == inner.meid) {
-            item.push(inner);
-            delete medals[n];  //用splice不行，因为n的最大值在循环开始就确定了
-            }
-        }
-        nmedals.push(item);
-        }
-        return nmedals;
-    },
-
-    //处理用户性别
-    parseSex(sex) {
-        let ta = null;
-        if(sex==0){
-            ta = "Ta";
-        }else if(sex==1){
-            ta = "他";
-        }else{
-            ta = "她";
-        }
-        this.setData({ ta });
     },
 
     /**

@@ -5,9 +5,23 @@ App({
   onLaunch: function () {
     var that = this;
     //初始化tabbar状态
-    this.globalData.status.tabbar.forEach(function(item,index){
-      that.setTabbar(index, item)
-    })
+    let user = wx.getStorageSync('user');
+    if(user){
+        user = JSON.parse(user);
+        that.getNotices(user.rid, 0).then((res)=>{
+            let moment = 0;
+            let tabbar = that.globalData.status.tabbar;
+            for(let i=0; i<res.length; i++){
+                if(res[i].type !=0 && res[i].read==0 ) moment++;
+            }
+            tabbar[1] = { dot: false, number: moment}; //动态圈子
+            that.globalData.status.tabbar = tabbar;
+            
+            that.globalData.status.tabbar.forEach(function(item,index){
+              that.setTabbar(index, item)
+            })
+        })
+    }
   },
   globalData: {
     status: {
@@ -17,16 +31,16 @@ App({
           number: 0
         },
         {
-          dot: true,
-          number: 12
-        },
-        {
-          dot: true,
+          dot: false,
           number: 0
         },
         {
-          dot: true,
-          number: 2
+          dot: false,
+          number: 0
+        },
+        {
+          dot: false,
+          number: 0
         }
       ]
     }
@@ -36,6 +50,8 @@ App({
    *******************************/
   /**
    * 设置tabbar状态
+   * index: 第几个tab，0~3
+   * value: { dot:boolean, number:number }
    */
   setTabbar: function(index, value){
     if(value.number==0 || value.number==null || value.number==undefined){//取消数字，设置红点
@@ -283,5 +299,33 @@ App({
     // 隐藏顶部刷新图标
     wx.hideNavigationBarLoading();
   },
+
+  /**  
+   * 获取通知
+   * type: 1点赞，2评论，0系统通知
+   * read: 0未读，1已读
+   */
+  getNotices: function(rid, read, type){
+    if(!rid) return false;
+    let data = { rid };
+    if(type) data.push(type);
+    if(read) data.push(read);
+    return new Promise((resolve, reject)=>{
+      wx.request({
+        url: this.config.getHostUrl()+'/api/main/getNotice',
+        data: data,
+        method: 'POST',
+        success: (result)=>{
+          if(result.data.isSuccess){
+            resolve(result.data.data)
+          }else{
+            reject(result.data.msg)
+          }
+        },
+        fail: ()=>{},
+        complete: ()=>{}
+      });
+    })
+  }
 
 })

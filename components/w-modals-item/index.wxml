@@ -1,6 +1,6 @@
 
 
-<view class="count" wx:if="{{ data[0].type == 1 }}">
+<view class="count" wx:if="{{ data[0].type == 1 && data.length!=1 }}">
   <van-tag round type="warning">{{ data.length }}</van-tag>
 </view>
 <view class="img" catch:tap="showDetail">

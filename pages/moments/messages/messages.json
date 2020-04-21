@@ -1,12 +1,10 @@
 {
   "usingComponents": {
-    "w-moments-item": "/components/w-moments-item/index",
     "van-icon": "@vant/weapp/icon/index",
-    "van-popup": "@vant/weapp/popup/index",
     "van-swipe-cell": "@vant/weapp/swipe-cell/index",
     "van-cell": "@vant/weapp/cell/index",
     "van-cell-group": "@vant/weapp/cell-group/index",
     "van-tag": "@vant/weapp/tag/index"
   },
-  "enablePullDownRefresh": true
+  "navigationBarTitleText": "消息通知"
 }

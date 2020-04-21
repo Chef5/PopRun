@@ -1,0 +1,47 @@
+.con{
+    display: flex;
+    flex-direction: column;
+    .item{
+        // margin: 2px 0px;
+        border-bottom: 1px solid rgb(236, 236, 236);
+        .msg{
+            padding: 0rpx 28rpx;
+            font-size: 28rpx;
+            color: gray;
+            padding: 4px 12px;
+        }
+        .green,.red{
+            display: box;
+            box-orient: horizontal;
+            box-pack: center;
+            box-align: center;
+            display: -webkit-box;
+            -webkit-box-orient: horizontal;
+            -webkit-box-pack: center;
+            -webkit-box-align: center;
+
+            color: white;
+            text-align: center;
+            width: 45px;
+            height: 100%;
+        }
+        .green{
+            background-color: green;
+        }
+        .red{
+            background-color: red;
+        }
+    }
+}
+
+.btns{
+    position: fixed;
+    bottom: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    text-align: center;
+    .btn{
+        flex: 1;
+    }
+}

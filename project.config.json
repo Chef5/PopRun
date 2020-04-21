@@ -109,10 +109,17 @@
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 7,
 					"name": "用户个人主页",
 					"pathName": "pages/user/userPage/userPage",
-					"query": "个人中心",
+					"query": "rid=10",
+					"scene": null
+				},
+				{
+					"id": 8,
+					"name": "消息盒子",
+					"pathName": "pages/moments/messages/messages",
+					"query": "rid=10&type=moment",
 					"scene": null
 				}
 			]
