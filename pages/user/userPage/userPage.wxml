@@ -1,4 +1,5 @@
 <van-notify id="van-notify" />
+<van-toast id="van-toast" />
 <van-loading size="24px" vertical custom-class="loading" wx:if="{{isShowloading}}">加载中...</van-loading>
 
 <view class="main" wx:if="{{!isShowloading}}">

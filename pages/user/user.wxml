@@ -57,7 +57,7 @@
                 <view class="menu-card-icon">
                     <van-icon name="live" size="40" color="white" />
                 </view>
-                <view class="menu-card-title">
+                <view class="menu-card-title" catchtap="goToMyMoments">
                     我的动态
                 </view>
             </view>

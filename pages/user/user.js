@@ -81,7 +81,7 @@ Page({
       complete: ()=>{}
     });
   },
-  //跳转到用户编辑页面
+  //跳转到用户预览页面
   goToPreview: function(){
     let that = this;
     let user = that.data.user;
@@ -89,6 +89,20 @@ Page({
     user.medals = that.data.medals;
     wx.navigateTo({
       url: 'userPage/userPage',
+      success: (res)=>{
+        res.eventChannel.emit('getDataFromUserPage', user)
+      },
+      fail: ()=>{},
+      complete: ()=>{}
+    });
+  },
+
+  //跳转到我的动态页面
+  goToMyMoments: function(){
+    let that = this;
+    let user = that.data.user;
+    wx.navigateTo({
+      url: 'myMoments/myMoments',
       success: (res)=>{
         res.eventChannel.emit('getDataFromUserPage', user)
       },

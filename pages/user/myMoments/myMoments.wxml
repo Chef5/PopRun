@@ -1,0 +1,10 @@
+
+
+<van-toast id="van-toast" />
+<van-loading size="24px" vertical custom-class="loading" wx:if="{{isShowloading}}">加载中...</van-loading>
+
+<view class="body">
+    <view wx:for="{{moments}}" wx:for-item="moment" wx:key="moment">
+        <w-moments-item moment="{{moment}}" bind:doDeleteMoment="doDeleteMoment"></w-moments-item>
+    </view>
+</view>
