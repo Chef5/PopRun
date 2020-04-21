@@ -60,6 +60,7 @@ Page({
   getSwiper(){
     wx.request({
       url: app.config.getHostUrl() + '/api/pub/getSwipper',
+
       success: (res) => {
         // if (res.data.isSuccess) {
           console.log(res.data)
@@ -71,6 +72,7 @@ Page({
   getList(){
     wx.request({
       url: app.config.getHostUrl() + '/api/pub/getList',
+      method:"POST",
       success: (res) => {
         // if (res.data.isSuccess) {
         console.log(res.data)

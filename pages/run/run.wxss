@@ -187,7 +187,16 @@ map {
   bottom: 0;
   margin-bottom: 0.5vh;
 }
-
+.rankNum{
+  color: #72afec;
+  font-size: 40rpx;
+  font-weight: 600;
+  font-family: Arial,Verdana,Sans-serif;
+  /* padding-left: 10rpx; */
+}
+.my-cell .rankNum{
+  color: #fff;
+}
 /* 排行榜结束 */
 
 

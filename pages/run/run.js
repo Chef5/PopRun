@@ -2,7 +2,6 @@
 //获取应用实例
 const app = getApp();
 const format = require("../../utils/util");
-const formatSpeed = format.formatSpeed;
 import Dialog from '@vant/weapp/dialog/dialog';
 import Toast from '@vant/weapp/toast/toast';
 let point = [];
@@ -32,24 +31,7 @@ function distance(lat1, lng1, lat2, lng2) {
   distanceSum += s
   return distanceSum;
 }
-//最大最小速度，平均速度
-// function speed (speed) {
-//   let sum = 0, min = 0, max = 0, n = 1, avrSpeed=0;
-//   speed=Number(speed);
-//   if (speed<temp){
-//     max=temp;
-//     temp=speed;
-//     min = temp;
-//   }else{
-//     min=temp;
-//     temp=speed
-//     max=temp;
-//   }
-//   sum+=speed;
-//   n++;
-//   avrSpeed=sum/n;
-//   return { avrSpeed: avrSpeed, min:min, max:max};
-// }
+
 Page({
   data: {
     longitude: "",
@@ -59,9 +41,8 @@ Page({
     showMain: true,
     showRes: false,
     text: [],
-    showRight1: false,
-    active: 'week',
-    // showWeek:true,
+    showRight1: true,
+    active: 0,
     rankArr: [],
     myRank:{},
     secondes: "00",
@@ -73,7 +54,8 @@ Page({
     minSpeed: "--",
     avrSpeed: "--",
     heat: "0",
-    isShowImg: true,
+    isShowRankIcon: true,
+  
   },
   //事件处理函数
   bindViewTap: function() {},
@@ -87,7 +69,7 @@ Page({
 
     this.getlocation();
     this.getText();
-    this.getWeekRank();
+    // this.getRanking();
     //隐藏定位中信息进度
     wx.hideLoading()
   },
@@ -109,80 +91,77 @@ Page({
     this.setData({
       showRight1: !this.data.showRight1
     });
-    // this.showImg();
   },
 
   // 周榜月榜切换
   onRankChange(event) {
     this.setData({
-      active: event.detail.name
+      active: event.detail.index
     })
-    console.log(this.data.active)
+    this.getRanking(this.data.active);
   },
 
-  // 获取周榜
-  getWeekRank(week) {
+  // 获取排行榜并做数据处理
+  getRanking(_type) {
     let that = this;
     let user = app.getUser();
     wx.request({
-      url: app.config.getHostUrl() + '/api/run/getWeekrank',
+      url: app.config.getHostUrl() + '/api/run/getRanking',
       data: {
-        team: user.team
+        team: user.team,
+        type:_type
       },
       success: (res) => {
-        for (var e of res.data.data){
-          console.log(res.data)
-          e.avgS = format.formatSpeed(e.avgS)
-          if (e.rid == user.rid) {
-            that.setData({ myRank: e })
+        this.setData({ rankArr: that.showImg(res.data.data)})
+        let rankArr=this.data.rankArr;
+        // this.data.rankArr.forEach((e,i)=>{
+        //   e.avgS = format.formatSpeed(e.avgS)
+        //   if (e.rid == user.rid) {
+        //     e.index = i;
+        //     that.setData({ myRank: e })
+        //     break;
+        //   } else {
+        //     that.setData({ myRank: user })
+        //   }
+        // })
+        for (let i = 0; i<rankArr.length;i++){
+          rankArr[i].avgS = format.formatSpeed(rankArr[i].avgS)
+          if (rankArr[i].rid == user.rid) {
+            rankArr[i].index = i;
+            that.setData({ myRank: rankArr[i] })
+            break;
+          } else {
+            that.setData({ myRank: user })
           }
         }
-        that.setData({ rankArr: res.data.data })
-        console.log(format.formatSpeed(0))
-        // res.data.data.forEach(e =>  that.data.text.push(e.hitokoto) )
+      //   for (let e of this.data.rankArr){
+      //     e.avgS = format.formatSpeed(e.avgS)
+      //     if (e.rid == user.rid) {
+      //       // e.index=i;
+      //       that.setData({ myRank: e})
+      //       break;
+      //     }else{
+      //       that.setData({ myRank: user })
+      //     }
+      //   }
+        console.log(this.data.myRank)
       },
     })
   },
-  // 获取月榜
-  getMonthRank() {
-    let that = this;
-    let user = app.getUser();
-    wx.request({
-      url: app.config.getHostUrl() + '/api/run/getMonthrank',
-      data: {
-        team: user.team
-      },
-      success: (res) => {
-        for (var e of res.data.data) {
-          console.log(res.data)
-          e.avgS = format.formatSpeed(e.avgS)
-          if (e.rid == user.rid) {
-            that.setData({ myRank: e })
-          }
-        }
-        that.setData({ rankArr: res.data.data })
-        console.log(format.formatSpeed(0))
-        // res.data.data.forEach(e =>  that.data.text.push(e.hitokoto) )
-        console.log(res.data)
-      },
-    })
-  },
+ 
   // 排行榜前三名显示冠亚季图片 
-  // showImg(){
-  //   let that=this;
-  //   this.data.rankArr.forEach((e,i)=>{
-  //     console.log(e,i)
-  //     if(i<=2){
-  //       that.setData({
-  //         isShowImg:true
-  //       })
-  //     }else{
-  //       that.setData({
-  //         isShowImg:false
-  //       })
-  //     }
-  //   })
-  // },
+  showImg(rankArr){
+    let that=this;
+    rankArr.forEach((e,i)=>{
+      if(i<=2){
+        e.isShowRankIcon=true;
+        e.rankImg ="../../imgs/run/"+(i+1)+".png"
+      }else{
+        e.isShowRankIcon = false;
+      }
+    })
+    return rankArr
+  },
   // 秒表计时器
   getTime: function() {
     count++;
