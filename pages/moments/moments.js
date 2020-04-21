@@ -11,38 +11,30 @@ Page({
      * 页面的初始数据
      */
     data: {
-        isShowMenu: false,
+        isShowMenu: false,    //侧滑菜单
+        isShowMessages: false,//消息盒子
         isShowloading: false,
         moments: [],
         pageindex: 0,
         pagesize: 10,
+        unreadMessagesNum: 0, //未读信息
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+        let that = this;
         this.refreshMoments();
-    },
-
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady: function () {
-
+        this.setData({
+            unreadMessagesNum: app.globalData.status.tabbar[1].number
+        })
     },
 
     /**
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-
-    },
-
-    /**
-     * 生命周期函数--监听页面隐藏
-     */
-    onHide: function () {
 
     },
 
@@ -198,11 +190,35 @@ Page({
             // }
         }
     },
+
+    // 开启侧滑菜单
+    openMenu: function (){
+        this.setData({
+            isShowMenu: true
+        })
+    },
+
+    // 开启消息盒子
+    openMessage: function (){
+        // this.setData({
+        //     isShowMessages: true
+        // })
+        let user = wx.getStorageSync('user');
+        if(user){
+            user = JSON.parse(user);
+            wx.navigateTo({
+                url: 'messages/messages?rid='+user.rid+'&type=moment',
+                fail: ()=>{},
+                complete: ()=>{}
+            });
+        }
+    },
     
-    // 关闭侧滑菜单
+    // 关闭侧滑菜单和消息盒子
     onMenuClose: function(){
         this.setData({
-            isShowMenu: false
+            isShowMenu: false,
+            isShowMessages: false
         })
     },
 
@@ -235,5 +251,5 @@ Page({
             }
         })
     }
-    
+
 })

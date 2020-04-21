@@ -114,6 +114,13 @@
 					"pathName": "pages/user/userPage/userPage",
 					"query": "rid=10",
 					"scene": null
+				},
+				{
+					"id": 8,
+					"name": "消息盒子",
+					"pathName": "pages/moments/messages/messages",
+					"query": "rid=10&type=moment",
+					"scene": null
 				}
 			]
 		}

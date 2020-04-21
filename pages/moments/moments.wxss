@@ -1,16 +1,82 @@
-/* pages/moments/moments.wxss */
-.menu{
-    width: 50px;
-    padding: 50rpx 10rpx;
-    border-radius: 36rpx 0 0 36rpx;
-    background-color: white;
+.slidemenu {
+  z-index: 11;
+  position: fixed;
+  right: 0;
+  top: 0;
+  width: 14px;
+  height: 100%;
+  display: flex;
+  align-items: center;
 }
-.add-icon{
-    position: fixed;
-    top: 50%;
-    right: 0rpx;
+.slidemenu .img {
+  width: 14px;
+  height: 120px;
 }
-.add-background{
-    background-color: white;
-    border-radius: 50%;
+.menu {
+  width: 70px;
+  padding: 20rpx 10rpx;
+  border-radius: 30px 0 0 30px;
+  background-color: white;
+  z-index: 100;
+}
+.menu .main-item {
+  text-align: center;
+  margin: 15px 0px;
+}
+.menu .main-item .add-background {
+  background-color: white;
+}
+.menu .main-item .title {
+  width: 60px;
+  font-size: 20rpx;
+}
+.messages {
+  width: 68%;
+  height: 100%;
+  background-color: white;
+  z-index: 100;
+}
+.messages .messages-box {
+  width: 100%;
+  margin: 15px 0px 10px;
+}
+.messages .messages-box .title {
+  width: 100%;
+  text-align: center;
+  padding-bottom: 10rpx;
+  border-bottom: 1px solid gray;
+}
+.messages .messages-box .con {
+  display: flex;
+  flex-direction: column;
+}
+.messages .messages-box .con .item {
+  border-bottom: 1px solid gray;
+}
+.messages .messages-box .con .item .msg {
+  padding: 0rpx 28rpx;
+  font-size: 28rpx;
+  color: gray;
+  padding: 3px 12px;
+}
+.messages .messages-box .con .item .green,
+.messages .messages-box .con .item .red {
+  display: box;
+  box-orient: horizontal;
+  box-pack: center;
+  box-align: center;
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-pack: center;
+  -webkit-box-align: center;
+  color: white;
+  text-align: center;
+  width: 45px;
+  height: 100%;
+}
+.messages .messages-box .con .item .green {
+  background-color: green;
+}
+.messages .messages-box .con .item .red {
+  background-color: red;
 }

@@ -1,0 +1,45 @@
+.con {
+  display: flex;
+  flex-direction: column;
+}
+.con .item {
+  border-bottom: 1px solid #ececec;
+}
+.con .item .msg {
+  padding: 0rpx 28rpx;
+  font-size: 28rpx;
+  color: gray;
+  padding: 4px 12px;
+}
+.con .item .green,
+.con .item .red {
+  display: box;
+  box-orient: horizontal;
+  box-pack: center;
+  box-align: center;
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-pack: center;
+  -webkit-box-align: center;
+  color: white;
+  text-align: center;
+  width: 45px;
+  height: 100%;
+}
+.con .item .green {
+  background-color: green;
+}
+.con .item .red {
+  background-color: red;
+}
+.btns {
+  position: fixed;
+  bottom: 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+}
+.btns .btn {
+  flex: 1;
+}

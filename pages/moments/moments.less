@@ -1,0 +1,91 @@
+// 侧边框
+.slidemenu{
+    z-index: 11;
+    position: fixed;
+    right: 0;
+    top: 0;
+    // background-color: gray;
+    width: 14px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    .img{
+        width: 14px;
+        height: 120px;
+    }
+}
+
+
+
+//侧滑菜单弹窗
+.menu{
+    width: 70px;
+    padding: 20rpx 10rpx;
+    border-radius: 30px 0 0 30px;
+    background-color: white;
+    z-index: 100;
+    .main-item{
+        text-align: center;
+        margin: 15px 0px;
+        .add-background{
+            background-color: white;
+        }
+        .title{
+            width: 60px;
+            font-size: 20rpx;
+        }
+    }
+}
+
+//消息盒子
+.messages{
+    width: 68%;
+    height: 100%;
+    background-color: white;
+    z-index: 100;
+    .messages-box{
+        width: 100%;
+        margin: 15px 0px 10px;
+        .title{
+            width: 100%;
+            text-align: center;
+            padding-bottom: 10rpx;
+            border-bottom: 1px solid gray;
+        }
+        .con{
+            display: flex;
+            flex-direction: column;
+            .item{
+                // margin: 2px 0px;
+                border-bottom: 1px solid gray;
+                .msg{
+                    padding: 0rpx 28rpx;
+                    font-size: 28rpx;
+                    color: gray;
+                    padding: 3px 12px;
+                }
+                .green,.red{
+                    display: box;
+                    box-orient: horizontal;
+                    box-pack: center;
+                    box-align: center;
+                    display: -webkit-box;
+                    -webkit-box-orient: horizontal;
+                    -webkit-box-pack: center;
+                    -webkit-box-align: center;
+
+                    color: white;
+                    text-align: center;
+                    width: 45px;
+                    height: 100%;
+                }
+                .green{
+                    background-color: green;
+                }
+                .red{
+                    background-color: red;
+                }
+            }
+        }
+    }
+}
