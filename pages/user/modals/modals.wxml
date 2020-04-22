@@ -3,7 +3,7 @@
 
 <view class="modals-body" wx:if="{{!isShowloading}}">
     <van-grid column-num="4" border="{{false}}">
-        <van-grid-item use-slot wx:for="{{ medals }}" wx:for-item="medal" wx:key="index" wx:if="{{index<4}}">
+        <van-grid-item use-slot wx:for="{{ medals }}" wx:for-item="medal" wx:key="index">
             <w-modals-item medal="{{medal}}"></w-modals-item>
         </van-grid-item>
     </van-grid>

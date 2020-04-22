@@ -35,7 +35,24 @@ Page({
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
-
+        // 获取消息通知
+        let user = wx.getStorageSync('user'), that = this;
+        if(user){
+            user = JSON.parse(user);
+            app.getNotices(user.rid, 0).then((res)=>{
+                let moment = 0;
+                let tabbar = app.globalData.status.tabbar;
+                for(let i=0; i<res.length; i++){
+                    if(res[i].type !=0 && res[i].read==0 ) moment++;
+                }
+                tabbar[1] = { dot: false, number: moment}; //动态圈子
+                app.globalData.status.tabbar = tabbar;
+                app.setTabbar(1, { dot: false, number: moment}); //动态圈子
+                that.setData({
+                    unreadMessagesNum: moment  
+                })
+            })
+        }
     },
 
     /**

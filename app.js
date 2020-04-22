@@ -7,20 +7,20 @@ App({
     //初始化tabbar状态
     let user = wx.getStorageSync('user');
     if(user){
-        user = JSON.parse(user);
-        that.getNotices(user.rid, 0).then((res)=>{
-            let moment = 0;
-            let tabbar = that.globalData.status.tabbar;
-            for(let i=0; i<res.length; i++){
-                if(res[i].type !=0 && res[i].read==0 ) moment++;
-            }
-            tabbar[1] = { dot: false, number: moment}; //动态圈子
-            that.globalData.status.tabbar = tabbar;
-            
-            that.globalData.status.tabbar.forEach(function(item,index){
-              that.setTabbar(index, item)
-            })
-        })
+      user = JSON.parse(user);
+      that.getNotices(user.rid, 0).then((res)=>{
+          let moment = 0;
+          let tabbar = that.globalData.status.tabbar;
+          for(let i=0; i<res.length; i++){
+              if(res[i].type !=0 && res[i].read==0 ) moment++;
+          }
+          tabbar[1] = { dot: false, number: moment}; //动态圈子
+          that.globalData.status.tabbar = tabbar;
+          
+          that.globalData.status.tabbar.forEach(function(item,index){
+            that.setTabbar(index, item)
+          })
+      })
     }
   },
   globalData: {
@@ -325,6 +325,52 @@ App({
         fail: ()=>{},
         complete: ()=>{}
       });
+    })
+  },
+  // 阅读消息
+  doRead(noids) {
+    if(!noids) return;
+    if(!(noids instanceof Array)){
+        noids = [ noids ];
+    }
+    return new Promise((resolve, reject)=>{
+        wx.request({
+            url: this.config.getHostUrl()+'/api/main/readNotice',
+            data: { noids },
+            method: 'POST',
+            success: (result)=>{
+                if(result.data.isSuccess){
+                    resolve(result)
+                }else{
+                    reject(result.data.msg)
+                }
+            },
+            fail: ()=>{},
+            complete: ()=>{}
+        });
+    })
+  },
+  // 删除消息
+  doDelete(noids) {
+    if(!noids) return;
+    if(!(noids instanceof Array)){
+        noids = [ noids ];
+    }
+    return new Promise((resolve, reject)=>{
+        wx.request({
+            url: this.config.getHostUrl()+'/api/main/delNotice',
+            data: { noids },
+            method: 'POST',
+            success: (result)=>{
+                if(result.data.isSuccess){
+                    resolve(result)
+                }else{
+                    reject(result.data.msg)
+                }
+            },
+            fail: ()=>{},
+            complete: ()=>{}
+        });
     })
   }
 

@@ -1,10 +1,10 @@
-<view class="con">
+<view class="con" wx:if="{{ messages.length != 0 }}">
     <view wx:for="{{ messages }}" wx:for-item="message" wx:key="message">
         <view class="item" wx:if="{{ message.type==0 }}">
-            <van-swipe-cell right-width="{{ 45 }}" left-width="{{ 45 }}">
+            <van-swipe-cell bind:click="onCellClick" data-noid="{{ message.noid }}" right-width="{{ 45 }}" left-width="{{ 45 }}">
                 <view slot="left" class="green">已读</view>
                 <van-cell-group>
-                    <van-cell label="{{ message.msg }}">
+                    <van-cell label="{{ message.msg +' '+ message.created_at }}">
                         <view slot="title">
                             <view class="van-cell-text">
                                 系统通知
@@ -18,12 +18,12 @@
             </van-swipe-cell>
         </view>
         <view class="item" wx:if="{{ message.type!=0 }}">
-            <van-swipe-cell right-width="{{ 45 }}" left-width="{{ 45 }}">
+            <van-swipe-cell bind:click="onCellClick" data-noid="{{ message.noid }}" right-width="{{ 45 }}" left-width="{{ 45 }}">
                 <view slot="left" class="green">已读</view>
                 <view class="msg">
                     <van-tag type="danger" wx:if="{{ message.read==0 }}">未读</van-tag>
                     <van-tag type="success" wx:if="{{ message.read==1 }}">已读</van-tag>
-                    {{ message.msg }}
+                    {{ message.msg +' '+ message.created_at  }}
                 </view>
                 <view slot="right" class="red">删除</view>
             </van-swipe-cell>
@@ -31,11 +31,16 @@
     </view>
 </view>
 
+<view class="empty" wx:if="{{ messages.length == 0 }}">
+    <image src="/imgs/empty.png" />
+    <view>空空如也~</view>
+</view>
+
 <view class="btns">
     <view class="btn">
-        <van-button type="primary">全部已读</van-button>
+        <van-button type="primary" bind:click="readAll">全部已读</van-button>
     </view>
     <view class="btn">
-        <van-button type="danger">全部删除</van-button>
+        <van-button type="danger" bind:click="deleteAll">全部删除</van-button>
     </view>
 </view>
