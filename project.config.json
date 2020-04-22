@@ -124,6 +124,7 @@
 				},
 				{
 					"id": -1,
+<<<<<<< HEAD
 					"name": "活动详细",
 					"pathName": "pages/pub/listDetail/listDetail",
 					"query": "",
@@ -148,6 +149,11 @@
 					"name": "活动详情",
 					"pathName": "pages/pub/listDetail/listDetail",
 					"query": "acid=3",
+=======
+					"name": "我的运动",
+					"pathName": "pages/user/myRuns/myRuns",
+					"query": "rid=10",
+>>>>>>> 44e1520ed01421b61a7d4d5cd67752c6c5c89bc4
 					"scene": null
 				}
 			]

@@ -1,0 +1,100 @@
+.run-item-box {
+  width: 100%;
+  margin-top: 25rpx;
+}
+.run-item-box .con {
+  width: 92%;
+  height: 120rpx;
+  margin: 0 auto;
+  border-radius: 60rpx;
+  background-color: #f1f1f1;
+  box-shadow: 5px 5px 5px rgba(104, 103, 103, 0.6);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.run-item-box .con .img {
+  width: 90rpx;
+  margin-left: 24rpx;
+  background-color: orange;
+  border-radius: 50%;
+}
+.run-item-box .con .data {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.run-item-box .con .data .some {
+  margin-left: 24rpx;
+  height: 100rpx;
+}
+.run-item-box .con .data .some .totle {
+  height: 65rpx;
+  line-height: 65rpx;
+  font-size: 32rpx;
+  color: black;
+}
+.run-item-box .con .data .some .totle text {
+  color: red;
+}
+.run-item-box .con .data .some .speed {
+  height: 35rpx;
+  line-height: 35rpx;
+  font-size: 26rpx;
+  color: gray;
+}
+.run-item-box .con .data .time {
+  position: absolute;
+  right: 90rpx;
+  font-size: 32rpx;
+  color: gray;
+}
+.run-item-box .con-hover {
+  box-shadow: 3px 3px 3px rgba(104, 103, 103, 0.6);
+}
+.ml {
+  margin-left: 20rpx;
+}
+/* 详细显示 */
+.detail {
+  width: 560rpx;
+  height: 720rpx;
+}
+.detail .d-img {
+  width: 100%;
+  text-align: center;
+  margin-top: 70rpx;
+}
+.detail .d-name {
+  width: 100%;
+  margin-top: 10rpx;
+  text-align: center;
+  font-size: 38rpx;
+  color: blueviolet;
+  font-weight: 700;
+}
+.detail .d-count {
+  width: 100%;
+  text-align: center;
+  font-size: 24rpx;
+  color: #919191;
+}
+.detail .d-desc {
+  margin: 30rpx auto;
+  width: 80%;
+  border: #e9e7e5 1px solid;
+  padding: 12rpx 30rpx;
+  border-radius: 5px;
+  min-height: 200rpx;
+  font-size: 30rpx;
+  color: #504e4e;
+}
+.detail .d-time {
+  width: 100%;
+  position: absolute;
+  bottom: 50rpx;
+  text-align: center;
+  font-size: 22rpx;
+  color: #afabab;
+}

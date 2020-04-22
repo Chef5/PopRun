@@ -24,61 +24,111 @@ Page({
                     }
                 }
                 that.setData({ messages });
-                if(count>0){
-                    wx.setNavigationBarTitle({
-                        title: '消息通知 '+count,
-                    });
-                }
+                that.setNavTitle(count);
             })
         }
     },
 
-    /**
-     * 生命周期函数--监听页面初次渲染完成
-     */
-    onReady: function () {
-
+    // 点击滑动块
+    onCellClick(e) {
+        switch (e.detail) {
+            case 'left':
+                this.doRead(e.target.dataset.noid);
+                break;
+            case 'right':
+                this.doDelete(e.target.dataset.noid);
+                break;
+        }
     },
 
-    /**
-     * 生命周期函数--监听页面显示
-     */
-    onShow: function () {
-
+    // 全部已读
+    readAll() {
+        let that = this;
+        let messages = this.data.messages;
+        if( messages.length >0 ){
+            let noids = [];
+            for(let i=0; i<messages.length; i++){
+                noids.push(messages[i].noid)
+            }
+            app.doRead(noids).then(res=>{
+                that.setData({ messages: res.data.data });
+                that.setNavTitle(0);
+            })
+        }else{
+            return false;
+        }
     },
 
-    /**
-     * 生命周期函数--监听页面隐藏
-     */
-    onHide: function () {
-
+    // 全部删除
+    deleteAll() {
+        let that = this;
+        let messages = this.data.messages;
+        if( messages.length >0 ){
+            let noids = [];
+            for(let i=0; i<messages.length; i++){
+                noids.push(messages[i].noid)
+            }
+            app.doDelete(noids).then(res=>{
+                that.setData({ messages: [] });
+                that.setNavTitle(0);
+            })
+        }else{
+            return false;
+        }
     },
 
-    /**
-     * 生命周期函数--监听页面卸载
-     */
-    onUnload: function () {
-
+    // 阅读消息
+    doRead(noid) {
+        let that = this;
+        app.doRead(noid).then(res=>{
+            let messages = that.data.messages;
+            for(let i=0; i<messages.length; i++){
+                if(messages[i].noid == noid){
+                    messages[i].read = 1;
+                    break;
+                }
+            }
+            that.setData({ messages });
+            that.setNavTitle();
+        })
+    },
+    // 删除消息
+    doDelete(noid) {
+        let that = this;
+        app.doDelete(noid).then(res=>{
+            let messages = that.data.messages;
+            messages = messages.filter(item=>{
+                return item.noid != noid;
+            })
+            that.setData({ messages });
+            that.setNavTitle();
+        })
     },
 
-    /**
-     * 页面相关事件处理函数--监听用户下拉动作
-     */
-    onPullDownRefresh: function () {
-
+    // 设置页面标题
+    setNavTitle(count) {
+        if(count==undefined){
+            let messages = this.data.messages;
+            count = messages.filter(item=>{
+                return item.read == 0;
+            }).length;
+        }
+        if(count>0){
+            wx.setNavigationBarTitle({
+                title: '消息通知 '+count,
+            });
+        }else{
+            wx.setNavigationBarTitle({
+                title: '消息通知',
+            });
+        }
     },
 
-    /**
-     * 页面上拉触底事件的处理函数
-     */
-    onReachBottom: function () {
-
+    // 格式化时间
+    formatHM(time){
+        let date = new Date(time);
+        console.log(date);
+        return (date.getHours()>10?date.getHours():'0'+date.getHours()) + 
+            ':' + (date.getMinutes()>10?date.getMinutes():'0'+date.getMinutes());
     },
-
-    /**
-     * 用户点击右上角分享
-     */
-    onShareAppMessage: function () {
-
-    }
 })

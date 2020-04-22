@@ -1,5 +1,7 @@
 
+import Notify from '@vant/weapp/notify/notify';
 import Toast from '@vant/weapp/toast/toast';
+
 const app = getApp();
 
 Page({

@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "van-divider": "@vant/weapp/divider/index",
+    "w-run-item": "/components/w-runs-item/index"
+  },
+  "navigationBarTitleText": "我的运动",
+  "enablePullDownRefresh": true
+}

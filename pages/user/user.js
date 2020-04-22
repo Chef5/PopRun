@@ -99,13 +99,23 @@ Page({
 
   //跳转到我的动态页面
   goToMyMoments: function(){
-    let that = this;
-    let user = that.data.user;
+    let user = app.getUser();
     wx.navigateTo({
       url: 'myMoments/myMoments',
       success: (res)=>{
         res.eventChannel.emit('getDataFromUserPage', user)
       },
+      fail: ()=>{},
+      complete: ()=>{}
+    });
+  },
+  
+  //跳转到我的运动页面
+  goToMyRuns: function(){
+    let user = app.getUser();
+    wx.navigateTo({
+      url: 'myRuns/myRuns?rid='+user.rid,
+      success: (res)=>{},
       fail: ()=>{},
       complete: ()=>{}
     });

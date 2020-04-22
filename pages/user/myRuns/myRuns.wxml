@@ -1,0 +1,46 @@
+<van-notify id="van-notify" />
+<van-toast id="van-toast" />
+<van-loading size="24px" vertical custom-class="loading" wx:if="{{isShowloading}}">加载中...</van-loading>
+
+<view class="main" wx:if="{{!isShowloading}}">
+    <view class="head">
+        <image class="img" src="/imgs/default/boy.jpg"></image>
+        <view class="card" hover-class="card-hover" hover-stop-propagation="false">
+            <view class="totle">
+                累计里程：<text>{{runData.sumD}}</text>km
+            </view>
+            <view class="detail">
+                <view class="item">
+                    <view class="value">{{runData.times}}</view>
+                    <view class="name">累计次数</view>
+                </view>
+                <view class="item">
+                    <view class="value">{{runData.sumT}}</view>
+                    <view class="name">累计时长(分)</view>
+                </view>
+                <view class="item">
+                    <view class="value">{{runData.maxD}}</view>
+                    <view class="name">最大里程(km)</view>
+                </view>
+                <view class="item">
+                    <view class="value">{{runData.maxT}}</view>
+                    <view class="name">最大时长(分)</view>
+                </view>
+                <view class="item">
+                    <view class="value">{{runData.avgS}}</view>
+                    <view class="name">平均配速</view>
+                </view>
+            </view>
+        </view>
+    </view>
+    <view class="body">
+        <!-- <view class="title">
+            <van-divider contentPosition="center" customStyle="color: gray;border-color: gray;font-size: 18px;">
+                运动列表
+            </van-divider>
+        </view> -->
+        <view class="list">
+            <w-run-item wx:for="{{ runs }}" wx:for-item="run" wx:key="run" run="{{run}}"></w-run-item>
+        </view>
+    </view>
+</view>

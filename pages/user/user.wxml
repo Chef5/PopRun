@@ -43,7 +43,7 @@
 
     <van-row custom-class="menu">
         <van-col span="12">
-            <view class="menu-card">
+            <view class="menu-card" catchtap="goToMyRuns">
                 <view class="menu-card-icon">
                     <van-icon name="fire" size="40" color="white" />
                 </view>
@@ -53,11 +53,11 @@
             </view>
         </van-col>
         <van-col span="12">
-            <view class="menu-card">
+            <view class="menu-card" catchtap="goToMyMoments">
                 <view class="menu-card-icon">
                     <van-icon name="live" size="40" color="white" />
                 </view>
-                <view class="menu-card-title" catchtap="goToMyMoments">
+                <view class="menu-card-title">
                     我的动态
                 </view>
             </view>

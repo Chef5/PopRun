@@ -1,0 +1,41 @@
+<view class="run-item-box">
+    <view class="con"
+        hover-class="con-hover" 
+        hover-stop-propagation="false"
+        catch:tap="showDetail"
+        catch:longpress="showDelete"
+        data-ruid="runobj.ruid"
+        >
+        <image mode="widthFix" class="img" src="/imgs/run.png" />
+        <view class="data">
+            <view class="some">
+                <view class="totle" wx:if="{{runobj.isFinished}}" >{{ runobj.day + ' ' + runobj.distance + ' km' }}</view>
+                <view class="totle" wx:if="{{!runobj.isFinished}}" >{{ runobj.day + ' ' }}<text>未完成</text></view>
+                <view class="speed">
+                    <van-icon name="clock-o" size="10px" />{{ ' ' + runobj.timeRun }}
+                    <van-icon name="logistics" size="10px" custom-class="ml" />{{ ' ' + runobj.speed }}
+                </view>
+            </view>
+            <view class="time">
+                {{ runobj.time }}
+            </view>
+        </view>
+    </view>
+</view>
+
+<!-- 详细弹窗 -->
+<van-popup show="{{ isShowDetail }}" closeable round bind:close="onClose">
+  <view class="detail">
+    <view class="d-img">
+      <van-image
+        width="120"
+        height="120"
+        fit="contain"
+        src="{{ runobj.imgs.original }}"/>
+    </view>
+    <!-- <view class="d-name">{{ data[0].name }}</view>
+    <view class="d-count">{{ data[0].type == 1 ? '累计获得：'+data.length+'枚' : '（不可重复获得）'}}</view>
+    <view class="d-desc">{{ data[0].desc }}</view>
+    <view class="d-time">{{ data[data.length-1].created_at }}</view> -->
+  </view>
+</van-popup>
