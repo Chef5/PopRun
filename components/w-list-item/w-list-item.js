@@ -1,14 +1,14 @@
 Component({
   properties: {
-    imgUrl:{
-      type:String,
-      value:""
+    imgUrl: {
+      type: String,
+      value: ""
     },
-    textContent:{
-      type:String,
-      value:""
+    textContent: {
+      type: String,
+      value: ""
     },
-    link: {
+    imgLink: {
       type: String,
       value: ""
     }
@@ -18,5 +18,6 @@ Component({
   },
   methods: {
     // 这里是一个自定义方法
+
   }
 })

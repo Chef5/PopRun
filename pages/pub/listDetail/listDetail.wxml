@@ -1,2 +1,34 @@
-<!--pages/pub/listDetail/listDetail.wxml-->
-<text>pages/pub/listDetail/listDetail.wxml</text>
+<view class="detail">
+  <view class="top">
+    <view class="title">
+      <text>{{listDetail.title}}</text>
+    </view>
+    <view class="desc">
+      <van-image width="100%" height="500rpx" lazy-load src="{{listDetail.cover.original}}" />
+      <view class="desc-title">
+        <text>{{listDetail.desc}}</text>
+      </view>
+      <view class="desc-con">
+        <text>{{listDetail.content}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="bottom">
+    <view class="reward">
+      <van-cell title="活动奖励" label="参加活动将有机会获得一枚勋章哦！" border="{{ false }}" />
+      <view class="medal-img">
+        <van-image width="200rpx" height="200rpx" src="{{listDetail.medal.img}}" />
+      </view>
+      <view class="medal-name">
+        <text>{{listDetail.medal.name}}</text>
+      </view>
+    </view>
+    <view class="act-time">
+      <van-cell title="活动有效期：{{listDetail.period}}" label="已有{{signNum}}人报名，赶紧参加吧" border="{{ false }}" />
+    </view>
+    <view class="apply">
+      <van-button round icon="{{signIcon}}" disabled="{{signDisabled}}" type="{{signType}}" bind:click="signActivity">{{signText}}</van-button>
+    </view>
+  </view>
+</view>

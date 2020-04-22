@@ -7,7 +7,8 @@ import Toast from '@vant/weapp/toast/toast';
 let point = [];
 let count = 0;
 let distanceSum = 0;
-let speedArr = [];
+let spdMax=0;
+let spdMin=0;
 let timer = null;
 let params = {};
 
@@ -31,6 +32,11 @@ function distance(lat1, lng1, lat2, lng2) {
   distanceSum += s
   return distanceSum;
 }
+// 比较最大最小速度
+function spdCheck(speed){
+    spdMax=speed>spdMax?speed:spdMax;
+    spdMin=speed<spdMin?speed:spdMin;
+}
 
 Page({
   data: {
@@ -41,7 +47,7 @@ Page({
     showMain: true,
     showRes: false,
     text: [],
-    showRight1: true,
+    showRight1: false,
     active: 0,
     rankArr: [],
     myRank:{},
@@ -69,7 +75,6 @@ Page({
 
     this.getlocation();
     this.getText();
-    // this.getRanking();
     //隐藏定位中信息进度
     wx.hideLoading()
   },
@@ -114,16 +119,6 @@ Page({
       success: (res) => {
         this.setData({ rankArr: that.showImg(res.data.data)})
         let rankArr=this.data.rankArr;
-        // this.data.rankArr.forEach((e,i)=>{
-        //   e.avgS = format.formatSpeed(e.avgS)
-        //   if (e.rid == user.rid) {
-        //     e.index = i;
-        //     that.setData({ myRank: e })
-        //     break;
-        //   } else {
-        //     that.setData({ myRank: user })
-        //   }
-        // })
         for (let i = 0; i<rankArr.length;i++){
           rankArr[i].avgS = format.formatSpeed(rankArr[i].avgS)
           if (rankArr[i].rid == user.rid) {
@@ -134,17 +129,8 @@ Page({
             that.setData({ myRank: user })
           }
         }
-      //   for (let e of this.data.rankArr){
-      //     e.avgS = format.formatSpeed(e.avgS)
-      //     if (e.rid == user.rid) {
-      //       // e.index=i;
-      //       that.setData({ myRank: e})
-      //       break;
-      //     }else{
-      //       that.setData({ myRank: user })
-      //     }
-      //   }
-        console.log(this.data.myRank)
+        this.setData({rankArr})
+        // console.log(this.data.rankArr)
       },
     })
   },
@@ -198,7 +184,7 @@ Page({
         let longitude = res.longitude
         let speed=res.speed;
         const speedArr_i = speed <= 0 ? 0 : speed;
-        // 换算为km/h
+        spdCheck(speedArr_i);
         // speed=speed*3.6;
         let accuracy = res.accuracy
         that.setData({
@@ -210,7 +196,6 @@ Page({
           latitude: latitude,
           longitude: longitude,
         });
-        speedArr.push(speedArr_i)
         // console.log(speedArr)
       },
       //定位失败回调
@@ -288,7 +273,6 @@ Page({
   // 开始运动
   startRun: function() {
     let that = this;
-
     timer = setInterval(that.repeat, 1000);
   },
   repeat: function() {
@@ -298,6 +282,7 @@ Page({
     this.setData({
       distance: (+that.getDistance()).toFixed(2),
     })
+    console.log(spdMax,spdMin)
   },
   // 暂停运动
   pauseRun: function() {
@@ -320,7 +305,6 @@ Page({
   endRun: function() {
     clearInterval(timer);
     timer = null;
-    let spdSum = 0;
     let spdAvr = 0;
     let that = this;
     const endTime = format.formatTime(new Date());
@@ -342,16 +326,13 @@ Page({
         that.goBack();
       });
     }
-    speedArr.forEach(e => {
-      spdSum += e;
-    })
-    // spdSum?spdSum:1;
-    spdAvr = spdSum ? spdSum / speedArr.length : 0;
+    spdAvr = distanceSum ? distanceSum / count : 0;
+    
     this.setData({
       distance: (+that.getDistance()).toFixed(2),
       avrSpeed: format.formatSpeed(spdAvr),
-      maxSpeed: Math.max(...speedArr),
-      minSpeed: Math.min(...speedArr),
+      maxSpeed: spdMax,
+      minSpeed: spdMin,
       // 热量 =体重（kg）* 距离（km）* 运动系数（k） 跑步：k=1.036
       heat: parseInt(55 * that.data.distance * 1.036),
     })
@@ -389,7 +370,8 @@ Page({
     point = [];
     count = 0;
     distanceSum = 0;
-    speedArr = [];
+    spdMin=0;
+    spdMax=0;
     params = {};
     this.getlocation();
     this.setData({

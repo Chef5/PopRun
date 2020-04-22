@@ -8,7 +8,7 @@ Component({
       type: String,
       value: ""
     },
-    link:{
+    imgLink:{
       type:String,
       value:""
     }

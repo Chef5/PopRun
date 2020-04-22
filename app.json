@@ -13,7 +13,6 @@
         "pages/pub/blockMore/blockmore",
         "pages/pub/listDetail/listDetail",
         "pages/pub/blockDetail/blockDetail",
-        "pages/pub/swiperDetail/swiperDetail",
         "pages/user/modals/modals",
         "pages/user/myMoments/myMoments",
         "pages/moments/messages/messages"

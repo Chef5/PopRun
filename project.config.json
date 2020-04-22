@@ -121,6 +121,34 @@
 					"pathName": "pages/moments/messages/messages",
 					"query": "rid=10&type=moment",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "活动详细",
+					"pathName": "pages/pub/listDetail/listDetail",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "活动详细",
+					"pathName": "pages/pub/listDetail/listDetail?acid=3",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "列表详情",
+					"pathName": "pages/pub/listDetail/listDetail",
+					"query": "acid=3",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "活动详情",
+					"pathName": "pages/pub/listDetail/listDetail",
+					"query": "acid=3",
+					"scene": null
 				}
 			]
 		}

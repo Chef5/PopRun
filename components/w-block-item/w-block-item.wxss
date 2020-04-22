@@ -1,12 +1,12 @@
 .list {
   height: 450rpx;
-  width: 350rpx;
+  width: 330rpx;
   margin: 12rpx 0;
   background: rgb(240, 240, 240);
 }
 .list-img {
-  width: 350rpx;
-  height: 350rpx;
+  width: 330rpx;
+  height: 340rpx;
   margin: auto;
 }
 .list-img image{
@@ -22,7 +22,7 @@
   display: block;
   text-align: center;
   vertical-align: middle;
-  width: 310rpx;
+  width: 300rpx;
   height: 100rpx;
   line-height: 100rpx;
   overflow: hidden;

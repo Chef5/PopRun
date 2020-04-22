@@ -1,5 +1,5 @@
 .pub {
-  padding: 0 12rpx;
+  padding: 0 16px;
 } 
 .block {
   display: flex;

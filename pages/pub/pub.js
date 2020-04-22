@@ -5,10 +5,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    swiperArr: [{
-      imgUrl: "/imgs/default/boy.jpg",
-      imgLink: "swiperDetail/swiperDetail"
-    }],
+    swiperArr: [],
     list: [{
         imgUrl: "/imgs/default/girl.jpg",
         text: "关于跑步，你要避免的坑关于跑步，你要避免的坑关于跑步，你要避免的坑关于跑步，你要避免的坑",
@@ -54,33 +51,68 @@ Page({
   onLoad: function(options) {
     this.getSwiper();
     this.getList();
+    this.getBlock();
   },
 
   // 获取轮播列表
-  getSwiper(){
+  getSwiper() {
+    let that = this;
     wx.request({
       url: app.config.getHostUrl() + '/api/pub/getSwipper',
-
       success: (res) => {
-        // if (res.data.isSuccess) {
-          console.log(res.data)
-        // }
+        if (res.data.isSuccess) {
+          res.data.data.forEach(e => {
+            e.imgLink = "listDetail/listDetail?acid=" + e.acid
+          })
+          that.setData({
+            swiperArr: res.data.data
+          })
+        }
       },
     });
   },
-
-  getList(){
+  // 获取活动
+  getList() {
+    let that = this;
     wx.request({
       url: app.config.getHostUrl() + '/api/pub/getList',
-      method:"POST",
+      header: {
+        "Content-Type": "application/json"
+      },
+      method: "POST",
       success: (res) => {
-        // if (res.data.isSuccess) {
-        console.log(res.data)
-        // }
+        if (res.data.isSuccess) {
+          res.data.data.activitys.forEach(e => {
+            e.imgLink = "listDetail/listDetail?acid=" + e.acid
+          })
+          that.setData({
+            list: res.data.data.activitys
+          })
+          console.log(res.data.data);
+        }
       },
     });
   },
-
+  // 获取课程
+  getBlock() {
+    let that=this;
+    wx.request({
+      url: app.config.getHostUrl() + '/api/pub/getCourses',
+      success: (res) => {
+        if (res.data.isSuccess) {
+          if (res.data.isSuccess) {
+            res.data.data.forEach(e => {
+              e.imgLink = "blockDetail/blockDetail?rcid=" + e.rcid
+            })
+            that.setData({
+              block: res.data.data
+            })
+            // console.log(res);
+          }
+        }
+      }
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
