@@ -2,5 +2,6 @@
   "usingComponents": {
     "w-moments-item": "/components/w-moments-item/index"
   },
-  "navigationBarTitleText": "我的动态"
+  "navigationBarTitleText": "我的动态",
+  "enablePullDownRefresh": true
 }

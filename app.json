@@ -16,7 +16,8 @@
         "pages/pub/swiperDetail/swiperDetail",
         "pages/user/modals/modals",
         "pages/user/myMoments/myMoments",
-        "pages/moments/messages/messages"
+        "pages/moments/messages/messages",
+        "pages/user/myRuns/myRuns"
     ],
     "permission": {
         "scope.userLocation": {

@@ -121,6 +121,13 @@
 					"pathName": "pages/moments/messages/messages",
 					"query": "rid=10&type=moment",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "我的运动",
+					"pathName": "pages/user/myRuns/myRuns",
+					"query": "rid=10",
+					"scene": null
 				}
 			]
 		}

@@ -1,0 +1,67 @@
+.main {
+  background-color: #ffffff;
+  width: 100%;
+}
+.main .head {
+  width: 100%;
+  height: 380rpx;
+  position: relative;
+}
+.main .head .img {
+  width: 120rpx;
+  height: 120rpx;
+  position: absolute;
+  top: 20rpx;
+  left: 20rpx;
+  border: 14rpx solid white;
+  border-radius: 50%;
+  z-index: 10;
+}
+.main .head .card {
+  width: 82%;
+  height: 300rpx;
+  position: absolute;
+  top: 80rpx;
+  left: 70rpx;
+  background-color: yellowgreen;
+  border-radius: 40rpx;
+  box-shadow: 5px 5px 5px rgba(104, 103, 103, 0.6);
+}
+.main .head .card .totle {
+  height: 150rpx;
+  line-height: 150rpx;
+  padding-left: 100rpx;
+  font-size: 36rpx;
+  color: white;
+}
+.main .head .card .totle text {
+  font-size: 60rpx;
+  color: #2c2c2c;
+}
+.main .head .card .detail {
+  margin-top: 20rpx;
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+}
+.main .head .card .detail .item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.main .head .card .detail .item .value {
+  font-size: 32rpx;
+  color: #3f3f3f;
+}
+.main .head .card .detail .item .name {
+  color: white;
+  font-size: 20rpx;
+  margin-top: 7rpx;
+}
+.main .head .card-hover {
+  box-shadow: 3px 3px 3px rgba(104, 103, 103, 0.6);
+}
+.main .body {
+  margin-top: 50rpx;
+  padding-bottom: 50rpx;
+}

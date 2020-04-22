@@ -16,7 +16,7 @@ const formatNumber = n => {
 const formatSpeed = speed=>{
   //s/km
   if (speed <= 0) {
-    return "--"
+    return "--′--″"
   } else {
     speed = 1000 / speed;
     let s = formatNumber(parseInt(speed % 60));
@@ -24,8 +24,22 @@ const formatSpeed = speed=>{
     return m + "′" + s + "″";
   }
 }
+
+// 计算时间  x分钟 => 00:00
+const formatPeriod2time = n => {
+  return formatNumber(Math.floor(n/60))+':'+formatNumber(n%60);
+}
+
+// 字符串转date
+const string2date = str => {
+  return new Date(str);
+}
+
+
 module.exports = {
   formatTime: formatTime,
   formatNumber: formatNumber,
-  formatSpeed: formatSpeed
+  formatSpeed: formatSpeed,
+  formatPeriod2time,
+  string2date
 }
