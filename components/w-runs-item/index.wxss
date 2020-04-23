@@ -13,8 +13,9 @@
   flex-direction: row;
   align-items: center;
 }
-.run-item-box .con .img {
-  width: 90rpx;
+.run-item-box .con .icon {
+  width: 106rpx;
+  height: 90rpx;
   margin-left: 24rpx;
   background-color: orange;
   border-radius: 50%;

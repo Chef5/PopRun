@@ -11,6 +11,11 @@
   color: gray;
   padding: 4px 12px;
 }
+.con .item .msg .created-time {
+  font-size: 22rpx;
+  color: #c5c3c3;
+  text-align: right;
+}
 .con .item .green,
 .con .item .red {
   display: box;

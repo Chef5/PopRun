@@ -6,7 +6,7 @@
         catch:longpress="showDelete"
         data-ruid="runobj.ruid"
         >
-        <image mode="widthFix" class="img" src="/imgs/run.png" />
+        <image class="icon" src="/imgs/run.png"></image>
         <view class="data">
             <view class="some">
                 <view class="totle" wx:if="{{runobj.isFinished}}" >{{ runobj.day + ' ' + runobj.distance + ' km' }}</view>

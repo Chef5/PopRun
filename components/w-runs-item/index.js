@@ -25,7 +25,7 @@ Component({
     attached: function() {
         let that = this;
         // let user = user = wx.getStorageSync('user');
-        // if(user) user = JSON.parse(user);
+        // if(user && user.constructor != Object) user = JSON.parse(user);
         // that.setData({ uesr });
         that._initData(that.properties.run, that)
     },
