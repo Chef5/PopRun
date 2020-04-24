@@ -40,8 +40,8 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
-        this.setData({ rid: 10 })
-        this.initData(10);
+        this.setData({ rid: options.rid })
+        this.initData(options.rid);
     },
 
     //初始化数据
