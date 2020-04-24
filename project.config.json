@@ -29,10 +29,14 @@
 	"libVersion": "2.10.4",
 	"appid": "wxfcd3e1af4fbeadfe",
 	"projectname": "PopRun",
+	"cloudfunctionTemplateRoot": "",
+	"watchOptions": {
+		"ignore": []
+	},
 	"debugOptions": {
 		"hidedInDevtools": []
 	},
-	"isGameTourist": false,
+	"scripts": {},
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
 	"condition": {
@@ -49,7 +53,6 @@
 			"list": []
 		},
 		"game": {
-			"currentL": -1,
 			"list": []
 		},
 		"gamePlugin": {
@@ -124,36 +127,9 @@
 				},
 				{
 					"id": -1,
-<<<<<<< HEAD
-					"name": "活动详细",
-					"pathName": "pages/pub/listDetail/listDetail",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "活动详细",
-					"pathName": "pages/pub/listDetail/listDetail?acid=3",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "列表详情",
-					"pathName": "pages/pub/listDetail/listDetail",
-					"query": "acid=3",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "活动详情",
-					"pathName": "pages/pub/listDetail/listDetail",
-					"query": "acid=3",
-=======
 					"name": "我的运动",
 					"pathName": "pages/user/myRuns/myRuns",
 					"query": "rid=10",
->>>>>>> 44e1520ed01421b61a7d4d5cd67752c6c5c89bc4
 					"scene": null
 				}
 			]
