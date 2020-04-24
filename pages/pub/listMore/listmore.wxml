@@ -3,7 +3,7 @@
   <van-divider contentPosition="center" customStyle="color: #83B582;border-color: #83B582;font-size: 30rpx;">活动广场</van-divider>
   <view class="list">
     <view class="list-con" wx:for="{{list}}" wx:key="index">
-      <w-list-item img-url="{{item.imgUrl}}" text-content="{{item.text}}" />
+     <w-list-item img-url="{{item.cover.original}}" text-content="{{item.title}}" img-link="{{item.imgLink}}"/>
     </view>
   </view>
 </view>

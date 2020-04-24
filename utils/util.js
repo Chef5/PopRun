@@ -15,6 +15,7 @@ const formatNumber = n => {
 // 速度单位换算m/s=>min s/km
 const formatSpeed = speed=>{
   //s/km
+  // speed=parseFloat(speed)
   if (speed <= 0) {
     return "--′--″"
   } else {

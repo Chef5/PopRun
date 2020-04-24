@@ -3,7 +3,7 @@
   <van-divider contentPosition="center" customStyle="color: #83B582;border-color: #83B582;font-size: 30rpx;">教程分享</van-divider>
   <view class="block">
     <view class="block-con" wx:for="{{block}}" wx:key="index">
-      <w-block-item img-url="{{item.imgUrl}}" text-content="{{item.text}}" />
+       <w-block-item img-url="{{item.img.original}}" text-content="{{item.title}}" img-link="{{item.imgLink}}"/>
     </view>
   </view>
   

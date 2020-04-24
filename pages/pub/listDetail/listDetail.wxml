@@ -4,11 +4,11 @@
       <text>{{listDetail.title}}</text>
     </view>
     <view class="desc">
-      <van-image width="100%" height="500rpx" lazy-load src="{{listDetail.cover.original}}" />
-      <view class="desc-title">
+      <van-image wx-if="{{listDetail.cover.original}}" width="100%" height="500rpx" lazy-load src="{{listDetail.cover.original}}" />
+      <view class="desc-title" wx-if="{{listDetail.desc}}">
         <text>{{listDetail.desc}}</text>
       </view>
-      <view class="desc-con">
+      <view class="desc-con" wx-if="{{listDetail.content}}">
         <text>{{listDetail.content}}</text>
       </view>
     </view>

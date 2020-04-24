@@ -1,1 +1,21 @@
-/* pages/pub/blockDetail/blockDetail.wxss */
+.top {
+  padding:0 16px;
+}
+.title {
+  font-weight: bold;
+  text-align: center;
+  font-size: 40rpx;
+  padding: 30rpx 0;
+}
+
+.desc-title {
+  color: #666;
+  font-size: 30rpx;
+  font-weight: bold;
+  text-indent: 2em;
+}
+.desc-con{
+  padding: 20rpx 0;
+  text-indent: 2em;
+  font-size: 30rpx;
+}

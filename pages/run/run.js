@@ -130,7 +130,6 @@ Page({
           }
         }
         this.setData({rankArr})
-        // console.log(this.data.rankArr)
       },
     })
   },
@@ -282,7 +281,6 @@ Page({
     this.setData({
       distance: (+that.getDistance()).toFixed(2),
     })
-    console.log(spdMax,spdMin)
   },
   // 暂停运动
   pauseRun: function() {
@@ -326,7 +324,7 @@ Page({
         that.goBack();
       });
     }
-    spdAvr = distanceSum ? distanceSum / count : 0;
+    spdAvr = distanceSum ? (distanceSum*1000) / count : 0;
     
     this.setData({
       distance: (+that.getDistance()).toFixed(2),

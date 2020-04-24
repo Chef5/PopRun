@@ -1,18 +1,33 @@
-// pages/pub/blockDetail/blockDetail.js
+const app = getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    blockDetail:{}
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options)
+    let that=this;
+    wx.request({
+      url: app.config.getHostUrl() + '/api/pub/getCourseDetail',
+      data: options,
+      success: (res) => {
+        if (res.data.isSuccess) {
+          res.data.data.text = res.data.data.text.split("...");
+          that.setData({
+            blockDetail: res.data.data
+          })
+          // console.log(res.data.data)
+          // console.log(this.data.blockDetail)
+        }
+      }
+    })
+    // console.log(options)
   },
 
   /**

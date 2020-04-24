@@ -63,50 +63,7 @@
                       </view>
                     </i-cell>
                   </view>
-                  <!-- <view class="rank-list">
-                    <i-cell-group i-class="cell-group">
-                      <i-cell i-class="cell" wx:for="{{rankTest}}" wx:key="id" is-link link-type="navigateTo" url="{{ '../user/userPage/userPage?rid='+item.rid }}">
-                        <view class="num lf" wx:if="{{item.isShowRankIcon}}">
-                          <image src="{{item.rankImg}}"></image>
-                        </view>
-                        <view class="num lf" wx:if="{{item.isShowRankIcon?false:true}}">
-                          <text class="rankNum">{{index+1}}</text>
-                        </view>
-                        <view class="cell-info lf">
-                          <view class="photo">
-                            <image src="{{item.img}}"></image>
-                          </view>
-
-                          <view class="text">
-                            <text class="name">{{item.nickname}}</text>
-                            <view>
-                              <text class="detail">{{item.sumD}}公里/</text>
-                              <text class="detail">{{item.sumT}}分钟/</text>
-                              <text class="detail">{{item.avgS}}</text>
-                            </view>
-                          </view>
-                        </view>
-                      </i-cell>
-                    </i-cell-group>
-                    <i-cell i-class="cell my-cell" link-type="switchTab" is-link url="../user/user">
-                      <view class="num lf">
-                        <image src="../../imgs/run/1.png"></image>
-                      </view>
-                      <view class="cell-info lf">
-                        <view class="photo">
-                          <image src="{{myRank.img}}"></image>
-                        </view>
-                        <view class="text">
-                          <text class="name">{{myRank.nickname}}</text>
-                          <view>
-                            <text class="detail">{{myRank.sumD}}公里/</text>
-                            <text class="detail">{{myRank.sumT}}分钟/</text>
-                            <text class="detail">{{myRank.avgS}}</text>
-                          </view>
-                        </view>
-                      </view>
-                    </i-cell>
-                  </view> -->
+                
                 </van-tab>
                 <van-tab title="月榜">
                   <view class="rank-list">

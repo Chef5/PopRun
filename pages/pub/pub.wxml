@@ -12,7 +12,6 @@
     </swiper>
   </view>
 <view class="pub">
-
   <van-divider contentPosition="center" customStyle="color: #83B582;border-color: #83B582;font-size: 30rpx;">活动广场</van-divider>
   <view class="list">
     <view>

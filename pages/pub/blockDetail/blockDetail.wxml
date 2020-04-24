@@ -1,2 +1,14 @@
-<!--pages/pub/blockDetail/blockDetail.wxml-->
-<text>pages/pub/blockDetail/blockDetail.wxml</text>
+  <view class="top">
+    <view class="title">
+      <text>{{blockDetail.title}}</text>
+    </view>
+    <view class="desc">
+      <van-image wx-if="{{blockDetail.img.original}}" width="100%" height="500rpx" lazy-load src="{{blockDetail.img.original}}" />
+      <view class="desc-title" wx-if="{{blockDetail.desc}}">
+        <text>{{blockDetail.desc}}</text>
+      </view>
+      <view class="desc-con" wx-if="{{blockDetail.text}}" wx:for="{{blockDetail.text}}">
+        <text>{{item}}</text>
+      </view>
+    </view>
+  </view>

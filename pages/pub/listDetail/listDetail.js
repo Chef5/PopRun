@@ -24,7 +24,6 @@ Page({
     this.getListDetail();
     this.getSignNum();
     this.signSearch()
-    console.log(acid)
   },
   // 获取活动详情
   getListDetail() {
@@ -34,6 +33,7 @@ Page({
       data: acid,
       success: (res) => {
         if (res.data.isSuccess) {
+      
           let dateNow = Date.parse(new Date());
           let dateStart = Date.parse(new Date(res.data.data.created_at));
           let dateEnd = Date.parse(new Date(res.data.data.period));
@@ -95,7 +95,6 @@ Page({
         acid:acid.acid,
       },
       success: (res) => {
-          console.log(res)
         this.signSearch()
           this.getSignNum();
         // }
@@ -112,7 +111,6 @@ Page({
         acid:acid.acid,
       },
       success: (res) => {
-        console.log(res)
         if (res.data.data) {
           that.setData({
             signDisabled: true,

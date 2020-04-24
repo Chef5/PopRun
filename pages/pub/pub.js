@@ -6,43 +6,8 @@ Page({
    */
   data: {
     swiperArr: [],
-    list: [{
-        imgUrl: "/imgs/default/girl.jpg",
-        text: "关于跑步，你要避免的坑关于跑步，你要避免的坑关于跑步，你要避免的坑关于跑步，你要避免的坑",
-        link: "listDetail/listDetail",
-      },
-      {
-        imgUrl: "/imgs/default/girl.jpg",
-        text: "关于跑步，你要避免的坑关于跑步，你要避免的坑关于跑步，你要避免的坑关于跑步，你要避免的坑",
-        link: "listDetail/listDetail",
-      },
-      {
-        imgUrl: "/imgs/default/girl.jpg",
-        text: "关于跑步，你要避免的坑关于跑步，你要避免的坑关于跑步，你要避免的坑关于跑步，你要避免的坑",
-        link: "listDetail/listDetail",
-      },
-      {
-        imgUrl: "/imgs/default/girl.jpg",
-        text: "关于跑步，你要避免的坑关于跑步，你要避免的坑关于跑步，你要避免的坑关于跑步，你要避免的坑",
-        link: "listDetail/listDetail",
-      },
-      {
-        imgUrl: "/imgs/default/girl.jpg",
-        text: "关于跑步，你要避免的坑关于跑步，你要避免的坑关于跑步，你要避免的坑关于跑步，你要避免的坑",
-        link: "listDetail/listDetail",
-      },
-    ],
-    block: [{
-        imgUrl: "/imgs/default/girl.jpg",
-        text: "关于跑步，你要避免的坑关于跑步，你要避免的坑关于跑步，你要避免的坑关于跑步，你要避免的坑",
-        link: "blockDetail/blockDetail",
-      },
-      {
-        imgUrl: "/imgs/default/girl.jpg",
-        text: "关于跑步，你要避免的坑关于跑步，你要避免的坑关于跑步，你要避免的坑关于跑步，你要避免的坑",
-        link: "blockDetail/blockDetail",
-      },
-    ]
+    list: [],
+    block: []
   },
 
   /**
@@ -79,6 +44,10 @@ Page({
       header: {
         "Content-Type": "application/json"
       },
+      data: {
+        "pageindex": 0,
+        "pagesize": 5
+      },
       method: "POST",
       success: (res) => {
         if (res.data.isSuccess) {
@@ -88,7 +57,6 @@ Page({
           that.setData({
             list: res.data.data.activitys
           })
-          console.log(res.data.data);
         }
       },
     });
