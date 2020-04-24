@@ -7,7 +7,7 @@ App({
     //初始化tabbar状态
     let user = wx.getStorageSync('user');
     if(user){
-      user = JSON.parse(user);
+      if(user.constructor != Object) user = JSON.parse(user);
       that.getNotices(user.rid, 0).then((res)=>{
           let moment = 0;
           let tabbar = that.globalData.status.tabbar;
@@ -188,7 +188,7 @@ App({
     let that = this;
     let user = wx.getStorageSync('user');
     if(user){
-      user = JSON.parse(user);
+      if(user.constructor != Object) user = JSON.parse(user);
       return user;
     }else{
       // 判断是否注册

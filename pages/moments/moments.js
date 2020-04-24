@@ -38,7 +38,7 @@ Page({
         // 获取消息通知
         let user = wx.getStorageSync('user'), that = this;
         if(user){
-            user = JSON.parse(user);
+            if(user.constructor != Object) user = JSON.parse(user);
             app.getNotices(user.rid, 0).then((res)=>{
                 let moment = 0;
                 let tabbar = app.globalData.status.tabbar;
@@ -222,7 +222,7 @@ Page({
         // })
         let user = wx.getStorageSync('user');
         if(user){
-            user = JSON.parse(user);
+            if(user.constructor != Object) user = JSON.parse(user);
             wx.navigateTo({
                 url: 'messages/messages?rid='+user.rid+'&type=moment',
                 fail: ()=>{},

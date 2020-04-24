@@ -32,8 +32,8 @@ Component({
      */
     attached: function() {
         let that = this;
-        let user = user = wx.getStorageSync('user');
-        if(user) user = JSON.parse(user);
+        let user = wx.getStorageSync('user');
+        if(user && user.constructor != Object) user = JSON.parse(user);
         else user = {};
         // console.log(that.properties.moment);
         that.properties.moment.created_at = time2cn.time2cn(that.properties.moment.created_at);

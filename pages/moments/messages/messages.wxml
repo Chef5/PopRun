@@ -23,7 +23,8 @@
                 <view class="msg">
                     <van-tag type="danger" wx:if="{{ message.read==0 }}">未读</van-tag>
                     <van-tag type="success" wx:if="{{ message.read==1 }}">已读</van-tag>
-                    {{ message.msg +' '+ message.created_at  }}
+                    {{ message.msg }}
+                    <view class="created-time">{{ message.created_at }}</view>
                 </view>
                 <view slot="right" class="red">删除</view>
             </van-swipe-cell>
