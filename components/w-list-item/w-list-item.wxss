@@ -9,8 +9,8 @@
 
 }
 .list-img {
-  width: 160rpx;
-  height: 160rpx;
+  width: 200rpx;
+  height: 100rpx;
   padding: 20rpx;
 }
 .list-img image{

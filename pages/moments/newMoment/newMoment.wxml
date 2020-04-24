@@ -30,7 +30,7 @@
 
     <view class="other">
         <van-cell-group>
-            <van-cell title="位置" icon="location-o" />
+            <van-cell bind:click="chooseLocation" title="{{address}}" icon="location-o" />
         </van-cell-group>
     </view>
     

@@ -131,6 +131,20 @@
 					"pathName": "pages/user/myRuns/myRuns",
 					"query": "rid=10",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "详情",
+					"pathName": "pages/pub/listDetail/listDetail",
+					"query": "acid=3",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "位置选择",
+					"pathName": "pages/moments/newMoment/chooseMap/chooseMap",
+					"query": "acid=3",
+					"scene": null
 				}
 			]
 		}

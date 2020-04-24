@@ -19,7 +19,7 @@
       <!-- <text catch:tap="listMore">更多></text> -->
     </view>
     <view class="list-con" wx:for="{{list}}" wx:key="index">
-      <w-list-item img-url="{{item.cover.original}}" text-content="{{item.title}}" img-link="{{item.imgLink}}"/>
+      <w-list-item img-url="{{item.cover.thumbnail}}" text-content="{{item.title}}" img-link="{{item.imgLink}}"/>
     </view>
 
   </view>
