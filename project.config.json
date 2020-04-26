@@ -126,10 +126,10 @@
 					"scene": null
 				},
 				{
-					"id": -1,
+					"id": 9,
 					"name": "我的运动",
 					"pathName": "pages/user/myRuns/myRuns",
-					"query": "rid=10",
+					"query": "rid=9",
 					"scene": null
 				},
 				{

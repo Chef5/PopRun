@@ -20,6 +20,21 @@ const getCanvas = nodeID => {
     })
 }
 
+/**
+ * 获取在组件内或包含自定义组件的页面中的canvas节点
+ * nodeID: canvas选择符，如 '#myCanvas'
+ */
+const getCanvasWX6B = (nodeID, that) => {
+    return new Promise((resolved, rejected)=>{
+        const query = that.createSelectorQuery()
+        query.select(nodeID)
+          .fields({ node: true, size: true })
+          .exec((res) => {
+            resolved(res[0].node)
+        })
+    })
+}
+
 /** 
  * 绘制分享图 ：动态圈子&右上角 500*400  朋友圈 500*600（加了200显示小程序码）
  * canvas: canvas对象
@@ -341,7 +356,7 @@ const getGrd = (ctx, Height, Width, direction) => {
  */
 const formatData = run => {
     run.period = format.formatPeriod2time(run.time_run);
-    run.speed = format.formatSpeed(run.speed);
+    run.speed = run.speed.indexOf('′')==-1 ? format.formatSpeed(run.speed) : run.speed;
     run.month = format.formatNumber(format.string2date(run.time_start).getMonth()+1);
     run.day = format.formatNumber(format.string2date(run.time_start).getDate());
     return run;
@@ -351,6 +366,7 @@ const formatData = run => {
 
 module.exports = {
     getCanvas,
+    getCanvasWX6B,
     makeShareImg,
     getFile,
     save

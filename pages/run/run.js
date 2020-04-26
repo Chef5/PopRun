@@ -122,14 +122,10 @@ Page({
         for (let i = 0; i<rankArr.length;i++){
           rankArr[i].avgS = format.formatSpeed(rankArr[i].avgS)
           if (rankArr[i].rid == user.rid) {
-            rankArr[i].index = i;
-            that.setData({ myRank: rankArr[i] })
-            break;
-          } else {
-            that.setData({ myRank: user })
+            user = rankArr[i]
           }
         }
-        this.setData({rankArr})
+        this.setData({rankArr, myRank: user})
       },
     })
   },
