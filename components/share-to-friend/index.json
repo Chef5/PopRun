@@ -1,0 +1,6 @@
+{
+    "component": true,
+    "usingComponents": {
+        "w-mask": "/components/w-mask/index"
+    }
+}

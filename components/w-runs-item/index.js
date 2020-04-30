@@ -67,6 +67,8 @@ Component({
                 //     direction: 5
                 // };
                 Share.makeShareImg(canvas, run, false);
+            }).catch((err)=>{
+                console.log(err)
             })
             this.setData({
                 isShowDetail: true

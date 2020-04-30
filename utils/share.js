@@ -12,11 +12,13 @@ const defaultColorDirection = 2; //右上
 const getCanvas = nodeID => {
     return new Promise((resolved, rejected)=>{
         const query = wx.createSelectorQuery()
-        query.select(nodeID)
-          .fields({ node: true, size: true })
-          .exec((res) => {
-            resolved(res[0].node)
-        })
+        query.select(nodeID).node(function(res){
+            if(res){
+                resolved(res.node)
+            }else{
+                rejected(res)
+            }
+        }).exec();
     })
 }
 
@@ -27,11 +29,13 @@ const getCanvas = nodeID => {
 const getCanvasWX6B = (nodeID, that) => {
     return new Promise((resolved, rejected)=>{
         const query = that.createSelectorQuery()
-        query.select(nodeID)
-          .fields({ node: true, size: true })
-          .exec((res) => {
-            resolved(res[0].node)
-        })
+        query.select(nodeID).node(res => {
+            if(res){
+                resolved(res.node)
+            }else{
+                rejected(res)
+            }
+        }).exec();
     })
 }
 
@@ -55,6 +59,9 @@ const makeShareImg = (canvas, run, iswx, user) => {
     }else{
         let Width = 500;
         let Height = 555;
+        let img = canvas.createImage();
+        img.src = user.img;
+        user.imgobj = img;
         return canvasMoments(canvas, Width, Height, formatData(run), user);
     }
 
@@ -139,6 +146,86 @@ const save = (nodeID, iswx) => {
     })
 }
 
+/**
+ * 获取图片路径
+ * nodeID：canvas选择符，如 '#myCanvas'
+ * iswx: 是否是朋友圈格式，默认false
+ */
+const getFileWX6B = (nodeID, that, iswx) => {
+    let Width = 500;
+    let Height = 400;
+    if(iswx){
+        Width = 500;
+        Height = 555;
+    }
+    return new Promise((resolved, rejected)=>{
+        getCanvasWX6B(nodeID, that).then(canvas => {
+            wx.canvasToTempFilePath({
+                x: 0,
+                y: 0,
+                width: Width,
+                height: Height,
+                destWidth: Width,  //*2是为了让图片分辨率更大，显得更清晰
+                destHeight: Height,
+                canvas: canvas,
+                success: function (res) {
+                    console.log("生成图片", res)
+                    resolved(res.tempFilePath);
+                },
+                fail: res => {
+                    console.log("生成图片报错", res)
+                    rejected(err);
+                }
+            })
+        }).catch(err=>{
+            rejected(err);
+        })
+    })
+}
+
+/**
+ * 保存图像到相册
+ * nodeID：canvas选择符，如 '#myCanvas'
+ * iswx: 是否是朋友圈格式，默认false
+ */
+const saveWX6B = (nodeID, that, iswx) => {
+    let Width = 500;
+    let Height = 400;
+    if(iswx){
+        Width = 500;
+        Height = 555;
+    }
+    return new Promise((resolved, rejected)=>{
+        getCanvasWX6B(nodeID, that).then(canvas => {
+            wx.canvasToTempFilePath({
+                x: 0,
+                y: 0,
+                width: Width,
+                height: Height,
+                destWidth: Width,  //*2是为了让图片分辨率更大，显得更清晰
+                destHeight: Height,
+                canvas: canvas,
+                success: function (res) {
+                    console.log("生成图片", res)
+                    wx.saveImageToPhotosAlbum({
+                        filePath: res.tempFilePath,
+                        success: (res) => {
+                            resolved(res);
+                        },
+                        fail: (err) => {
+                            rejected(err);
+                        }
+                    })
+                },
+                fail: res => {
+                    console.log("生成图片报错", res)
+                    rejected(err);
+                }
+            })
+          })
+    })
+}
+
 
 
 
@@ -153,7 +240,6 @@ const canvasNormal = (canvas, Width, Height, run) => {
     canvas.height = Height;
     const ctx = canvas.getContext('2d');
     drawNormalPart(ctx, run, Width, Height);
-    return canvas;
 }
 
 /**
@@ -167,102 +253,87 @@ const canvasMoments = (canvas, Width, Height, run, user) => {
     const ctx = canvas.getContext('2d');
 
     //绘制公共部分
-    drawNormalPart(ctx, run, Width, oriHeight);
+    drawNormalPart(ctx, run, Width, oriHeight, user).then(res=>{
+        //绘制用户数据移动至drawData了
 
-    //绘制头像
-    let img = canvas.createImage();
-    img.src = user.img;
-    const avatorWidth  = 70;
-    const avatorHeigt  = 70;
-    const avatorLx  = 30;
-    const avatorLy  = 30;
-    img.onload = ()=>{ //必须要监听图片加载完成，不然绘制不出来
-        ctx.beginPath(); //开始绘制
-        ctx.arc( avatorWidth/2+avatorLx, avatorHeigt/2+avatorLy, avatorWidth/2, 0, Math.PI*2, false); //圆心 x,y  半径 起始点 结束点 False顺时针
-        ctx.clip();
-        ctx.drawImage(img, avatorLx, avatorLy, avatorWidth, avatorHeigt);
-        ctx.restore();
-    }
-    //绘制昵称
-    ctx.fillStyle = "#fff"
-    ctx.font = "12px '宋体'"; 
-    ctx.textAlign = "center";  
-    ctx.fillText(user.nickname, avatorWidth/2+avatorLx, avatorHeigt+avatorLy+20)
-    
-    //绘制底部白色背景
-    ctx.fillStyle = "#fff";
-    ctx.fillRect(0, oriHeight, Width, 155);
-    //绘制边框：暂时去掉
-    // ctx.beginPath();
-    // ctx.moveTo(0, oriHeight);
-    // ctx.lineTo(0, Height);
-    // ctx.lineTo(Width, Height);
-    // ctx.lineTo(Width, oriHeight);
-    // ctx.lineWidth = 1;
-    // ctx.strokeStyle = 'black'; 
-    // ctx.stroke();
+        //绘制底部白色背景
+        ctx.fillStyle = "#fff";
+        ctx.fillRect(0, oriHeight, Width, 155);
 
-    //绘制文字描述
-    ctx.fillStyle = "#000";
-    ctx.font = "24px '宋体'"; 
-    ctx.textAlign = "left";  
-    ctx.fillText('长按图片识别小程序码', 20, Height-90);
-    ctx.font = "30px '宋体'"; 
-    ctx.fillText('来和我一起跑步吧！', 20, Height-50);
+        //绘制边框：暂时去掉
+        // ctx.beginPath();
+        // ctx.moveTo(0, oriHeight);
+        // ctx.lineTo(0, Height);
+        // ctx.lineTo(Width, Height);
+        // ctx.lineTo(Width, oriHeight);
+        // ctx.lineWidth = 1;
+        // ctx.strokeStyle = 'black'; 
+        // ctx.stroke();
 
-    //绘制小程序码
-    const rcodeWidth  = 120;
-    const rcodeHeigt  = 120;
-    const rcodeLx  = Width-rcodeWidth-17.5;
-    const rcodeLy  = Height-rcodeHeigt-17.5;
-    user.ercode.onload = ()=>{
-        ctx.drawImage(user.ercode, rcodeLx, rcodeLy, rcodeWidth, rcodeHeigt);
-        ctx.restore();
-    }
+        //绘制文字描述
+        ctx.fillStyle = "#000";
+        ctx.font = "24px '宋体'"; 
+        ctx.textAlign = "left";  
+        ctx.fillText('长按图片识别小程序码', 20, Height-90);
+        ctx.font = "30px '宋体'"; 
+        ctx.fillText('来和我一起跑鸭！', 20, Height-50);
 
-    return canvas;
+        //绘制小程序码
+        const rcodeWidth  = 120;
+        const rcodeHeigt  = 120;
+        const rcodeLx  = Width-rcodeWidth-17.5;
+        const rcodeLy  = Height-rcodeHeigt-17.5;
+        // user.ercode.onload = ()=>{
+            ctx.drawImage(user.ercode, rcodeLx, rcodeLy, rcodeWidth, rcodeHeigt);
+            ctx.restore();
+        // }
+    })
 }
 
 /**
  * 绘制公共部分
  */
-const drawNormalPart = (ctx, run, Width, Height) => {
-    //绘制背景：优先级  图片 > 自定义颜色 > 默认
-    if(run.bg){
-        //绘制图片背景
-        run.bg.onload = ()=>{ //必须要监听图片加载完成，不然绘制不出来
-            ctx.drawImage(run.bg, 0, 0, Width, Height, 0, 0, Width, Height);
-            ctx.restore();
+const drawNormalPart = (ctx, run, Width, Height, user) => {
+    return new Promise((resolved, rejected)=>{
+        //绘制背景：优先级  图片 > 自定义颜色 > 默认
+        if(run.bg){
+            //绘制图片背景
+            run.bg.onload = ()=>{ //必须要监听图片加载完成，不然绘制不出来
+                ctx.drawImage(run.bg, 0, 0, Width, Height, 0, 0, Width, Height);
+                ctx.restore();
+                //绘制数据
+                drawData(ctx, run, Width, Height, user);
+                resolved();
+            }
+        }else if(run.color){
+            //绘制渐变背景
+            const grd = getGrd(ctx, Height, Width, run.color.direction);
+            grd.addColorStop(0, run.color.from);
+            grd.addColorStop(1, run.color.to);
+            ctx.fillStyle = grd;
+            ctx.fillRect(0, 0, Width, Height);
             //绘制数据
-            drawData(ctx, run, Width, Height);
+            drawData(ctx, run, Width, Height, user);
+            resolved();
+        }else{
+            //绘制渐变背景
+            const grd = getGrd(ctx, Height, Width, defaultColorDirection);
+            grd.addColorStop(0, defaultColorStart);
+            grd.addColorStop(1, defaultColorEnd);
+            ctx.fillStyle = grd;
+            ctx.fillRect(0, 0, Width, Height);
+            //绘制数据
+            drawData(ctx, run, Width, Height, user);
+            resolved();
         }
-    }else if(run.color){
-        //绘制渐变背景
-        const grd = getGrd(ctx, Height, Width, run.color.direction);
-        grd.addColorStop(0, run.color.from);
-        grd.addColorStop(1, run.color.to);
-        ctx.fillStyle = grd;
-        ctx.fillRect(0, 0, Width, Height);
-        //绘制数据
-        drawData(ctx, run, Width, Height);
-    }else{
-        //绘制渐变背景
-        const grd = getGrd(ctx, Height, Width, defaultColorDirection);
-        grd.addColorStop(0, defaultColorStart);
-        grd.addColorStop(1, defaultColorEnd);
-        ctx.fillStyle = grd;
-        ctx.fillRect(0, 0, Width, Height);
-        //绘制数据
-        drawData(ctx, run, Width, Height);
-    }
-    
+    })
     // return ctx;  //ctx是只读的，所以不用返回
 }
 
 /**
  * 绘制数据单独拿出来：必须放在图片背景之后执行，不然会被图片覆盖
  */
-const drawData = (ctx, run, Width, Height) =>{
+const drawData = (ctx, run, Width, Height, user) =>{
     //绘制底部运动时间 
     ctx.fillStyle = "#fff" ;
     ctx.font = "14px Arial"; 
@@ -313,6 +384,27 @@ const drawData = (ctx, run, Width, Height) =>{
     ctx.lineWidth = 2;
     ctx.closePath();
     ctx.stroke();
+    
+    if(user){
+        //绘制头像
+        const avatorWidth  = 70;
+        const avatorHeigt  = 70;
+        const avatorLx  = 30;
+        const avatorLy  = 30;
+        //绘制昵称
+        ctx.fillStyle = "#fff"
+        ctx.font = "12px '宋体'"; 
+        ctx.textAlign = "center";  
+        ctx.fillText(user.nickname, avatorWidth/2+avatorLx, avatorHeigt+avatorLy+20)
+        user.imgobj.onload = ()=>{
+            ctx.beginPath();
+            ctx.arc( avatorWidth/2+avatorLx, avatorHeigt/2+avatorLy, avatorWidth/2, 0, Math.PI*2, false); //圆心 x,y  半径 起始点 结束点 False顺时针
+            ctx.closePath();
+            ctx.clip();
+            ctx.drawImage(user.imgobj, avatorLx, avatorLy, avatorWidth, avatorHeigt);
+            ctx.restore();
+        }
+    }
 }
 
 /**
@@ -369,5 +461,7 @@ module.exports = {
     getCanvasWX6B,
     makeShareImg,
     getFile,
-    save
+    save,
+    getFileWX6B,
+    saveWX6B
 }

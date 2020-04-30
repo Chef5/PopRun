@@ -6,7 +6,7 @@
   <map wx-if="{{showMain}}" longitude="{{longitude}}" latitude="{{latitude}}" markers="{{markers}}" polyline="{{polyLine}}" show-location="true" show-location>
     <view wx-if="{{showRes?false:true}}">
       <!-- 排行榜 -->
-      <cover-view class="ranking">
+      <view class="ranking">
         <button bindtap="toggleRight1">
           <cover-image src="../../imgs/run/ranking.png"></cover-image>
         </button>
@@ -117,7 +117,7 @@
             </view>
           </view>
         </i-drawer>
-      </cover-view>
+      </view>
       <view class="start-btn">
         <button bindtap="countDown">开始</button>
         <view class="swiper-text">
@@ -142,7 +142,7 @@
           <text class="num">{{distance}}</text>
           <text>公里</text>
         </view>
-        <view class="share rt" bindtap="shareRes">
+        <view class="share rt" catch:tap="showShareMenu">
           <i-icon type="share" size="28" color="#fff" />
         </view>
         <view class="detail">
@@ -160,6 +160,14 @@
           </view>
         </view>
       </view>
+      <share-menu 
+        show="{{ isShowShareMenu }}"
+        run="{{ resRun }}"
+        bind:sharetoapp="share2moments"
+        bind:sharetomoment="save2album"
+        bind:sharetofriend="share2friend"
+        >
+      </share-menu>
     </view>
   </map>
   <!-- 正在跑步 -->
@@ -185,3 +193,11 @@
     </view>
   </view>
 </view>
+
+
+<!-- 分享到动态圈子、微信好友（无小程序码） -->
+<canvas type="2d" hidden="true" id="shareNon"></canvas>
+<!-- 分享到朋友圈 -->
+<canvas type="2d" hidden="true" id="shareMon"></canvas>
+
+<share-to-friend show="{{ isShowShareToFriend }}" bind:onClose="onClose"></share-to-friend>

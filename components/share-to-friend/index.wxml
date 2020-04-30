@@ -1,0 +1,6 @@
+<w-mask show="{{ show }}">
+    <view class="guide-item">
+        <image src="/imgs/share.png" class="img"></image>
+        <view class="text">点击这里添加小程序，或分享给朋友</view>
+    </view>
+</w-mask>

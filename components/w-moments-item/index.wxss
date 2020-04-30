@@ -85,6 +85,14 @@
 .flag-share{
     
 }
+.flag-location{
+    color: rgb(125, 125, 224);
+    font-size: 24rpx;
+    width: 85%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 /* 更多 */
 .more{
     display: flex;

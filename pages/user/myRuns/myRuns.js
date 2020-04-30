@@ -73,6 +73,9 @@ Page({
             .then((res)=>{
                 console.log(res)
                 if(res.data.data.runs.length > 0){
+                    // res.data.data.runs.forEach(element => {
+                    //     runs.push(element);
+                    // });
                     that.setData({ 
                         runs: runs.concat(res.data.data.runs),
                         pageindex: res.data.data.pageindex,
@@ -123,8 +126,8 @@ Page({
         let that = this;
         //获取当前页和页面大小
         if(!pageindex && !pagesize){
-            pageindex = this.data.pageindex;
-            pagesize = this.data.pagesize;
+            pageindex = that.data.pageindex;
+            pagesize = that.data.pagesize;
         }
         let rid = that.data.rid;
         return new Promise(

@@ -1,0 +1,38 @@
+
+<van-dialog id="van-dialog" />
+<!-- 微信大坑：电脑上需要cover-view才能点击，真机上有cover-view无法点击 -->
+<!-- <cover-view > -->
+<!-- 分享菜单 -->
+<van-popup
+  show="{{ show }}"
+  round
+  position="bottom"
+  custom-style="padding-top: 30rpx;"
+  bind:close="onClose"
+>
+    <view >{{img}}</view>
+    <van-cell-group>
+        <van-cell
+            title="分享到动态圈子"
+            bind:click="share2moments"
+            >
+            <van-icon slot="right-icon" size="18px" name="/imgs/tabbar/moments.png" />
+        </van-cell>
+        <van-cell
+            title="分享到朋友圈"
+            bind:click="save2album"
+            >
+            <van-icon slot="right-icon" size="18px" name="/imgs/pyq.png" />
+        </van-cell>
+        <van-cell 
+            title="分享给微信好友" 
+            bind:click="share2frends">
+            <van-icon slot="right-icon" size="18px" name="/imgs/wx.png" />
+        </van-cell>
+    </van-cell-group>
+</van-popup>
+<!-- </cover-view> -->
+
+<!-- 分享到动态圈子、微信好友（无小程序码） -->
+<!-- <canvas type="2d" hidden="true" id="shareNon"></canvas>
+<canvas type="2d" hidden="true" id="shareMon"></canvas> -->

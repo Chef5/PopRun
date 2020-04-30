@@ -39,6 +39,9 @@
             <view class="flag-share" wx:if="{{ data.type==1 }}" >
                 <van-tag round type="warning">打卡分享</van-tag>
             </view>
+            <view class="flag-location" wx:if="{{ data.location }}" >
+                {{ data.location }}
+            </view>
         </view>
         <view class="more">
             <view class="more-time">
