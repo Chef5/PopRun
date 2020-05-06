@@ -2,7 +2,8 @@
 //获取应用实例
 const app = getApp();
 const format = require("../../utils/util");
-const Share = require("../../utils/share");
+const Share = require("../../utils/share");  //真机不支持canvas 2d
+const ShareOld = require("../../utils/shareOld");
 import Dialog from '@vant/weapp/dialog/dialog';
 import Toast from '@vant/weapp/toast/toast';
 let point = [];
@@ -12,10 +13,8 @@ let spdMax=0;
 let spdMin=0;
 let timer = null;
 let params = {};
-const NonID = '#shareNon';
-const MonID = '#shareMon'
-let canvas77 = null;
-
+const nonID = '#shareNon';
+const monID = '#shareMon';
 //进行经纬度转换为距离的计算
 function Rad(d) {
   //经纬度转换成三角函数中度分表形式。
@@ -65,7 +64,7 @@ Page({
     avrSpeed: "--",
     heat: "0",
     isShowRankIcon: true,
-    isShowShareMenu: true, //是否显示分享菜单
+    isShowShareMenu: false, //是否显示分享菜单
     isShowShareToFriend: false, //提示分享给朋友
   
   },
@@ -356,6 +355,9 @@ Page({
       success: (result) => {
         if (result.data.isSuccess) {
           that.setData({ resRun: result.data.data });
+          //跑步结束就绘图
+          that.draw(nonID, result.data.data, false);
+          that.draw(monID, result.data.data, true, app.getUser());
         }
       },
     });
@@ -385,6 +387,8 @@ Page({
       avrSpeed: "--",
       heat: "0",
       polyLine: [],
+      nonImg: null,
+      monImg: null
     })
   },
 
@@ -395,117 +399,101 @@ Page({
    */
   // 显示分享菜单
   showShareMenu: function() {
-    if(this.data.resRun){
-      this.setData({
-        isShowShareMenu: true
-      })
+    let that = this;
+    if(!this.data.nonImg || !this.data.monImg){
+      setTimeout(()=>{
+        Share.getFileWX6B(monID, this, true).then(monImg=>{
+            Share.getFileWX6B(nonID, this, false).then(nonImg=>{
+                console.log("一般分享：", nonImg)
+                console.log("含头像小程序码：", monImg)
+                that.setData({
+                  nonImg,
+                  monImg
+                })
+            })
+        })
+      },300) //延迟防止绘制未完成
     }
+    that.setData({
+      isShowShareMenu: true
+    })
   },
   // //分享到动态圈子
   share2moments() {
     let that = this;
-    this.drawLoading(true);
-    this.draw(NonID, false).then((res)=>{
-      console.log(res)
-      this.drawLoading(false);
-    }).catch(()=>{
-      this.drawLoading(false);
+    let img = this.data.nonImg;
+    let ruid = this.data.resRun.ruid;
+    if(this.data.resRun.isshared == 0){
+      wx.request({
+        url: app.config.getHostUrl() + '/api/run/getRunById',
+        data: { ruid },
+        method: 'GET',
+        success: (result)=>{
+          that.setData({
+            resRun: result.data.data
+          })
+          if(result.data.data.isshared == 0){
+            wx.navigateTo({
+              url: 'sharePage/sharePage?isDraw=0&ruid='+ruid,
+              events: {
+                // 获取分享结果
+                whenShared: function(isSuccess) {
+                  //这个在页面返回之前就执行了，应在onShow里显示结果
+                  that.setData({
+                    isShareSuccess: isSuccess,
+                    isShowShareSuccess: false
+                  })
+                },
+              },
+              success: (res)=>{
+                res.eventChannel.emit('getImgFromRunPage', img)
+              }
+            });
+          }else{
+            Dialog.alert({
+              title: '提示',
+              message: '您已经分享过啦'
+            })
+          }
+        },
+        fail: ()=>{},
+        complete: ()=>{}
+      });
+    }else{
       Dialog.alert({
-        title: '错误',
-        message: '生成图片失败'
+        title: '提示',
+        message: '您已经分享过啦'
       })
-    })
+    }
+    
   },
   //分享到朋友圈
   save2album() {
-    this.drawLoading(true);
-    this.draw(NonID, true).then((res)=>{
-      console.log(res)
-      this.drawLoading(false);
-      wx.saveImageToPhotosAlbum({
-        filePath: res,
-        success: () => {
-          Dialog.alert({
-            title: '提示',
-            message: '已保存图片到相册，可以前往分享啦'
-          })
-        },
-        fail: () => {
-          Dialog.alert({
-            title: '错误',
-            message: '保存到相册失败失败'
-          })
-        }
-      })
-    }).catch(()=>{
-      this.drawLoading(false);
-      Dialog.alert({
-        title: '错误',
-        message: '生成图片失败'
-      })
+    let img = this.data.monImg;
+    wx.saveImageToPhotosAlbum({
+      filePath: img,
+      success: () => {
+        Dialog.alert({
+          title: '提示',
+          message: '已保存图片到相册，可以前往分享啦'
+        })
+      },
+      fail: () => {
+        Dialog.alert({
+          title: '错误',
+          message: '保存到相册失败'
+        })
+      }
     })
   },
   //分享给微信好友
-  share2friend(e) {
-    this.draw(NonID, false).then(canvas=>{
-      wx.canvasToTempFilePath({
-        x: 0,
-        y: 0,
-        width: 500,
-        height: 400,
-        destWidth: 500,  //*2是为了让图片分辨率更大，显得更清晰
-        destHeight: 400,
-        canvas: canvas,
-        success: function (res) {
-            console.log("生成图片", res)
-            // resolved(res.tempFilePath);
-        },
-        fail: res => {
-            console.log("生成图片报错", res)
-            // rejected(err);
-        }
+  share2friend() {
+    this.setData({
+      isShowShareToFriend: true
     })
-      // setTimeout(()=>{
-        // Share.getFileWX6B(NonID, this, false).then(res=>{
-        //   console.log(res)
-        //   this.drawLoading(false);
-        //   this.setData({
-        //     shareImgUrl: res,
-        //     isShowShareToFriend: true
-        //   })
-        // }).catch(err=>{
-        //     console.log(err)
-        //     this.drawLoading(false);
-        //     Dialog.alert({
-        //       title: '错误',
-        //       message: '生成图片失败'
-        //     })
-        // })
-      // },500)
-    }).catch(err=>{
-      console.log(err)
-    })
-    // this.drawLoading(true);
-    // if(e.detail){
-    //   this.drawLoading(false);
-    //   this.setData({
-    //     shareImgUrl: e.detail,
-    //     isShowShareToFriend: true
-    //   })
-    // }else{
-    //   this.drawLoading(false);
-    //   Dialog.alert({
-    //     title: '错误',
-    //     message: '生成图片失败'
-    //   })
-    // }
   },
-  
   //绘图
-  draw(nodeID, iswx) {
-    let run = this.data.resRun;
-    let user = app.getUser();
-    console.log(run,user)
+  draw(nodeID, run, iswx, user) {
     if(!run){
         Dialog.alert({
             message: '数据异常'
@@ -519,17 +507,20 @@ Page({
             let bg = canvas.createImage();
             bg.src = '../../imgs/default/sharebg.png';
             run.bg = bg;
-            //小程序码
-            let ercode = canvas.createImage();
-            ercode.src = '../../imgs/ercode.jpg';
-            user.ercode = ercode;
+            if(iswx){
+              //小程序码
+              let ercode = canvas.createImage();
+              ercode.src = '../../imgs/ercode.jpg';
+              user.ercode = ercode;
+            }
             Share.makeShareImg(canvas, run, iswx, user);
             resolved(canvas);
         }).catch(err=>{
-            rejected(err)
+            rejected(err);
         })
     })
   },
+  
   //显示或隐藏图像绘制loading
   drawLoading(show){
     if(show){
@@ -541,10 +532,19 @@ Page({
       wx.hideLoading();
     }
   },
+  //显示分享结果
+  shareResult(success){
+    if(success){
+      Toast('分享成功');
+    }else{
+      Toast('分享失败');
+    }
+  },
   //关闭所有弹窗
   onClose() {
     this.setData({
-      isShowShareToFriend: false
+      isShowShareToFriend: false,
+      isShowShareMenu: false
     })
   },
   
@@ -556,9 +556,9 @@ Page({
       return {
         title: '我今天跑了'+this.data.resRun.distance+'公里，快来和我一起跑鸭！',
         path: '/page/run/run',
-        imageUrl: this.data.shareImgUrl
+        imageUrl: this.data.nonImg
       }
-    }else{
+    }else{ //直接分享程序
       return {
         title: '给大家推荐一款跑步程序，快来和我一起跑鸭',
         path: '/page/run/run'

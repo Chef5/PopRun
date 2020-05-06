@@ -57,22 +57,35 @@ Component({
         // 查看运动详细
         showDetail() {
             let that = this;
-            //画图
-            Share.getCanvasWX6B('#runImg', this).then(canvas=>{
-                let run = this.properties.run;
-                //分享背景 渐变色
-                // run.color = {
-                //     from: 'red',
-                //     to: 'white',
-                //     direction: 5
-                // };
-                Share.makeShareImg(canvas, run, false);
-            }).catch((err)=>{
-                console.log(err)
-            })
-            this.setData({
-                isShowDetail: true
-            })
+            if(this.data.nonImg){ //性能优化：已绘制过就不再绘制了
+                that.setData({
+                    isShowDetail: true
+                })
+            }else{
+                //画图
+                Share.getCanvasWX6B('#runImg', this).then(canvas=>{
+                    let run = this.properties.run;
+                    //分享背景 渐变色
+                    // run.color = {
+                    //     from: 'red',
+                    //     to: 'white',
+                    //     direction: 5
+                    // };
+                    Share.makeShareImg(canvas, run, false);
+                }).catch((err)=>{
+                    console.log(err)
+                })
+                setTimeout(()=>{
+                    Share.getFileWX6B('#runImg', this, false).then(nonImg=>{
+                        console.log(nonImg)
+                        that.setData({ nonImg, isShowDetail: true })
+                    })
+                    //绘制失败时保持显示
+                    that.setData({
+                        isShowDetail: true
+                    })
+                },500) //延迟防止绘制未完成
+            }
         },
 
         // 删除记录

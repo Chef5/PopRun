@@ -6,7 +6,7 @@
   <map wx-if="{{showMain}}" longitude="{{longitude}}" latitude="{{latitude}}" markers="{{markers}}" polyline="{{polyLine}}" show-location="true" show-location>
     <view wx-if="{{showRes?false:true}}">
       <!-- 排行榜 -->
-      <view class="ranking">
+      <cover-view class="ranking">
         <button bindtap="toggleRight1">
           <cover-image src="../../imgs/run/ranking.png"></cover-image>
         </button>
@@ -117,7 +117,7 @@
             </view>
           </view>
         </i-drawer>
-      </view>
+      </cover-view>
       <view class="start-btn">
         <button bindtap="countDown">开始</button>
         <view class="swiper-text">
@@ -134,10 +134,10 @@
     </view>
     <!-- 跑步结果 -->
     <view wx-if="{{showRes}}">
-      <view class="go-back" bindtap="goBack">
+      <cover-view class="go-back" bindtap="goBack">
         <i-icon type="return" size="28" color="#80848f" /> 返回
-      </view>
-      <view class="runRes">
+      </cover-view>
+      <cover-view class="runRes">
         <view>
           <text class="num">{{distance}}</text>
           <text>公里</text>
@@ -159,7 +159,7 @@
             <text>热量(千卡)</text>
           </view>
         </view>
-      </view>
+      </cover-view>
       <share-menu 
         show="{{ isShowShareMenu }}"
         run="{{ resRun }}"
@@ -168,6 +168,7 @@
         bind:sharetofriend="share2friend"
         >
       </share-menu>
+      
     </view>
   </map>
   <!-- 正在跑步 -->

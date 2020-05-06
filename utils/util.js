@@ -16,7 +16,7 @@ const formatNumber = n => {
 const formatSpeed = speed=>{
   //s/km
   // speed=parseFloat(speed)
-  if (speed <= 0) {
+  if (speed <= 0 || !speed) {
     return "--′--″"
   } else {
     speed = 1000 / speed;

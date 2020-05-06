@@ -7,7 +7,7 @@
 <view class="main" wx:if="{{!isShowloading}}">
     <view class="head">
         <image class="img" src="{{ user.img }}"></image>
-        <view class="card" hover-class="card-hover" hover-stop-propagation="false">
+        <view class="card" hover-class="card-hover">
             <view class="totle">
                 累计里程：<text>{{runData.sumD}}</text>km
             </view>

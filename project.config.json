@@ -129,7 +129,7 @@
 					"id": 9,
 					"name": "我的运动",
 					"pathName": "pages/user/myRuns/myRuns",
-					"query": "rid=9",
+					"query": "rid=10",
 					"scene": null
 				},
 				{
@@ -144,6 +144,13 @@
 					"name": "位置选择",
 					"pathName": "pages/moments/newMoment/chooseMap/chooseMap",
 					"query": "acid=3",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "分享页面",
+					"pathName": "pages/run/share/share",
+					"query": "",
 					"scene": null
 				}
 			]

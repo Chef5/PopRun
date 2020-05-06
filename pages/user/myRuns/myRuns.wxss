@@ -62,6 +62,6 @@
   box-shadow: 3px 3px 3px rgba(104, 103, 103, 0.6);
 }
 .main .body {
-  margin-top: 50rpx;
+  padding-top: 50rpx;
   padding-bottom: 50rpx;
 }
