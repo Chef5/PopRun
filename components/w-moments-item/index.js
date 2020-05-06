@@ -137,6 +137,9 @@ Component({
         // 确认评论
         commentConfirm: function(e){
             let that = this;
+            that.setData({
+                showcomment: false
+            })
             let user = app.getUser();
             if(!user){
                 user = wx.getStorageSync('user');
@@ -215,6 +218,13 @@ Component({
                 fail: ()=>{},
                 complete: ()=>{}
             });
+        },
+
+        /**
+         * 查看他人个人中心
+         */
+        goToUser(e) {
+            app.goToUserPage(e.currentTarget.dataset.rid)
         }
     }
 })

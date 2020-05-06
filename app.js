@@ -372,6 +372,15 @@ App({
             complete: ()=>{}
         });
     })
+  },
+
+  /**
+   * 查看他人个人中心
+   */
+  goToUserPage: function(rid){
+    wx.navigateTo({
+      url: '/pages/user/userPage/userPage?rid='+rid
+    });
   }
 
 })
