@@ -49,7 +49,7 @@ map {
   position: absolute;
   bottom: 0;
   /* background: #fff; */
-  background: linear-gradient(to top, #83B582, transparent);
+  background: linear-gradient(to top, #62E3C6, transparent);
   /* line-height: 350rpx; */
   height: 350rpx;
   width: 100%;
@@ -64,7 +64,7 @@ map {
   line-height: 200rpx;
   border-radius: 50%;
   /* background: #78B078; */
-  background: linear-gradient(to left top, #83B582, rgb(70,218,218));
+  background: linear-gradient(to left top, #62E3C6, rgb(70,218,218));
   color: #fff;
   font-weight: bold;
   margin: 0 auto;
@@ -203,12 +203,12 @@ map {
 /* 正在跑步开始 */
 .running {
   height: 100%;
-  background: linear-gradient(to top, #83B582, transparent);
+  background: linear-gradient(to top, #62E3C6, transparent);
   text-align: center;
   overflow: hidden;
 }
 .running .route {
-  color: #b4cab1;
+  color: #67CD80;
   margin: 100rpx 0;
 }
 .running .route .num {
@@ -264,7 +264,7 @@ map {
   width: 96vw;
   height: 300rpx;
   margin: 0 auto;
-  background: linear-gradient(to left top, #83B582, rgb(70,218,218));
+  background: linear-gradient(to left top, #62E3C6, rgb(70,218,218));
   position: fixed;
   bottom: 0;
   left: 0;

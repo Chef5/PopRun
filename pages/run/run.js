@@ -314,16 +314,16 @@ Page({
       showRes: true,
     })
     // 判断跑步路程是否大于300m,若小于则不进行保存
-    if (this.data.distance <= 0.03) {
-      // 获取时间
-      Dialog.alert({
-        title: '提示',
-        message: '当前运动距离太短，不会进行保存哦~'
-      }).then(() => {
-        // on close
-        that.goBack();
-      });
-    }
+    // if (this.data.distance <= 0.03) {
+    //   // 获取时间
+    //   Dialog.alert({
+    //     title: '提示',
+    //     message: '当前运动距离太短，不会进行保存哦~'
+    //   }).then(() => {
+    //     // on close
+    //     that.goBack();
+    //   });
+    // }
     spdAvr = distanceSum ? (distanceSum*1000) / count : 0;
     
     this.setData({

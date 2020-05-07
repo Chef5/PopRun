@@ -25,18 +25,18 @@
   },
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#83B582",
-    "navigationBarTitleText": "跑鸭",
+    "navigationBarBackgroundColor": "#62E3C6",
+    "navigationBarTitleText": "爱跑一族",
     "navigationBarTextStyle": "white"
   },
   "tabBar": {
-    "backgroundColor": "#83B582",
-    "color": "#707070",
+    "backgroundColor": "#62E3C6",
+    "color": "#666",
     "selectedColor": "#fff",
     "list": [
       {
         "pagePath": "pages/run/run",
-        "text": "跑鸭",
+        "text": "跑步",
         "iconPath": "imgs/tabbar/run.png",
         "selectedIconPath": "/imgs/tabbar/run-w.png"
       },
