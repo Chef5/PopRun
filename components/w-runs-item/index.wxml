@@ -1,7 +1,6 @@
 <view class="run-item-box">
     <view class="con"
         hover-class="con-hover" 
-        hover-stop-propagation="false"
         catch:tap="showDetail"
         catch:longpress="showDelete"
         data-ruid="runobj.ruid"
@@ -27,15 +26,20 @@
 <van-popup show="{{ isShowDetail }}" closeable round bind:close="onClose">
   <view class="detail">
     <view class="d-img">
-      <van-image
-        width="120"
-        height="120"
-        fit="contain"
-        src="{{ runobj.imgs.original }}"/>
+      <!-- <canvas type="2d" style="width:500rpx;height:400rpx" id="runImg"></canvas> -->
+      <image src="{{nonImg}}" style="width:500rpx;height:400rpx" />
     </view>
-    <!-- <view class="d-name">{{ data[0].name }}</view>
-    <view class="d-count">{{ data[0].type == 1 ? '累计获得：'+data.length+'枚' : '（不可重复获得）'}}</view>
-    <view class="d-desc">{{ data[0].desc }}</view>
-    <view class="d-time">{{ data[data.length-1].created_at }}</view> -->
+    <view class="d-data">
+      <view class="d-item">最高配速：{{ runobj.speed_top || '--' }}</view>
+      <view class="d-item">最低配速：{{ runobj.speed_low || '--' }}</view>
+      <view class="d-item">开始时间：<text>{{ runobj.time_start }}</text></view>
+      <view class="d-item">结束时间：<text>{{ runobj.time_end || '--' }}</text></view>
+    </view>
+    <view class="d-btns">
+      <van-button round custom-class="d-btn" type="danger" bind:click="doDelete">删除记录</van-button>
+      <!-- <van-button round custom-class="d-btn" type="info" wx:if="{{ runobj.isshared==0 }}" bind:click="doShare">分享</van-button>
+      <van-button round custom-class="d-btn" plain type="info" wx:if="{{ runobj.isshared==1 }}" bind:click="doShare">已分享</van-button> -->
+    </view>
   </view>
 </van-popup>
+<canvas type="2d" hidden="true" id="runImg"></canvas>

@@ -1,0 +1,9 @@
+/* components/jun-mask.wxss */
+/* 遮罩层 */
+.jun-mask{
+  position: fixed;
+  left: 0;right: 0;top: 0;bottom: 0;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.66);
+  z-index: 9999;
+}

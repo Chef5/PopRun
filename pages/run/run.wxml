@@ -134,15 +134,15 @@
     </view>
     <!-- 跑步结果 -->
     <view wx-if="{{showRes}}">
-      <view class="go-back" bindtap="goBack">
+      <cover-view class="go-back" bindtap="goBack">
         <i-icon type="return" size="28" color="#80848f" /> 返回
-      </view>
-      <view class="runRes">
+      </cover-view>
+      <cover-view class="runRes">
         <view>
           <text class="num">{{distance}}</text>
           <text>公里</text>
         </view>
-        <view class="share rt" bindtap="shareRes">
+        <view class="share rt" catch:tap="showShareMenu">
           <i-icon type="share" size="28" color="#fff" />
         </view>
         <view class="detail">
@@ -159,7 +159,16 @@
             <text>热量(千卡)</text>
           </view>
         </view>
-      </view>
+      </cover-view>
+      <share-menu 
+        show="{{ isShowShareMenu }}"
+        run="{{ resRun }}"
+        bind:sharetoapp="share2moments"
+        bind:sharetomoment="save2album"
+        bind:sharetofriend="share2friend"
+        >
+      </share-menu>
+      
     </view>
   </map>
   <!-- 正在跑步 -->
@@ -185,3 +194,11 @@
     </view>
   </view>
 </view>
+
+
+<!-- 分享到动态圈子、微信好友（无小程序码） -->
+<canvas type="2d" hidden="true" id="shareNon"></canvas>
+<!-- 分享到朋友圈 -->
+<canvas type="2d" hidden="true" id="shareMon"></canvas>
+
+<share-to-friend show="{{ isShowShareToFriend }}" bind:onClose="onClose"></share-to-friend>

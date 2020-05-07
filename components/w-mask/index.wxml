@@ -1,0 +1,4 @@
+<!--components/jun-mask.wxml-->
+<view class="jun-mask" wx:if='{{show}}' catch:tap="onClose">
+  <slot></slot>
+</view>

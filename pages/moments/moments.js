@@ -1,6 +1,7 @@
 // pages/moments/moments.js
 import Notify from '@vant/weapp/notify/notify';
 import Toast from '@vant/weapp/toast/toast';
+import Dialog from '@vant/weapp/dialog/dialog';
 
 const app = getApp();
 // 滑动手势变量
@@ -242,31 +243,38 @@ Page({
     // 删除动态
     doDeleteMoment: function(e){
         let that = this;
-        let user = app.getUser();
-        if(!user){
-            user = wx.getStorageSync('user');
-            if(!user) return;
-        }
-        wx.request({
-            url: app.config.getHostUrl()+'/api/moments/delMoment',
-            method: 'post',
-            data: {
-               "rid": user.rid,
-               "moid": e.detail.moid
-            },
-            success: (res)=>{
-                if(res.data.isSuccess){
-                    // let moments  = that.data.moments;  //这样删了，页面为何不生效
-                    // moments.splice(moments.findIndex(item=>item.moid==e.detail.moid),1);
-                    that.refreshMoments();
-                }else{
-                    Notify({ type: 'danger', message: res.data.msg });
-                }                                                                       
-            },
-            fail: (res)=>{
-              console.log(res);
+        Dialog.confirm({
+            title: '提示',
+            message: '删除后，将无法恢复哦！'
+        }).then(() => {
+            let user = app.getUser();
+            if(!user){
+                user = wx.getStorageSync('user');
+                if(!user) return;
             }
-        })
+            wx.request({
+                url: app.config.getHostUrl()+'/api/moments/delMoment',
+                method: 'post',
+                data: {
+                "rid": user.rid,
+                "moid": e.detail.moid
+                },
+                success: (res)=>{
+                    if(res.data.isSuccess){
+                        // let moments  = that.data.moments;  //这样删了，页面为何不生效
+                        // moments.splice(moments.findIndex(item=>item.moid==e.detail.moid),1);
+                        that.refreshMoments();
+                    }else{
+                        Notify({ type: 'danger', message: res.data.msg });
+                    }                                                                       
+                },
+                fail: (res)=>{
+                console.log(res);
+                }
+            })
+        }).catch(() => {
+        // on cancel
+        });
     }
 
 })

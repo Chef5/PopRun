@@ -1,0 +1,16 @@
+.guide-item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.guide-item .img {
+  margin-left: 300rpx;
+  width: 300rpx;
+  height: 300rpx;
+}
+.guide-item .text {
+  width: 100%;
+  font-size: 36rpx;
+  letter-spacing: 2px;
+  text-align: center;
+}

@@ -11,6 +11,8 @@
     "van-dialog": "@vant/weapp/dialog/index",
     "van-toast": "@vant/weapp/toast/index",
     "van-tab": "@vant/weapp/tab/index",
-    "van-tabs": "@vant/weapp/tabs/index"
+    "van-tabs": "@vant/weapp/tabs/index",
+    "share-menu": "/components/share-menu/index",
+    "share-to-friend": "/components/share-to-friend/index"
   }
 }

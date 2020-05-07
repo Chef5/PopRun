@@ -36,6 +36,7 @@ Page({
     }
   },
   chooseLocation() {
+    let that = this;
     const key = 'SJOBZ-JFFAP-MJDDW-VRRV7-OKAYE-YOBOJ'; //使用在腾讯位置服务申请的key
     const referer = '跑鸭'; //调用插件的app的名称
     wx.getLocation({
@@ -46,6 +47,9 @@ Page({
           latitude: res.latitude,
           longitude: res.longitude
         });
+        that.setData({
+          tude: res
+        })
         const category = '发布位置';
         wx.navigateTo({
           url: 'plugin://chooseLocation/index?key=' + key + '&referer=' + referer + '&location=' + location + '&category=' + category
@@ -65,7 +69,13 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-
+    //清空发布页面数据
+    this.setData({
+      // text: "",
+      // fileList: [],
+      address: "位置",
+      tude: null
+    })
   },
 
   /**
@@ -103,7 +113,10 @@ Page({
       data: {
         rid: user.rid,
         text: that.data.text,
-        imgs: fileList
+        imgs: fileList,
+        location: that.data.address != '位置' ? that.data.address : null,
+        latitude: that.data.address != '位置' && that.data.tude != null  ? that.data.tude.latitude : null,
+        longitude: that.data.address != '位置' && that.data.tude != null ? that.data.tude.longitude : null,
       },
       header: {
         'content-type': 'application/json'
@@ -115,6 +128,14 @@ Page({
             type: 'success',
             message: result.data.msg
           });
+          //清空发布页面数据
+          that.setData({
+            text: "",
+            img: [],
+            address: "位置",
+            tude: null
+          })
+          //刷新上层页面
           let moments = [];
           prevPage.setData({
             moments

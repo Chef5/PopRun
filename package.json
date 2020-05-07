@@ -4,8 +4,8 @@
   "description": "```\r npm install\r ```\r > 可能会报路径错误：根据报错创建指定目录",
   "main": "app.js",
   "dependencies": {
-    "@vant/weapp": "^1.0.0-beta.4",
-    "vant-weapp": "^0.5.27"
+    "@vant/weapp": "^1.2.2",
+    "vant-weapp": "^0.5.28"
   },
   "devDependencies": {},
   "scripts": {

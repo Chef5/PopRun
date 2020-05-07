@@ -61,41 +61,39 @@
 .detail {
   width: 560rpx;
   height: 720rpx;
+  position: relative;
 }
 .detail .d-img {
+  position: relative;
   width: 100%;
   text-align: center;
   margin-top: 70rpx;
 }
-.detail .d-name {
-  width: 100%;
-  margin-top: 10rpx;
-  text-align: center;
-  font-size: 38rpx;
-  color: blueviolet;
-  font-weight: 700;
+.detail .d-img #runImg {
+  margin-left: 30rpx;
 }
-.detail .d-count {
-  width: 100%;
-  text-align: center;
+.detail .d-data {
+  display: flex;
+  flex-direction: column;
+  margin: 10rpx 50rpx;
+}
+.detail .d-data .d-item {
+  margin-top: 5rpx;
+  font-size: 28rpx;
+}
+.detail .d-data .d-item text {
   font-size: 24rpx;
-  color: #919191;
+  color: gray;
 }
-.detail .d-desc {
-  margin: 30rpx auto;
-  width: 80%;
-  border: #e9e7e5 1px solid;
-  padding: 12rpx 30rpx;
-  border-radius: 5px;
-  min-height: 200rpx;
-  font-size: 30rpx;
-  color: #504e4e;
-}
-.detail .d-time {
+.detail .d-btns {
   width: 100%;
   position: absolute;
-  bottom: 50rpx;
-  text-align: center;
-  font-size: 22rpx;
-  color: #afabab;
+  bottom: 30rpx;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.detail .d-btns .d-btn {
+  margin-left: 30rpx;
+  margin-right: 30rpx;
 }

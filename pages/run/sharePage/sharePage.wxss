@@ -1,0 +1,7 @@
+.main {
+  width: 100%;
+}
+.main .btn {
+  margin-top: 40rpx;
+  text-align: center;
+}

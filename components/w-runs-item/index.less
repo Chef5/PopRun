@@ -62,41 +62,39 @@
 .detail{
     width: 560rpx;
     height: 720rpx;
+    position: relative;
     .d-img{
+        position: relative;
         width: 100%;
         text-align: center;
         margin-top: 70rpx;
+        #runImg{
+            margin-left: 30rpx;
+        }
     }
-    .d-name{
-        width: 100%;
-        margin-top: 10rpx;
-        text-align: center;
-        font-size: 38rpx;
-        color: blueviolet;
-        font-weight: 700;
+    .d-data{
+        display: flex;
+        flex-direction: column;
+        margin: 10rpx 50rpx;
+        .d-item{
+            margin-top: 5rpx;
+            font-size: 28rpx;
+            text{
+                font-size: 24rpx;
+                color: gray;
+            }
+        }
     }
-    .d-count{
-        width: 100%;
-        text-align: center;
-        font-size: 24rpx;
-        color:  #919191;
-    }
-    .d-desc{
-        margin: 30rpx auto;
-        width: 80%;
-        border: rgb(233, 231, 229) 1px solid;
-        padding: 12rpx 30rpx;
-        border-radius: 5px;
-        min-height: 200rpx;
-        font-size: 30rpx;
-        color: #504e4e;
-    }
-    .d-time{
+    .d-btns{
         width: 100%;
         position: absolute;
-        bottom: 50rpx;
-        text-align: center;
-        font-size: 22rpx;
-        color: #afabab;
+        bottom: 30rpx;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        .d-btn{
+            margin-left: 30rpx;
+            margin-right: 30rpx;
+        }
     }
 }

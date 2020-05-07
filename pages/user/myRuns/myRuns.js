@@ -1,6 +1,7 @@
 
 import Notify from '@vant/weapp/notify/notify';
 import Toast from '@vant/weapp/toast/toast';
+import Dialog from '@vant/weapp/dialog/dialog';
 
 const app = getApp();
 Page({
@@ -11,35 +12,15 @@ Page({
     data: {
         isShowloading: true,
         runData: {},  //统计数据
-        runs: [{
-            "ruid": 6,
-            "rid": 6,
-            "distance": "10",
-            "calorie": "66",
-            "speed_top": "12",
-            "speed_low": "1",
-            "speed": "12355",
-            "time_start": "2020-04-01 12:30:00",
-            "time_end": "2020-04-01 12:30:00",
-            "time_run": 666666,
-            "latitude_start": "wwww",
-            "longitude_start": "aaa",
-            "latitude_end": "234 dolore",
-            "longitude_end": "ad",
-            "isshared": 0,
-            "created_at": "2020-04-15 19:28:56",
-            "updated_at": "2020-04-15 19:28:56",
-            "imgs": {
-              "original": "http://dev.run.nunet.cn/resources/images/2020-02-04/5e3858831fa42-1080x1920.jpg",
-              "thumbnail": "http://dev.run.nunet.cn/resources/images/2020-02-04/5e3858831fa42-min-200x356.jpg"
-            }
-          }],     //运动列表
+        runs: [],     //运动列表
     },
 
     /**
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+        let user = app.getUser();
+        this.setData({ user });
         this.setData({ rid: options.rid })
         this.initData(options.rid);
     },
@@ -92,6 +73,9 @@ Page({
             .then((res)=>{
                 console.log(res)
                 if(res.data.data.runs.length > 0){
+                    // res.data.data.runs.forEach(element => {
+                    //     runs.push(element);
+                    // });
                     that.setData({ 
                         runs: runs.concat(res.data.data.runs),
                         pageindex: res.data.data.pageindex,
@@ -142,8 +126,8 @@ Page({
         let that = this;
         //获取当前页和页面大小
         if(!pageindex && !pagesize){
-            pageindex = this.data.pageindex;
-            pagesize = this.data.pagesize;
+            pageindex = that.data.pageindex;
+            pagesize = that.data.pagesize;
         }
         let rid = that.data.rid;
         return new Promise(
@@ -171,6 +155,88 @@ Page({
                 })
             }
         )
+    },
+
+    /**
+     * 删除记录
+     */
+    doDelete(run) {
+        let that = this;
+        Dialog.confirm({
+            title: '提示',
+            message: '删除后将无法恢复，请慎重操作',
+            confirmButtonText: '确认删除',
+            zIndex: 1000
+        }).then(() => {
+            wx.request({
+                url: app.config.getHostUrl() + '/api/run/delRun',
+                method: 'post',
+                data: {
+                ruid: run.detail.ruid,
+                rid: run.detail.rid
+                },
+                success: function (res) {
+                if (res.statusCode == 200) {
+                    if (res.data.isSuccess) {
+                    
+                    } else {
+                        Dialog.alert({
+                            message: res.data.msg
+                        }).then(() => {
+                        // on close
+                        });
+                    }
+                } else {
+                    Dialog.alert({
+                        message: "服务器错误"
+                    }).then(() => {
+                    // on close
+                    });
+                }
+                },
+                fail: function (res) {
+                    Dialog.alert({
+                        message: "网络错误"
+                    }).then(() => {
+                    // on close
+                    });
+                },
+                complete: function (){
+                    //删除后更新页面
+                    that.setData({
+                        isShowDetail: false
+                    })
+                    that.setData({ isShowloading: true })
+                    that.requestUserRunData(run.detail.rid);
+                    that.getMyRuns(0, 10).then( res => {
+                        that.setData({ 
+                            runs: res.data.data.runs,
+                            pageindex: res.data.data.pageindex,
+                            pagesize : res.data.data.pagesize,
+                            isShowloading: false
+                        });
+                        app.stopRefresh();
+                        Notify({ type: 'success', message: '刷新成功' });
+                    })
+                }
+            })
+        }).catch(() => {
+        // on cancel
+        });
+    },
+
+    
+    // 分享
+    doShare(e) {
+        // 提示已分享
+        if(e.detail.isshared == 1){
+            Dialog.alert({
+                message: '你已分享过了'
+            }).then(() => {
+            // on close
+            });
+        }
+
     },
 
 })

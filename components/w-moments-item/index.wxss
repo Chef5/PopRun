@@ -7,6 +7,7 @@
 /* 个人信息 */
 .nav{
     width: 88rpx;
+    height: 88rpx;
 }
 .nav image{
     width: 88rpx;
@@ -20,7 +21,7 @@
     padding: 2rpx 18rpx;
 }
 .title{
-    width: 72%;
+    max-width: 72%;
     text-align: left;
     font-size: 32rpx;
     font-weight: 700;
@@ -85,6 +86,14 @@
 .flag-share{
     
 }
+.flag-location{
+    color: rgb(125, 125, 224);
+    font-size: 24rpx;
+    width: 85%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 /* 更多 */
 .more{
     display: flex;
@@ -134,7 +143,7 @@
     line-height: 34rpx;
     letter-spacing: 0.1px;
 } 
-.comment text{
+.comment text:first-child{
     text-align: left;
     font-size: 30rpx;
     color: #2020a3;

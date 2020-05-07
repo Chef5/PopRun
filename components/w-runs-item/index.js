@@ -1,4 +1,6 @@
 const format = require("../../utils/util");
+const Share = require("../../utils/share");
+const app = getApp();
 
 Component({
     /**
@@ -24,7 +26,7 @@ Component({
      */
     attached: function() {
         let that = this;
-        // let user = user = wx.getStorageSync('user');
+        // let user = wx.getStorageSync('user');
         // if(user && user.constructor != Object) user = JSON.parse(user);
         // that.setData({ uesr });
         that._initData(that.properties.run, that)
@@ -42,6 +44,8 @@ Component({
                 run.isFinished = true;
                 run.timeRun = format.formatPeriod2time(run.time_run);
                 run.speed = format.formatSpeed(run.speed);
+                run.speed_top = format.formatSpeed(run.speed_top);
+                run.speed_low = format.formatSpeed(run.speed_low);
             }else{
                 run.isFinished = false;
                 run.timeRun = '--:--';
@@ -52,9 +56,54 @@ Component({
 
         // 查看运动详细
         showDetail() {
+            let that = this;
+            if(this.data.nonImg){ //性能优化：已绘制过就不再绘制了
+                that.setData({
+                    isShowDetail: true
+                })
+            }else{
+                //画图
+                Share.getCanvasWX6B('#runImg', this).then(canvas=>{
+                    let run = this.properties.run;
+                    //分享背景 渐变色
+                    // run.color = {
+                    //     from: 'red',
+                    //     to: 'white',
+                    //     direction: 5
+                    // };
+                    Share.makeShareImg(canvas, run, false);
+                }).catch((err)=>{
+                    console.log(err)
+                })
+                setTimeout(()=>{
+                    Share.getFileWX6B('#runImg', this, false).then(nonImg=>{
+                        console.log(nonImg)
+                        that.setData({ nonImg, isShowDetail: true })
+                    })
+                    //绘制失败时保持显示
+                    that.setData({
+                        isShowDetail: true
+                    })
+                },500) //延迟防止绘制未完成
+            }
+        },
+
+        // 删除记录
+        doDelete() {
+            let that = this;
             this.setData({
-                isShowDetail: true
+                isShowDetail: false
             })
+            this.triggerEvent('delete', that.data.runobj);
+        },
+
+        // 分享
+        doShare() {
+            let that = this;
+            this.setData({
+                isShowDetail: false
+            })
+            this.triggerEvent('share', that.data.runobj);
         },
 
         // 关闭弹窗
