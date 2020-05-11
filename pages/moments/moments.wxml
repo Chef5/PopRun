@@ -6,6 +6,8 @@
 <van-loading size="24px" vertical custom-class="loading" wx:if="{{isShowloading}}">加载中...</van-loading>
 
 <view class="body"  bindtouchstart="touchStart" bindtouchmove="touchMove" >
+    <!-- 热门推荐 -->
+    <w-moments-item wx:if="{{isShowHot}}" hot="{{true}}" moment="{{hotMoment}}" bind:doDeleteMoment="doDeleteMoment"></w-moments-item>
     <view wx:for="{{moments}}" wx:for-item="moment" wx:key="moment">
         <w-moments-item moment="{{moment}}" bind:doDeleteMoment="doDeleteMoment"></w-moments-item>
     </view>

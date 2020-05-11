@@ -15,6 +15,7 @@ Page({
         isShowMenu: false,    //侧滑菜单
         isShowMessages: false,//消息盒子
         isShowloading: false,
+        isShowHot: false,
         moments: [],
         pageindex: 0,
         pagesize: 10,
@@ -154,10 +155,10 @@ Page({
                 if(res.data.isSuccess){
                     Notify({ type: 'success', message: res.data.msg });
                     that.setData({ 
-                        moments: res.data.data.moments,
                         pageindex: res.data.data.pageindex,
                         pagesize : res.data.data.pagesize
                     });
+                    that.getHot(res.data.data.moments);//获取热门推荐,并判断动态里是否含有热门
                 }else{
                     Notify({ type: 'danger', message: res.data.msg });
                 }
@@ -275,6 +276,40 @@ Page({
         }).catch(() => {
         // on cancel
         });
+    },
+
+    // 获取热门推荐
+    getHot: function(moments){
+        let that = this;
+        that.setData({
+            hotMoment: {},
+            isShowHot: false
+        })
+        wx.request({
+            url: app.config.getHostUrl()+'/api/moments/getHot',
+            method: 'get',
+            success: (res)=>{
+                if(res.statusCode == 200){
+                    if(res.data.isSuccess){
+                        for(let i=0; i<moments.length; i++){
+                            if(moments[i].moid == res.data.data.moid){
+                                moments.splice(i, 1);
+                                break;
+                            }
+                        }
+                        that.setData({
+                            hotMoment: res.data.data,
+                            moments,
+                            isShowHot: true
+                        })
+                    }
+                }else{
+                    // 服务器故障
+                }
+            },
+            fail: (res)=>{
+            }
+        })
     }
 
 })
