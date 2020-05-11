@@ -19,6 +19,15 @@
     display: flex;
     flex-direction: column;
     padding: 2rpx 18rpx;
+    position: relative;
+    /* box-shadow: 0 0 1px 1px rgba(104,103,103,0.1); */
+}
+.icon-hot{
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 80rpx;
+    width: 80rpx;
 }
 .title{
     max-width: 72%;

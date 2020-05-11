@@ -1,6 +1,7 @@
 // components/w-moments-item/index.js
 const app = getApp();
 const time2cn = require('../../utils/time2cn');
+import Dialog from '@vant/weapp/dialog/dialog';
 Component({
     /**
      * 组件的属性列表
@@ -9,6 +10,10 @@ Component({
         moment: {
             type: Object,  //数据类型
             value: null    //默认值
+        },
+        hot: {
+            type: Boolean,
+            value: false
         }
     },
 
@@ -122,11 +127,15 @@ Component({
         // 打开评论
         doComment: function(e){
             let that = this;
-            that.setData({
-                showmore: false,
-                showcomment: true,
-                placeholder: e.currentTarget.dataset.nickname ? "[回复]" + e.currentTarget.dataset.nickname : "期待神评"
-            })
+            if(this.data.user.rid == e.currentTarget.dataset.rid){
+                this.deDeleteComment(e.currentTarget.dataset.coid);
+            }else{
+                that.setData({
+                    showmore: false,
+                    showcomment: true,
+                    placeholder: e.currentTarget.dataset.nickname ? "[回复]" + e.currentTarget.dataset.nickname : "期待神评"
+                })
+            }
         },
         // 获取输入框的值
         handleInput: function(e){
@@ -175,6 +184,31 @@ Component({
                 input: "",
                 showcomment: false,
             })
+        },
+        // 删除评论
+        deDeleteComment: function(coid){
+            let that = this;
+            Dialog.confirm({
+                title: '提示',
+                message: '删除评论后，将无法恢复哦！'
+            }).then(() => {
+                wx.request({
+                    url: app.config.getHostUrl() + '/api/moments/delComment',
+                    method: 'get',
+                    data: {
+                    coid: coid
+                    },
+                    success: (res)=>{
+                    // console.log(res);
+                    that.refreshThis(that.data.data.moid, "comments");                                                                                       
+                    },
+                    fail: (res)=>{
+                    console.log(res);
+                    }
+                })
+            }).catch(() => {
+            // on cancel
+            });
         },
         // 删除动态
         doDeleteMoment: function(){

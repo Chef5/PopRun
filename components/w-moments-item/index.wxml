@@ -1,9 +1,11 @@
 <!--components/w-moments-item/index.wxml-->
+<van-dialog id="van-dialog" />
 <view class="container" bindtap="cancelAll">
     <view class="nav">
         <image data-rid="{{data.rid}}" catch:tap="goToUser" src="{{data.img}}"></image>
     </view>
     <view class="main">
+        <image wx:if="{{hot}}" class="icon-hot" src="/imgs/hot.png" />
         <view class="title" data-rid="{{data.rid}}" catch:tap="goToUser">{{data.nickname}}</view>
         <view class="info">{{data.info}}</view>
         <view class="content">
@@ -93,9 +95,9 @@
                 wx:for="{{data.comments}}"
                 wx:for-item="item"
                 wx:key="item"
-                data-coid="{{item.coid}}"
-                data-nickname="{{item.nickname}}">
-                <text data-rid="{{item.rid}}" catch:tap="goToUser" >{{item.nickname}}：</text><text data-rid="{{item.rid}}" catchtap="doComment">{{item.comment}}</text>
+                >
+                <text data-rid="{{item.rid}}" catch:tap="goToUser" >{{item.nickname}}：</text>
+                <text data-rid="{{item.rid}}" data-nickname="{{item.nickname}}" data-coid="{{item.coid}}" catchtap="doComment">{{item.comment}}</text>
             </view>
         </view>
     </view>
