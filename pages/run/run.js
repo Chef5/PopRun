@@ -82,6 +82,8 @@ Page({
     this.getText();
     //隐藏定位中信息进度
     wx.hideLoading()
+    //获取周榜排行榜数据
+    this.getRanking(0);
   },
   // 获取随机一言
   getText() {
