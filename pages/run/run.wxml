@@ -134,10 +134,10 @@
     </view>
     <!-- 跑步结果 -->
     <view wx-if="{{showRes}}">
-      <cover-view class="go-back" bindtap="goBack">
+      <view class="go-back" bindtap="goBack">
         <i-icon type="return" size="28" color="#80848f" /> 返回
-      </cover-view>
-      <cover-view class="runRes">
+      </view>
+      <view class="runRes">
         <view>
           <text class="num">{{distance}}</text>
           <text>公里</text>
@@ -159,7 +159,7 @@
             <text>热量(千卡)</text>
           </view>
         </view>
-      </cover-view>
+      </view>
       <share-menu 
         show="{{ isShowShareMenu }}"
         run="{{ resRun }}"
