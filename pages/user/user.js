@@ -188,13 +188,19 @@ Page({
             if(res.data.isSuccess){
               //注册成功处理逻辑
               console.log(res.data)
-              let user = res.data.data;
+              // 获取勋章称号
+              // that.getUserAll(res.data.data.rid);
               that.setData({
                 medals_count: res.data.data.medals.length,
                 honors: res.data.data.honors instanceof Array ? res.data.data.honors[0] : res.data.data.honors,
                 medals: that.parseMedals(res.data.data.medals),
                 isUnsigned: false
               });
+              let user = {...res.data.data};
+              delete user.honors;
+              delete user.medals;
+              that.updateCurrentUser(user);
+              wx.setStorageSync('user', JSON.stringify(user));
             }else{
               // 注册失败
               console.log(res.data.msg)

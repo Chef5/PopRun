@@ -4,6 +4,7 @@ import Toast from '@vant/weapp/toast/toast';
 import Dialog from '@vant/weapp/dialog/dialog';
 
 const app = getApp();
+const format = require("../../../utils/util");
 Page({
 
     /**
@@ -109,8 +110,10 @@ Page({
             method: 'GET',
             success: (result)=>{
                 if(result.data.isSuccess){
+                    let runs = result.data.data;
+                    runs.avgS = format.formatSpeed(runs.avgS);
                     that.setData({
-                        runData: result.data.data
+                        runData: runs
                     })
                 }
             },

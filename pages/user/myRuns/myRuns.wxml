@@ -9,27 +9,27 @@
         <image class="img" src="{{ user.img }}"></image>
         <view class="card" hover-class="card-hover">
             <view class="totle">
-                累计里程：<text>{{runData.sumD}}</text>km
+                累计里程：<text>{{runData.sumD || 0}}</text>km
             </view>
             <view class="detail">
                 <view class="item">
-                    <view class="value">{{runData.times}}</view>
+                    <view class="value">{{runData.times || 0}}</view>
                     <view class="name">累计次数</view>
                 </view>
                 <view class="item">
-                    <view class="value">{{runData.sumT}}</view>
+                    <view class="value">{{runData.sumT || 0}}</view>
                     <view class="name">累计时长(分)</view>
                 </view>
                 <view class="item">
-                    <view class="value">{{runData.maxD}}</view>
+                    <view class="value">{{runData.maxD || 0}}</view>
                     <view class="name">最大里程(km)</view>
                 </view>
                 <view class="item">
-                    <view class="value">{{runData.maxT}}</view>
+                    <view class="value">{{runData.maxT || 0}}</view>
                     <view class="name">最大时长(分)</view>
                 </view>
                 <view class="item">
-                    <view class="value">{{runData.avgS}}</view>
+                    <view class="value">{{runData.avgS || 0}}</view>
                     <view class="name">平均配速</view>
                 </view>
             </view>

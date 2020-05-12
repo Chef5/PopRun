@@ -28,14 +28,14 @@
             </view>
             <view class="head-teamjob">
                 <van-icon name="diamond" size="20px" />
-                <view wx:if="{{ privacy.team==1 }}">{{user.team}}</view>
-                <view class="job" wx:if="{{ privacy.job==1 }}">{{user.job}}</view>
+                <view wx:if="{{ privacy.team==1 }}">{{user.team || '未设置校区'}}</view>
+                <view class="job" wx:if="{{ privacy.job==1 }}">{{user.job || '未知职业'}}</view>
                 <view wx:if="{{ privacy.team!=1 }}">******</view>
                 <view class="job" wx:if="{{ privacy.job!=1 }}">***</view>
             </view>
             <view class="head-run">
                 <van-icon name="award" size="20px" />
-                <view wx:if="{{ privacy.run==1 }}">累计里程：<text>{{runs.sumD}}km</text></view>
+                <view wx:if="{{ privacy.run==1 }}">累计里程：<text>{{runs.sumD || 0}}km</text></view>
                 <!-- <view class="time" wx:if="{{ privacy.run==1 }}">累计时长：{{user.sumT}}分钟</view> -->
                 <view wx:if="{{ privacy.run!=1 }}">累计里程：<text>***km</text></view>
                 <!-- <view class="time" wx:if="{{ privacy.run!=1 }}">累计时长：***分钟</view> -->
@@ -52,23 +52,23 @@
     <van-row>
         <view class="run-data" wx:if="{{ privacy.run==1 }}">
             <view class="item">
-                <view class="value">{{runs.times}}</view>
+                <view class="value">{{runs.times || 0}}</view>
                 <view class="name">累计次数</view>
             </view>
             <view class="item">
-                <view class="value">{{runs.sumT}}分钟</view>
+                <view class="value">{{runs.sumT || 0}}分钟</view>
                 <view class="name">累计时长</view>
             </view>
             <view class="item">
-                <view class="value">{{runs.maxD}}km</view>
+                <view class="value">{{runs.maxD || 0}}km</view>
                 <view class="name">最大里程</view>
             </view>
             <view class="item">
-                <view class="value">{{runs.maxT}}分钟</view>
+                <view class="value">{{runs.maxT || 0}}分钟</view>
                 <view class="name">最大时长</view>
             </view>
             <view class="item">
-                <view class="value">{{runs.avgS}}</view>
+                <view class="value">{{runs.avgS || '--'}}</view>
                 <view class="name">平均速度</view>
             </view>
         </view>

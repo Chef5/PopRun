@@ -1,6 +1,7 @@
-const app = getApp();
 import Notify from '@vant/weapp/notify/notify';
 import Toast from '@vant/weapp/toast/toast';
+const format = require("../../../utils/util");
+const app = getApp();
 Page({
 
     /**
@@ -148,8 +149,10 @@ Page({
             method: 'GET',
             success: (result)=>{
                 if(result.data.isSuccess){
+                    let runs = result.data.data;
+                    runs.avgS = format.formatSpeed(runs.avgS);
                     that.setData({
-                        runs: result.data.data
+                        runs
                     })
                 }
             },
