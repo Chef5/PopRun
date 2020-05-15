@@ -152,6 +152,13 @@
 					"pathName": "pages/run/share/share",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "通用设置",
+					"pathName": "pages/user/setting/setting",
+					"query": "",
+					"scene": null
 				}
 			]
 		}

@@ -20,6 +20,13 @@ Page({
         pageindex: 0,
         pagesize: 10,
         unreadMessagesNum: 0, //未读信息
+        setting: {
+            power: true,
+            voice: true,
+            shake: true,
+            screen: true,
+            method: '1'
+        }
     },
 
     /**
@@ -31,29 +38,50 @@ Page({
         this.setData({
             unreadMessagesNum: app.globalData.status.tabbar[1].number
         })
+        let setting = wx.getStorageSync('setting');
+        if(setting){
+            this.setData({ setting })
+        }
     },
 
     /**
      * 生命周期函数--监听页面显示
      */
     onShow: function () {
+        let setting = wx.getStorageSync('setting');
+        if(!setting){
+            setting = {
+              power: true,
+              voice: true,
+              shake: true,
+              screen: true,
+              method: '1'
+            }
+        }
         // 获取消息通知
-        let user = wx.getStorageSync('user'), that = this;
-        if(user){
-            if(user.constructor != Object) user = JSON.parse(user);
-            app.getNotices(user.rid, 0).then((res)=>{
-                let moment = 0;
-                let tabbar = app.globalData.status.tabbar;
-                for(let i=0; i<res.length; i++){
-                    if(res[i].type !=0 && res[i].read==0 ) moment++;
-                }
-                tabbar[1] = { dot: false, number: moment}; //动态圈子
-                app.globalData.status.tabbar = tabbar;
-                app.setTabbar(1, { dot: false, number: moment}); //动态圈子
-                that.setData({
-                    unreadMessagesNum: moment  
+        if(setting.method != '2'){  //免打扰
+            let user = wx.getStorageSync('user'), that = this;
+            if(user){
+                if(user.constructor != Object) user = JSON.parse(user);
+                app.getNotices(user.rid, 0).then((res)=>{
+                    let moment = 0;
+                    let tabbar = app.globalData.status.tabbar;
+                    for(let i=0; i<res.length; i++){
+                        if(res[i].type !=0 && res[i].read==0 ) moment++;
+                    }
+                    if(setting.method == '1'){  //数字提示
+                        tabbar[1] = { dot: false, number: moment};
+                        app.setTabbar(1, { dot: false, number: moment});
+                    }else if(setting.method == '0'){ //红点
+                        tabbar[1] = { dot: true };
+                        app.setTabbar(1, { dot: true });
+                    }
+                    app.globalData.status.tabbar = tabbar;
+                    that.setData({
+                        unreadMessagesNum: moment  
+                    })
                 })
-            })
+            }
         }
     },
 

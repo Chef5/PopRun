@@ -82,8 +82,13 @@ Page({
     this.getText();
     //隐藏定位中信息进度
     wx.hideLoading()
-    //获取周榜排行榜数据
-    this.getRanking(0);
+  },
+  onReady: function(){
+    let user = app.getUser();
+    if(user && user.team){
+      //获取周榜排行榜数据
+      this.getRanking(0);
+    }
   },
   // 获取随机一言
   getText() {
@@ -100,9 +105,17 @@ Page({
   },
   // 排行榜栏显示隐藏
   toggleRight1: function() {
-    this.setData({
-      showRight1: !this.data.showRight1
-    });
+    let user = app.getUser();
+    if(user && user.team){
+      this.setData({
+        showRight1: !this.data.showRight1
+      });
+    }else{
+      Dialog.alert({
+        title: '提示',
+        message: '您未设置校区，无法使用校区排行榜功能，您可以在个人资料中进行设置',
+      })
+    }
   },
 
   // 周榜月榜切换

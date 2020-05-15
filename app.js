@@ -3,24 +3,40 @@ import Dialog from '@vant/weapp/dialog/dialog';
 import Notify from '@vant/weapp/notify/notify';
 App({
   onLaunch: function () {
-    var that = this;
+    let that = this;
+    let setting = wx.getStorageSync('setting');
+    if(!setting){
+      setting = {
+        power: true,
+        voice: true,
+        shake: true,
+        screen: true,
+        method: '1'
+      }
+    }
     //初始化tabbar状态
     let user = wx.getStorageSync('user');
     if(user){
       if(user.constructor != Object) user = JSON.parse(user);
-      that.getNotices(user.rid, 0).then((res)=>{
-          let moment = 0;
-          let tabbar = that.globalData.status.tabbar;
-          for(let i=0; i<res.length; i++){
-              if(res[i].type !=0 && res[i].read==0 ) moment++;
-          }
-          tabbar[1] = { dot: false, number: moment}; //动态圈子
-          that.globalData.status.tabbar = tabbar;
-          
-          that.globalData.status.tabbar.forEach(function(item,index){
-            that.setTabbar(index, item)
-          })
-      })
+      if(setting.method != '2'){  //免打扰
+        that.getNotices(user.rid, 0).then((res)=>{
+            let moment = 0;
+            let tabbar = that.globalData.status.tabbar;
+            for(let i=0; i<res.length; i++){
+                if(res[i].type !=0 && res[i].read==0 ) moment++;
+            }
+            if(setting.method == '1'){  //数字提示
+              tabbar[1] = { dot: false, number: moment}; //动态圈子
+            }else if(setting.method == '0'){ //红点
+              tabbar[1] = { dot: true }; //动态圈子
+            }
+            that.globalData.status.tabbar = tabbar;
+            
+            that.globalData.status.tabbar.forEach(function(item,index){
+              that.setTabbar(index, item)
+            })
+        })
+      }
     }
   },
   globalData: {
