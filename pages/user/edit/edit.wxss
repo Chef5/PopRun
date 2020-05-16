@@ -10,3 +10,6 @@
     max-width: 90px;
     min-width: 90px;
 }
+.picker-active{
+    font-size: 36rpx;
+}

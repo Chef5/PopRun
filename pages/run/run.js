@@ -84,11 +84,19 @@ Page({
     wx.hideLoading()
   },
   onReady: function(){
+    // let user = app.getUser();
+    // if(user && user.team){
+    //   //获取周榜排行榜数据
+    //   this.getRanking(0);
+    // }
+  },
+  onShow: function(){
     let user = app.getUser();
     if(user && user.team){
       //获取周榜排行榜数据
       this.getRanking(0);
     }
+    this.setData({ user });
   },
   // 获取随机一言
   getText() {
