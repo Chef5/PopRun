@@ -75,7 +75,7 @@
                     value="{{ user.info }}"
                     label="个人签名"
                     placeholder="请输入签名"
-                    type="textarea"
+                    type="text"
                     autosize
                     data-who="info"
                     bind:change="onFieldChange"
