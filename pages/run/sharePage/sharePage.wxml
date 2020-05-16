@@ -8,7 +8,7 @@
     <image src="{{ shareImg }}" style="width:750rpx;height:600rpx"></image>
     <van-field
         value="{{ message }}"
-        bind:change=" onChange "
+        bind:change="onChange"
         label="分享感言"
         type="textarea"
         placeholder="说点什么"
