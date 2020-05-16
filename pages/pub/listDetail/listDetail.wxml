@@ -11,6 +11,7 @@
       </view>
       <image class="image" mode="widthFix" lazy-load 
         wx:for="{{listDetail.imgs.original}}" 
+        wx:key="item"
         src="{{item}}" />
       <view class="desc-con" wx-if="{{listDetail.content}}">
         <text>{{listDetail.content}}</text>

@@ -8,7 +8,7 @@
         <van-cell title="低电量提示" label="当手机电量过低时，GPS定位会不准确，且运动数据可能无法完整记录" title-class="title" center>
             <van-switch slot="right-icon" checked="{{ setting.power }}" size="24px" bind:change="powerChange" />
         </van-cell>
-        <van-cell title="倒计时语音" label="倒计时语音播报" title-class="title" center>
+        <van-cell title="倒计时语音" label="倒计时语音" title-class="title" center>
             <van-switch slot="right-icon" checked="{{ setting.voice }}" size="24px" bind:change="voiceChange" />
         </van-cell>
         <van-cell title="整公里震动提示" label="运动里程达到整公里时，手机震动提示" title-class="title" center>

@@ -3,13 +3,13 @@
 <view class="main" wx:if="{{!isShowloading}}">
     <!-- 表单区 -->
     <van-cell-group>
-        <van-cell title="校区公开" title-class="title" center>
+        <van-cell title="校区公开" label="允许任何人可见您的所在的校区" title-class="title" center>
             <van-switch slot="right-icon" checked="{{ privacy.team==1 }}" size="24px" bind:change="teamChange" />
         </van-cell>
-        <van-cell title="职业公开" title-class="title" center>
+        <van-cell title="职业公开" label="允许任何人可见您的职业" title-class="title" center>
             <van-switch slot="right-icon" checked="{{ privacy.job==1 }}" size="24px" bind:change="jobChange" />
         </van-cell>
-        <van-cell title="运动数据公开" title-class="title" center>
+        <van-cell title="运动数据公开" label="允许任何人可见您的运动数据" title-class="title" center>
             <van-switch slot="right-icon" checked="{{ privacy.run==1 }}" size="24px" bind:change="runChange" />
         </van-cell>
     </van-cell-group>
