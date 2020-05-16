@@ -4,10 +4,14 @@
       <text>{{listDetail.title}}</text>
     </view>
     <view class="desc">
-      <van-image wx-if="{{listDetail.cover.original}}" max-width="100%" max-height="500rpx" lazy-load src="{{listDetail.cover.original}}" />
+      <image class="image" mode="widthFix" lazy-load 
+        src="{{listDetail.cover.original}}" />
       <view class="desc-title" wx-if="{{listDetail.desc}}">
         <text>{{listDetail.desc}}</text>
       </view>
+      <image class="image" mode="widthFix" lazy-load 
+        wx:for="{{listDetail.imgs.original}}" 
+        src="{{item}}" />
       <view class="desc-con" wx-if="{{listDetail.content}}">
         <text>{{listDetail.content}}</text>
       </view>
@@ -18,7 +22,7 @@
     <view class="reward">
       <van-cell title="活动奖励" label="参加活动将有机会获得一枚勋章哦！" border="{{ false }}" />
       <view class="medal-img">
-        <van-image width="240rpx" height="240rpx" src="{{listDetail.medal.img}}" />
+        <van-image width="150rpx" height="150rpx" src="{{listDetail.medal.img}}" />
       </view>
       <view class="medal-name">
         <text>{{listDetail.medal.name}}</text>

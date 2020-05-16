@@ -159,6 +159,13 @@
 					"pathName": "pages/user/setting/setting",
 					"query": "",
 					"scene": null
+				},
+				{
+					"id": 14,
+					"name": "活动详细",
+					"pathName": "pages/pub/listDetail/listDetail",
+					"query": "acid=2",
+					"scene": null
 				}
 			]
 		}

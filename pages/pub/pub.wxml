@@ -6,6 +6,7 @@
         <navigator url="{{item.imgLink}}">
           <swiper-item>
             <image src="{{item.cover.original}}"></image>
+            <view class="swiper-title">{{ item.title }}</view>
           </swiper-item>
         </navigator>
       </block>
