@@ -1,1 +1,10 @@
-/* pages/user/setting/setting.wxss */
+.title {
+  font-size: 32rpx;
+}
+.van-cell-title {
+  font-size: 32rpx;
+  flex: none !important;
+  -webkit-flex: none !important;
+  max-width: 90px;
+  min-width: 90px;
+}

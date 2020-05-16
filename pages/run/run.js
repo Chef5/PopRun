@@ -82,8 +82,31 @@ Page({
     this.getText();
     //隐藏定位中信息进度
     wx.hideLoading()
-    //获取周榜排行榜数据
-    this.getRanking(0);
+  },
+  onReady: function(){
+    // let user = app.getUser();
+    // if(user && user.team){
+    //   //获取周榜排行榜数据
+    //   this.getRanking(0);
+    // }
+  },
+  onShow: function(){
+    let user = app.getUser();
+    if(user && user.team){
+      //获取周榜排行榜数据
+      this.getRanking(0);
+    }
+    let setting = wx.getStorageSync('setting');
+    if(!setting){
+      setting = {
+        power: true,
+        voice: true,
+        shake: true,
+        screen: true,
+        method: '1'
+      }
+    }
+    this.setData({ user, setting });
   },
   // 获取随机一言
   getText() {
@@ -100,9 +123,17 @@ Page({
   },
   // 排行榜栏显示隐藏
   toggleRight1: function() {
-    this.setData({
-      showRight1: !this.data.showRight1
-    });
+    let user = app.getUser();
+    if(user && user.team){
+      this.setData({
+        showRight1: !this.data.showRight1
+      });
+    }else{
+      Dialog.alert({
+        title: '提示',
+        message: '您未设置校区，无法使用校区排行榜功能，您可以在个人资料中进行设置',
+      })
+    }
   },
 
   // 周榜月榜切换
@@ -220,34 +251,68 @@ Page({
   },
   // 倒计时显示
   countDown() {
-    this.setData({
-      showMain: false
-    })
-    const toast = Toast.loading({
-      duration: 0, // 持续展示 toast
-      forbidClick: true, // 禁用背景点击
-      message: '倒计时 3 秒',
-      loadingType: 'spinner',
-      selector: '#custom-selector'
-    });
+    let that = this;
+    if(that.data.setting.power){ //低电量提示
+      let battery = wx.getBatteryInfoSync();
+      if(battery.level < 20){
+        Dialog.confirm({
+          title: '低电量提示',
+          confirmButtonText: '回家充电',
+          cancelButtonText: '没电也要跑步',
+          message: '当前电量较低('+battery.level+'%)，GPS定位会不准确，本次运动可能无法完整记录',
+        })
+        .then(() => {
 
-    let second = 3;
-    const timer = setInterval(() => {
-      second--;
-      if (second) {
-        toast.setData({
-          message: `倒计时 ${second} 秒`
-        });
-      } else {
-        clearInterval(timer);
-        Toast.clear();
-        this.startInterface();
-        this.startRun();
+        })
+        .catch(()=>{
+          countDownStart(that);
+        })
+      }else{
+        countDownStart(that);
       }
-    }, 1000);
+    }else{
+      countDownStart(that);
+    }
+    function countDownStart(that) {
+      if(that.data.setting.voice){ //倒计时语音
+        const audioctx = wx.createInnerAudioContext();
+        audioctx.src = '/voice/countDown.mp3';
+        audioctx.autoplay = true;
+      }
+      that.setData({
+        showMain: false
+      })
+      const toast = Toast.loading({
+        duration: 0, // 持续展示 toast
+        forbidClick: true, // 禁用背景点击
+        message: '倒计时 3 秒',
+        loadingType: 'spinner',
+        selector: '#custom-selector'
+      });
+
+      let second = 3;
+      const timer = setInterval(() => {
+        second--;
+        if (second) {
+          toast.setData({
+            message: `倒计时 ${second} 秒`
+          });
+        } else {
+          clearInterval(timer);
+          Toast.clear();
+          that.startInterface();
+          that.startRun();
+        }
+      }, 1000);
+    }
   },
   // 调用开始接口
   startInterface() {
+    if(this.data.setting.screen){ //设置屏幕常亮-开始
+      wx.setKeepScreenOn({
+        keepScreenOn: true
+      })
+    }
     let user = app.getUser();
     if (!user) {
       user = wx.getStorageSync('user');
@@ -277,13 +342,19 @@ Page({
     let that = this;
     timer = setInterval(that.repeat, 1000);
   },
-  repeat: function() {
+  repeat() {
     let that = this;
     this.getlocation();
     this.getTime();
-    this.setData({
-      distance: (+that.getDistance()).toFixed(2),
-    })
+    let distance = (+that.getDistance()).toFixed(2);
+    this.setData({ distance });
+    if(this.data.setting.shake){ //整公里震动提醒
+      if(!this._shake) this._shake = 1;
+      if(distance - this._shake > 0){
+        this._shake = parseInt(distance)+1;
+        wx.vibrateLong();
+      }
+    }
   },
   // 暂停运动
   pauseRun: function() {
@@ -304,6 +375,11 @@ Page({
   },
   // 结束运动按钮
   endRun: function() {
+    if(this.data.setting.screen){ //设置屏幕常亮-结束
+      wx.setKeepScreenOn({
+        keepScreenOn: false
+      })
+    }
     clearInterval(timer);
     timer = null;
     let spdAvr = 0;

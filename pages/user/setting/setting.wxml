@@ -1,2 +1,44 @@
-<!--pages/user/setting/setting.wxml-->
-<text>pages/user/setting/setting.wxml</text>
+<van-loading size="24px" vertical custom-class="loading" wx:if="{{isShowloading}}">加载中...</van-loading>
+<van-toast id="van-toast" />
+<van-dialog id="van-dialog" />
+
+<view class="main" wx:if="{{!isShowloading}}">
+    <!-- 表单区 -->
+    <van-cell-group title="运动">
+        <van-cell title="低电量提示" label="当手机电量过低时，GPS定位会不准确，且运动数据可能无法完整记录" title-class="title" center>
+            <van-switch slot="right-icon" checked="{{ setting.power }}" size="24px" bind:change="powerChange" />
+        </van-cell>
+        <van-cell title="倒计时语音" label="倒计时语音" title-class="title" center>
+            <van-switch slot="right-icon" checked="{{ setting.voice }}" size="24px" bind:change="voiceChange" />
+        </van-cell>
+        <van-cell title="整公里震动提示" label="运动里程达到整公里时，手机震动提示" title-class="title" center>
+            <van-switch slot="right-icon" checked="{{ setting.shake }}" size="24px" bind:change="shakeChange" />
+        </van-cell>
+        <van-cell title="屏幕常亮" label="运动时，保持屏幕常亮" title-class="title" center>
+            <van-switch slot="right-icon" checked="{{ setting.screen }}" size="24px" bind:change="screenChange" />
+        </van-cell>
+    </van-cell-group>
+
+    <van-cell-group title="消息提示">
+        <van-cell title="提示方式" title-class="van-cell-title">
+            <van-radio-group value="{{ setting.method || '1'}}" bind:change="methodChange">
+                <van-row>
+                    <van-col span="8">
+                        <van-radio name="0">红点</van-radio>
+                    </van-col>
+                    <van-col span="8">
+                        <van-radio name="1">数字</van-radio>
+                    </van-col>
+                    <van-col span="8">
+                        <van-radio name="2">免打扰</van-radio>
+                    </van-col>
+                </van-row>
+            </van-radio-group>
+        </van-cell>
+    </van-cell-group>
+
+    <van-cell-group title="其他">
+        <van-cell title="检测更新" bind:click="checkUpdate" title-class="van-cell-title"></van-cell>
+        <van-cell title="注销账户" bind:click="deleteUser" title-class="van-cell-title"></van-cell>
+    </van-cell-group>
+</view>

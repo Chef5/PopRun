@@ -49,15 +49,17 @@
                 </van-cell>
                 <van-field
                     value="{{ user.team }}"
-                    label="团队"
-                    placeholder="请输入团队"
+                    label="校区"
+                    placeholder="请输入校区"
                     type="text"
                     data-who="team"
                     bind:change="onFieldChange"
                     bind:confirm="onFieldConfirm"
                     border="{{ false }}"
                     error="{{ false }}"
-                />
+                >
+                    <van-button slot="button" size="small" type="info" bind:click="showPicker">选择已有校区</van-button>
+                </van-field>
                 <van-field
                     value="{{ user.job }}"
                     label="职业"
@@ -73,7 +75,7 @@
                     value="{{ user.info }}"
                     label="个人签名"
                     placeholder="请输入签名"
-                    type="textarea"
+                    type="text"
                     autosize
                     data-who="info"
                     bind:change="onFieldChange"
@@ -112,3 +114,21 @@
     bindimageload="loadimage" 
     bindtapcut="clickcut">
 </image-cropper>
+
+<van-popup
+  show="{{ isShowPicker }}"
+  position="bottom"
+  round
+  custom-style="height: 40%;"
+  bind:close="onCancel"
+>
+
+<van-picker 
+    active-class="picker-active"
+    columns="{{ schools }}"
+    show-toolbar
+    default-index="{{ pickerindex }}"
+    bind:cancel="onCancel"
+    bind:confirm="onConfirm"
+    />
+</van-popup>
