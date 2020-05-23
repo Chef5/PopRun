@@ -81,3 +81,16 @@
 .head-modal .modal-title {
   display: inline-block;
 }
+.empty {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  font-size: 48rpx;
+  color: #e0dada;
+}
+.empty image {
+  margin-top: 10rpx;
+  width: 300rpx;
+  height: 375rpx;
+  opacity: 0.3;
+}

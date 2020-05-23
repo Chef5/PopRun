@@ -129,4 +129,8 @@
     <view wx:for="{{moments}}" wx:for-item="moment" wx:key="moment">
         <w-moments-item moment="{{moment}}" bind:doDeleteMoment="doDeleteMoment"></w-moments-item>
     </view>
+    <view class="empty" wx:if="{{moments.length == 0 }}">
+        <image src="/imgs/empty.png" />
+        <view>空空如也~</view>
+    </view>
 </view>
