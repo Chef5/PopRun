@@ -49,7 +49,7 @@ map {
   position: absolute;
   bottom: 0;
   /* background: #fff; */
-  background: linear-gradient(to top, #83B582, transparent);
+  background: linear-gradient(to top, #63b7af, transparent);
   /* line-height: 350rpx; */
   height: 350rpx;
   width: 100%;
@@ -64,7 +64,7 @@ map {
   line-height: 200rpx;
   border-radius: 50%;
   /* background: #78B078; */
-  background: linear-gradient(to left top, #83B582, rgb(70,218,218));
+  background: linear-gradient(to left top, #63b7af, #abf0e9);
   color: #fff;
   font-weight: bold;
   margin: 0 auto;
@@ -101,7 +101,7 @@ map {
 .ranking button {
   width: 80rpx;
   height: 80rpx;
-  background: rgb(84, 126, 83);
+  background: #63b7af;
   border-radius: 50%;
   float: right;
   margin: 20rpx 20rpx;
@@ -130,7 +130,7 @@ map {
   width: 516rpx;
   border-radius: 10rpx;
   /* background: red; */
-  border: 1rpx solid #409eff;
+  border: 1rpx solid #63b7af;
   margin: 0 12rpx;
   margin-top: 0.5vh;
   position: relative;
@@ -181,14 +181,13 @@ map {
 
 
 .rank-list .my-cell {
-  /* background: blue; */
-  background: #72afec;
+  background: #d4f3ef;
   position: fixed;
   bottom: 0;
   margin-bottom: 0.5vh;
 }
 .rankNum{
-  color: #72afec;
+  color: #abf0e9;
   font-size: 40rpx;
   font-weight: 600;
   font-family: Arial,Verdana,Sans-serif;
@@ -203,12 +202,12 @@ map {
 /* 正在跑步开始 */
 .running {
   height: 100%;
-  background: linear-gradient(to top, #83B582, transparent);
+  background: linear-gradient(to top, #63b7af, transparent);
   text-align: center;
   overflow: hidden;
 }
 .running .route {
-  color: #b4cab1;
+  color: #ee8572;
   margin: 100rpx 0;
 }
 .running .route .num {
@@ -245,10 +244,10 @@ map {
   color: #fff;
 }
 .running .run-btn .lf-btn {
-  background: rgb(160,234,95);
+  background: #ffe0ac;
 }
 .running .run-btn .rt-btn {
-  background: rgb(255,90,86);
+  background: #ee8572;
 }
 /* 正在跑步结束 */
 /* 跑步结束开始 */
@@ -264,7 +263,7 @@ map {
   width: 96vw;
   height: 300rpx;
   margin: 0 auto;
-  background: linear-gradient(to left top, #83B582, rgb(70,218,218));
+  background: linear-gradient(to left top, #63b7af, #abf0e9);
   position: fixed;
   bottom: 0;
   left: 0;

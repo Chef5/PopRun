@@ -16,7 +16,7 @@
             title="分享到动态圈子"
             bind:click="share2moments"
             >
-            <van-icon slot="right-icon" size="18px" name="/imgs/tabbar/moments.png" />
+            <van-icon slot="right-icon" size="20px" name="/imgs/tabbar/moments.png" />
         </van-cell>
         <van-cell
             title="分享到朋友圈"

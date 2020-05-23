@@ -4,7 +4,7 @@
 
 <view class="main" wx:if="{{!isShowloading}}">
     <van-row>
-        <van-col span="8">
+        <van-col span="7">
             <view class="head-img">
                 <van-image
                     width="100"
@@ -16,7 +16,7 @@
             </view>
         </van-col>
         
-        <van-col span="16" custom-class="head-name-col">
+        <van-col span="17" custom-class="head-name-col">
             <view class="head-name">
                 <view class="name">{{user.nickname}}</view>
                 <view class="head-name-n">

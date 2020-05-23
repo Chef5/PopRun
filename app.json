@@ -26,14 +26,14 @@
     },
     "window": {
         "backgroundTextStyle": "light",
-        "navigationBarBackgroundColor": "#83B582",
+        "navigationBarBackgroundColor": "#63b7af",
         "navigationBarTitleText": "跑鸭",
         "navigationBarTextStyle": "white",
         "onReachBottomDistance": 65
     },
     "tabBar": {
-        "backgroundColor": "#83B582",
-        "color": "#707070",
+        "backgroundColor": "#63b7af",
+        "color": "#000",
         "selectedColor": "#fff",
         "list": [
             {

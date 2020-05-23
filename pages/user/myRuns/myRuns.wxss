@@ -1,3 +1,4 @@
+/*   主题 /theme/theme.less */
 .main {
   background-color: #ffffff;
   width: 100%;
@@ -23,7 +24,7 @@
   position: absolute;
   top: 80rpx;
   left: 70rpx;
-  background-color: yellowgreen;
+  background-color: #63b7af;
   border-radius: 40rpx;
   box-shadow: 5px 5px 5px rgba(104, 103, 103, 0.6);
 }
