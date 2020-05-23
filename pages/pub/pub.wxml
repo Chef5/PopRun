@@ -13,7 +13,7 @@
     </swiper>
   </view>
 <view class="pub">
-  <van-divider contentPosition="center" customStyle="color: #83B582;border-color: #83B582;font-size: 30rpx;">活动广场</van-divider>
+  <van-divider contentPosition="center" customStyle="color: #63b7af;border-color: #63b7af;font-size: 30rpx;">活动广场</van-divider>
   <view class="list">
     <view>
       <van-cell title="活动列表" is-link link-type="navigateTo" url="listMore/listmore" value="更多" />
@@ -24,7 +24,7 @@
     </view>
 
   </view>
-  <van-divider contentPosition="center" customStyle="color: #83B582;border-color: #83B582;font-size: 30rpx;">教程分享</van-divider>
+  <van-divider contentPosition="center" customStyle="color: #63b7af;border-color: #63b7af;font-size: 30rpx;">教程分享</van-divider>
   <view>
     <van-cell title="课程推荐" is-link link-type="navigateTo" url="blockMore/blockmore" value="更多" />
   </view>

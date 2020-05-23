@@ -58,7 +58,7 @@
                     border="{{ false }}"
                     error="{{ false }}"
                 >
-                    <van-button slot="button" size="small" type="info" bind:click="showPicker">选择已有校区</van-button>
+                    <van-button slot="button" round size="small" type="info" bind:click="showPicker">选择已有校区</van-button>
                 </van-field>
                 <van-field
                     value="{{ user.job }}"

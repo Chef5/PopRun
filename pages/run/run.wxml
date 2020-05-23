@@ -14,7 +14,7 @@
           <view class="ranking-con">
             <view class="title"><text wx:if="{{ user.team }}">{{user.team}}-</text>排行榜</view>
             <view>
-              <van-tabs active="{{active}}" color="#409eff" border="none" bind:change="onRankChange">
+              <van-tabs active="{{active}}" color="#63b7af" border="none" bind:change="onRankChange">
                 <van-tab title="周榜">
                   <!-- 跑步列表 -->
                   <view class="rank-list">

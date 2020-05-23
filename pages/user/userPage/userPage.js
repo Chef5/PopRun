@@ -57,7 +57,7 @@ Page({
                         pagesize : res.data.data.pagesize
                     });
                 }else{
-                    Toast('没有更多了');
+                    that.setData({ moments });
                 }
             })
             .catch((res)=>{

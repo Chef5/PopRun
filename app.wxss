@@ -1,4 +1,26 @@
-/**app.wxss**/
+/*   主题 /theme/theme.less */
+page {
+  --button-info-background-color: #63b7af;
+  --button-info-border-color: #63b7af;
+  --button-primary-background-color: #6886c5;
+  --button-primary-border-color: #6886c5;
+  --button-danger-background-color: #ffacb7;
+  --button-danger-border-color: #ffacb7;
+  --button-warning-background-color: #ffe0ac;
+  --button-warning-border-color: #ffe0ac;
+  --notify-primary-background-color: #6886c5;
+  --notify-success-background-color: #abf0e9;
+  --notify-danger-background-color: #ffacb7;
+  --notify-warning-background-color: #ffe0ac;
+  --radio-transition-duration: 0.2s;
+  --radio-label-margin: 10px;
+  --radio-checked-icon-color: #63b7af;
+  --switch-on-background-color: #63b7af;
+  --tag-dander-color: #ffacb7;
+  --tag-primary-color: #6886c5;
+  --tag-success-color: #63b7af;
+  --tag-warning-color: #ffe0ac;
+}
 .container {
   height: 100%;
   display: flex;
@@ -7,13 +29,13 @@
   justify-content: space-between;
   padding: 200rpx 0;
   box-sizing: border-box;
-} 
-.text-over{
+}
+.text-over {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.loading{
+.loading {
   margin-top: 50%;
   width: 100%;
 }
