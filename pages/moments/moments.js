@@ -330,12 +330,25 @@ Page({
                             moments,
                             isShowHot: true
                         })
+                    }else{
+                        that.setData({
+                            moments,
+                            isShowHot: false
+                        })
                     }
                 }else{
                     // 服务器故障
+                    that.setData({
+                        moments,
+                        isShowHot: false
+                    })
                 }
             },
             fail: (res)=>{
+                that.setData({
+                    moments,
+                    isShowHot: false
+                })
             }
         })
     }
