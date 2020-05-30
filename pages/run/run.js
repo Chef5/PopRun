@@ -633,13 +633,13 @@ Page({
     if(this.data.resRun){ //完成跑步时分享
       return {
         title: '我今天跑了'+this.data.resRun.distance+'公里，快来和我一起跑鸭！',
-        path: '/page/run/run',
+        path: '/pages/run/run',
         imageUrl: this.data.nonImg
       }
     }else{ //直接分享程序
       return {
         title: '给大家推荐一款跑步程序，快来和我一起跑鸭',
-        path: '/page/run/run'
+        path: '/pages/run/run'
       }
     }
   },

@@ -59,6 +59,16 @@ map {
   font-weight: bold;
 }
 
+@-webkit-keyframes fx-plyr-play-button {
+  0% {
+      -webkit-transform: scale(0.667);
+      transform: scale(0.667);
+      opacity: 0.5;
+  }
+  to {
+      opacity: 0
+  }
+}
 @keyframes fx-plyr-play-button {
   0% {
       -webkit-transform: scale(0.667);
