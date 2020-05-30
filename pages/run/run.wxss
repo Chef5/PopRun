@@ -58,7 +58,19 @@ map {
   font-size: 50rpx;
   font-weight: bold;
 }
+
+@keyframes fx-plyr-play-button {
+  0% {
+      -webkit-transform: scale(0.667);
+      transform: scale(0.667);
+      opacity: 0.5;
+  }
+  to {
+      opacity: 0
+  }
+}
 .start-btn button {
+  margin: 0 auto;
   height: 200rpx;
   width: 200rpx;
   line-height: 200rpx;
@@ -67,14 +79,28 @@ map {
   background: linear-gradient(to left top, #63b7af, #abf0e9);
   color: #fff;
   font-weight: bold;
-  margin: 0 auto;
+}
+
+.start-btn .out {
+  margin: -250rpx auto;
+  width: 300rpx;
+  height: 300rpx;
+  -webkit-animation: fx-plyr-play-button 1s ease-out infinite;
+  animation: fx-plyr-play-button 1s ease-out infinite;
+  border: 5px solid #fff;
+  border-radius: 50%;
+  -webkit-box-shadow: 0 0 5px #fff;
+  box-shadow: 0 0 5px #fff;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  content: "";
 }
 .swiper-text {
+  margin: 250rpx auto;
   width: 300rpx;
   height: 48rpx;
   line-height: 48rpx;
   background: #555;
-  margin: 50rpx auto;
   border-radius: 24rpx;
 }
 
