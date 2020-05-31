@@ -4,6 +4,7 @@
 }
 /* 顶部容器 */
 .head-con{
+    position: relative;
     text-align: center;
     /* background-color: #abf0e9; */
     background: url(https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3578319078,1874142836&fm=26&gp=0.jpg) center no-repeat;
@@ -53,6 +54,11 @@
     margin-top: 10rpx;
     letter-spacing: 1px;
     color: white;
+}
+.head-message{
+    position: absolute;
+    left: 20rpx;
+    bottom: 10rpx;
 }
 /* 未注册登录 */
 .head-unsigned{

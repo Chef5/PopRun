@@ -11,6 +11,7 @@ Page({
     user: {
       img: "/imgs/default/girl.jpg"
     },  //用户数据
+    unreadMessagesNum: 0, //未读信息
     isUnsigned: true,  //未注册
     medals: [],
     isShowSettingMenu: false, //设置菜单
@@ -38,7 +39,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    app.updateNotices({read: 0, type: 0}).then(({system})=>{
+        this.setData({
+            unreadMessagesNum: system
+        })
+    })
   },
 
   /**
@@ -95,6 +100,20 @@ Page({
       fail: ()=>{},
       complete: ()=>{}
     });
+  },
+  //跳转到消息页面：系统消息
+  goToSystemMessage: function(){
+    let user = wx.getStorageSync('user');
+    if(user){
+        if(user.constructor != Object) user = JSON.parse(user);
+        wx.navigateTo({
+            url: '/pages/moments/messages/messages?rid='+user.rid+'&type=userCenter',
+            fail: (err)=>{
+              console.log(err)
+            },
+            complete: ()=>{}
+        });
+    }
   },
 
   //跳转到我的动态页面

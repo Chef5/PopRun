@@ -18,7 +18,7 @@ Page({
       data: options,
       success: (res) => {
         if (res.data.isSuccess) {
-          res.data.data.text = res.data.data.text.split("...");
+          res.data.data.text = res.data.data.text.split("<br>");
           that.setData({
             blockDetail: res.data.data
           })

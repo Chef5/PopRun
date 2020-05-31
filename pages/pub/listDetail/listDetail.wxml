@@ -13,15 +13,15 @@
         wx:for="{{listDetail.imgs.original}}" 
         wx:key="item"
         src="{{item}}" />
-      <view class="desc-con" wx-if="{{listDetail.content}}">
-        <text>{{listDetail.content}}</text>
+      <view class="desc-con" wx-if="{{listDetail.content}}" wx:for="{{listDetail.content}}">
+        <text>{{item}}</text>
       </view>
     </view>
   </view>
 
   <view class="bottom">
     <view class="reward">
-      <van-cell title="活动奖励" label="参加活动将有机会获得一枚勋章哦！" border="{{ false }}" />
+      <van-cell title="活动奖励" label="挑战活动将将获得一枚勋章哦！" border="{{ false }}" />
       <view class="medal-img">
         <van-image width="150rpx" height="150rpx" src="{{listDetail.medal.img}}" />
       </view>
@@ -30,6 +30,7 @@
       </view>
     </view>
     <view class="act-time">
+      <van-cell title="完成条件：{{listDetail.distance}} km" label="单次跑步里程达到{{listDetail.distance}}km即可挑战成功" border="{{ false }}" />
       <van-cell title="活动有效期：{{listDetail.period}}" label="已有{{signNum}}人报名，赶紧参加吧" border="{{ false }}" />
     </view>
     <view class="apply">

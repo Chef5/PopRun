@@ -23,7 +23,6 @@ Page({
     acid = options;
     this.getListDetail();
     this.getSignNum();
-    this.signSearch()
   },
   // 获取活动详情
   getListDetail() {
@@ -33,7 +32,6 @@ Page({
       data: acid,
       success: (res) => {
         if (res.data.isSuccess) {
-      
           let dateNow = Date.parse(new Date());
           let dateStart = Date.parse(new Date(res.data.data.created_at));
           let dateEnd = Date.parse(new Date(res.data.data.period));
@@ -44,15 +42,17 @@ Page({
               signIcon: "",
               signText: "活动已结束!"
             })
-          }
-          if (dateNow < dateStart) {
+          }else if (dateNow < dateStart) {
             that.setData({
               signDisabled: true,
               signType: "default",
               signIcon: "",
               signText: "活动还未开始哦~"
             })
+          }else {
+            that.signSearch();
           }
+          res.data.data.content = res.data.data.content.split("<br>");
           that.setData({
             listDetail: res.data.data
           })
@@ -101,7 +101,7 @@ Page({
       }
     })
   },
-  // 查询用户是否已报名
+  // 查询用户是否已报名/已完成
   signSearch() {
     let that = this;
     wx.request({
@@ -112,12 +112,21 @@ Page({
       },
       success: (res) => {
         if (res.data.data) {
-          that.setData({
-            signDisabled: true,
-            signIcon: "success",
-            signText: "已报名"
-          })
-          return;
+          if(res.data.data.isfinished == 1){
+            that.setData({
+              signDisabled: true,
+              signIcon: "success",
+              signText: "活动挑战完成"
+            })
+            return;
+          }else {
+            that.setData({
+              signDisabled: true,
+              signIcon: "success",
+              signText: "已报名"
+            })
+            return;
+          }
         }
       }
     })

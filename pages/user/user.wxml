@@ -33,6 +33,9 @@
                 <view class="head-info" wx:if="{{!isUnsigned}}">
                     {{user.info || '这个人很懒，什么都没有留下'}}
                 </view>
+                <view class="head-message" catch:tap="goToSystemMessage">
+                    <van-icon name="envelop-o" info="{{ unreadMessagesNum!=0 ? unreadMessagesNum: '' }}" custom-class="icon-head" size="1.4em" color="white" />
+                </view>
                 <!-- 未注册情况 -->
                 <view class="head-unsigned" wx:if="{{isUnsigned}}">
                     <van-button plain type="info" open-type="getUserInfo" bind:getuserinfo="getUserInfo" >授权注册/登录</van-button>
