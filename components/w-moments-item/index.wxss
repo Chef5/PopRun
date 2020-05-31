@@ -181,9 +181,10 @@
     margin-right: 28rpx;
     margin-left: 8rpx;
     font-size: 28rpx;
+    line-height: 56rpx;
     text-align: center;
     color: #fff;
-    background: #83B582;
+    background: #6886c5;
     padding: 0 14rpx 0;
     border-radius: 4px;
 }
