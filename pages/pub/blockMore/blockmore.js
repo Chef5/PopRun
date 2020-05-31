@@ -50,7 +50,7 @@ Page({
   },
   initData(){
     let that=this;
-    this.getBlock(6).then(res=>{
+    this.getBlock(100).then(res=>{
       res.data.data.forEach(e => {
         e.imgLink = "../blockDetail/blockDetail?rcid=" + e.rcid
       })
@@ -99,7 +99,7 @@ Page({
    */
   onReachBottom: function () {
     let that=this;
-    this.getBlock(6).then(res=>{
+    this.getBlock(100).then(res=>{
       if(res.data.data.lenthg){
         res.data.data.forEach(e => {
           e.imgLink = "../blockDetail/blockDetail?rcid=" + e.rcid

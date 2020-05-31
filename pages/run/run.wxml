@@ -4,7 +4,7 @@
 <view class='view'>
   <!-- 跑步首页 -->
   <map wx-if="{{showMain}}" longitude="{{longitude}}" latitude="{{latitude}}" markers="{{markers}}" polyline="{{polyLine}}" show-location="true" show-location>
-    <view wx-if="{{showRes?false:true}}">
+    <view wx-if="{{ !showRes }}">
       <!-- 排行榜 -->
       <cover-view class="ranking">
         <button bindtap="toggleRight1">
@@ -23,7 +23,7 @@
                         <view class="num lf" wx:if="{{item.isShowRankIcon}}">
                           <image src="{{item.rankImg}}"></image>
                         </view>
-                        <view class="num lf" wx:if="{{item.isShowRankIcon?false:true}}">
+                        <view class="num lf" wx:if="{{ !item.isShowRankIcon }}">
                           <text class="rankNum">{{(index+1)<10?"0"+(index+1):index+1}}</text>
                         </view>
                         <view class="cell-info lf">
@@ -41,11 +41,11 @@
                         </view>
                       </i-cell>
                     </i-cell-group>
-                    <i-cell i-class="cell my-cell" link-type="switchTab" is-link url="../user/user">
+                    <i-cell i-class="cell my-cell" link-type="navigateTo" is-link url="{{ '../user/userPage/userPage?rid='+myRank.rid }}">
                        <view class="num lf" wx:if="{{myRank.isShowRankIcon}}">
                           <image src="{{myRank.rankImg}}"></image>
                         </view>
-                        <view class="num lf" wx:if="{{myRank.isShowRankIcon?false:true}}">
+                        <view class="num lf" wx:if="{{ !myRank.isShowRankIcon }}">
                           <text class="rankNum">{{myRank.index?myRank.index+1:"no"}}</text>
                         </view>
                       <view class="cell-info lf">
@@ -72,7 +72,7 @@
                         <view class="num lf" wx:if="{{item.isShowRankIcon}}">
                           <image src="{{item.rankImg}}"></image>
                         </view>
-                        <view class="num lf" wx:if="{{item.isShowRankIcon?false:true}}">
+                        <view class="num lf" wx:if="{{ !item.isShowRankIcon }}">
                           <text class="rankNum">{{(index+1)<10?"0"+(index+1):index+1}}</text>
                         </view>
                         <view class="cell-info lf">
@@ -90,12 +90,12 @@
                         </view>
                       </i-cell>
                     </i-cell-group>
-                    <i-cell i-class="cell my-cell" link-type="switchTab" is-link url="../user/user">
+                    <i-cell i-class="cell my-cell" link-type="navigateTo" is-link url="{{ '../user/userPage/userPage?rid='+myRank.rid }}">
                        <view class="num lf" wx:if="{{myRank.isShowRankIcon}}">
                           <image src="{{myRank.rankImg}}"></image>
                         </view>
-                        <view class="num lf" wx:if="{{myRank.isShowRankIcon?false:true}}">
-                          <text class="rankNum">{{(myRank.index)+1}}</text>
+                        <view class="num lf" wx:if="{{ !myRank.isShowRankIcon }}">
+                          <text class="rankNum">{{myRank.index?myRank.index+1:"no"}}</text>
                         </view>
                       <view class="cell-info lf">
                         <view class="photo">
@@ -120,7 +120,7 @@
       </cover-view>
       <view class="start-btn">
         <button >开始</button>
-        <cover-view bindtap="countDown" class="out"></cover-view>
+        <view bindtap="countDown" class="out"></view>
         <view class="swiper-text">
           <!-- 属性:衔接滑动、自动切换、滑动间隔、滑动时长 -->
           <swiper circular="true" autoplay="true" interval="5000" duration="500">
@@ -173,7 +173,7 @@
     </view>
   </map>
   <!-- 正在跑步 -->
-  <view wx-if="{{showMain?false:true}}" class="running">
+  <view wx-if="{{ !showMain }}" class="running">
     <view class="route">
       <text class="num">{{distance}}</text>
       <text>公里</text>

@@ -52,7 +52,7 @@ Page({
           }else {
             that.signSearch();
           }
-          res.data.data.content = res.data.data.content.split("<br>");
+          res.data.data.content = res.data.data.content != null ? res.data.data.content.split("<br>") : res.data.data.content;
           that.setData({
             listDetail: res.data.data
           })

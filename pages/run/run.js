@@ -199,8 +199,8 @@ Page({
     this.setData({
       polyLine: [{
         points: point,
-        color: '#99FF00',
-        width: 4,
+        color: '#FF0000',
+        width: 6,
       }]
     });
   },
