@@ -26,6 +26,19 @@ Page({
                 that.setData({ messages });
                 that.setNavTitle(count);
             })
+        }else if(options.type == 'userCenter'){  //从个人中心过来
+            app.getNotices(options.rid, undefined, 0).then((res)=>{
+                let messages = [];
+                let count = 0;
+                for(let i=0; i<res.length; i++){
+                    if(res[i].type ==0){
+                        messages.push(res[i]);
+                        if( res[i].read==0 ) count++;
+                    }
+                }
+                that.setData({ messages });
+                that.setNavTitle(count);
+            })
         }
     },
 
@@ -115,7 +128,7 @@ Page({
         }
         if(count>0){
             wx.setNavigationBarTitle({
-                title: '消息通知 '+count,
+                title: '消息通知: '+count+'条未读',
             });
         }else{
             wx.setNavigationBarTitle({

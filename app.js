@@ -4,40 +4,8 @@ import Notify from '@vant/weapp/notify/notify';
 App({
   onLaunch: function () {
     let that = this;
-    let setting = wx.getStorageSync('setting');
-    if(!setting){
-      setting = {
-        power: true,
-        voice: true,
-        shake: true,
-        screen: true,
-        method: '1'
-      }
-    }
     //初始化tabbar状态
-    let user = wx.getStorageSync('user');
-    if(user){
-      if(user.constructor != Object) user = JSON.parse(user);
-      if(setting.method != '2'){  //免打扰
-        that.getNotices(user.rid, 0).then((res)=>{
-            let moment = 0;
-            let tabbar = that.globalData.status.tabbar;
-            for(let i=0; i<res.length; i++){
-                if(res[i].type !=0 && res[i].read==0 ) moment++;
-            }
-            if(setting.method == '1'){  //数字提示
-              tabbar[1] = { dot: false, number: moment}; //动态圈子
-            }else if(setting.method == '0'){ //红点
-              tabbar[1] = { dot: true }; //动态圈子
-            }
-            that.globalData.status.tabbar = tabbar;
-            
-            that.globalData.status.tabbar.forEach(function(item,index){
-              that.setTabbar(index, item)
-            })
-        })
-      }
-    }
+    that.updateNotices({read: 0, type: undefined});
   },
   globalData: {
     status: {
@@ -101,6 +69,7 @@ App({
       let hosturl = "https://dev.run.nunet.cn";  //开发环境
       // let hosturl = "https://run.nunet.cn";   //线上环境
       return hosturl;
+　　      
     }
   },
 
@@ -324,8 +293,8 @@ App({
   getNotices: function(rid, read, type){
     if(!rid) return false;
     let data = { rid };
-    if(type) data.push(type);
-    if(read) data.push(read);
+    if(type==0 || type) data.type = type;
+    if(read==0 || read) data.read = read;
     return new Promise((resolve, reject)=>{
       wx.request({
         url: this.config.getHostUrl()+'/api/main/getNotice',
@@ -341,6 +310,54 @@ App({
         fail: ()=>{},
         complete: ()=>{}
       });
+    })
+  },
+  // 更新通知
+  updateNotices: function({read, type}){
+    let that = this;
+    return new Promise((resolved, rejected)=>{
+      let user = wx.getStorageSync('user');
+      if(user){
+        if(user.constructor != Object) user = JSON.parse(user);
+        let setting = wx.getStorageSync('setting');
+        if(!setting){
+          setting = {
+            power: true,
+            voice: true,
+            shake: true,
+            screen: true,
+            method: '1'
+          }
+        }
+        if(setting.method != '2'){  //免打扰
+          that.getNotices(user.rid, read, type).then((res)=>{
+              let moment = 0, system = 0;
+              let tabbar = that.globalData.status.tabbar;
+              for(let i=0; i<res.length; i++){
+                  if(res[i].type !=0 && res[i].read==0 ) moment++;
+                  if(res[i].type ==0 && res[i].read==0 ) system++;
+              }
+              if(setting.method == '1'){  //数字提示
+                tabbar[1] = { dot: false, number: moment}; //动态圈子
+                tabbar[3] = { dot: false, number: system}; //个人中心
+              }else if(setting.method == '0'){ //红点
+                tabbar[1] = { dot: true }; //动态圈子
+                tabbar[3] = { dot: true }; //动态圈子
+              }
+              if(type == 0){
+                that.setTabbar(3, tabbar[3]);  //设置个人中心tabbar数字
+              }else {  //全部设置tabbar数字
+                that.setTabbar(1, tabbar[1]);
+                that.setTabbar(3, tabbar[3]);
+              }
+              
+              // that.globalData.status.tabbar.forEach(function(item,index){
+              //   that.setTabbar(index, item)
+              // })
+              resolved({moment, system});
+          })
+        }
+      }
     })
   },
   // 阅读消息

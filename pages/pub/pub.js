@@ -68,15 +68,12 @@ Page({
       url: app.config.getHostUrl() + '/api/pub/getCourses',
       success: (res) => {
         if (res.data.isSuccess) {
-          if (res.data.isSuccess) {
-            res.data.data.forEach(e => {
-              e.imgLink = "blockDetail/blockDetail?rcid=" + e.rcid
-            })
-            that.setData({
-              block: res.data.data
-            })
-            // console.log(res);
-          }
+          res.data.data.forEach(e => {
+            e.imgLink = "blockDetail/blockDetail?rcid=" + e.rcid
+          })
+          that.setData({
+            block: res.data.data
+          })
         }
       }
     })
