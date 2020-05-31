@@ -6,5 +6,6 @@
     "van-grid": "@vant/weapp/grid/index",
     "van-grid-item": "@vant/weapp/grid-item/index",
     "van-cell": "@vant/weapp/cell/index"
-  }
+  },
+  "enablePullDownRefresh": true
 }
