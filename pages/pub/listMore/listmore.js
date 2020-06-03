@@ -1,3 +1,5 @@
+
+import Toast from '@vant/weapp/toast/toast';
 const app = getApp();
 Page({
 
@@ -22,7 +24,7 @@ Page({
       that.setData({
         list: res.data.data.activitys,
         pageindex: res.data.data.pageindex,
-        pagesize: res.data.data.pageindex
+        pagesize: res.data.data.pagesize
       })
     })
   },
@@ -121,7 +123,7 @@ Page({
         that.setData({
           list: res.data.data.activitys,
           pageindex: res.data.data.pageindex,
-          pagesize: res.data.data.pageindex
+          pagesize: res.data.data.pagesize
         }) 
       } else {
         Toast("没有更多了");

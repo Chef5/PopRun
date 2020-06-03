@@ -1,4 +1,5 @@
 <!--pages/pub/pub.wxml-->
+<van-toast id="van-toast" />
 <view class="pub">
   <van-divider contentPosition="center" customStyle="color: #63b7af;border-color: #63b7af;font-size: 30rpx;">活动广场</van-divider>
   <view class="list">
