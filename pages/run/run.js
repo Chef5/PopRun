@@ -436,6 +436,11 @@ Page({
           //跑步结束就绘图
           that.draw(nonID, result.data.data, false);
           that.draw(monID, result.data.data, true, app.getUser());
+        }else {
+          Dialog.alert({
+            title: '错误提示',
+            message: '本次运动数据异常'
+          })
         }
       },
     });

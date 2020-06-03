@@ -1,3 +1,5 @@
+import Dialog from '@vant/weapp/dialog/dialog';
+
 const app = getApp();
 let user = app.getUser();
 let acid = 0
@@ -12,7 +14,8 @@ Page({
     signIcon: "plus",
     signDisabled: false,
     signType: "primary",
-    signText: "报名"
+    signText: "报名",
+    status: null,  //0活动未开始，1活动已结束，2已报名，3活动已完成
   },
 
   /**
@@ -24,6 +27,23 @@ Page({
     this.getListDetail();
     this.getSignNum();
   },
+  
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function() {
+    setTimeout(()=>{
+      this.activityAlert()
+    }, 500);
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function() {
+
+  },
+
   // 获取活动详情
   getListDetail() {
     let that = this;
@@ -40,6 +60,7 @@ Page({
               signDisabled: true,
               signType: "default",
               signIcon: "",
+              status: 1,
               signText: "活动已结束!"
             })
           }else if (dateNow < dateStart) {
@@ -47,6 +68,7 @@ Page({
               signDisabled: true,
               signType: "default",
               signIcon: "",
+              status: 0,
               signText: "活动还未开始哦~"
             })
           }else {
@@ -116,14 +138,16 @@ Page({
             that.setData({
               signDisabled: true,
               signIcon: "success",
-              signText: "活动挑战完成"
+              signText: "活动挑战完成",
+              status: 3,
             })
             return;
           }else {
             that.setData({
               signDisabled: true,
               signIcon: "success",
-              signText: "已报名"
+              signText: "已报名",
+              status: 2
             })
             return;
           }
@@ -131,52 +155,17 @@ Page({
       }
     })
   },
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function() {
-
+  // 提示
+  activityAlert() {
+    if(this.data.status == null) return;
+    let message = [
+      '活动尚未开始，无法报名哦',
+      '该活动已结束！',
+      '您已报名，请尽快完成挑战哦',
+      '恭喜您，挑战完成！'
+    ];
+    Dialog.alert({
+      message: message[this.data.status],
+    })
   }
 })
