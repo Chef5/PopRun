@@ -1,3 +1,4 @@
+<van-dialog id="van-dialog" />
 <view class="detail">
   <view class="top">
     <view class="title">
