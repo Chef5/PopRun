@@ -327,36 +327,39 @@ App({
             shake: true,
             screen: true,
             method: '1'
+          };
+          wx.setStorageSync('setting', setting);
+        }
+        that.getNotices(user.rid, read, type).then((res)=>{
+          let moment = 0, system = 0;
+          let tabbar = that.globalData.status.tabbar;
+          for(let i=0; i<res.length; i++){
+              if(res[i].type !=0 && res[i].read==0 ) moment++;
+              if(res[i].type ==0 && res[i].read==0 ) system++;
           }
-        }
-        if(setting.method != '2'){  //免打扰
-          that.getNotices(user.rid, read, type).then((res)=>{
-              let moment = 0, system = 0;
-              let tabbar = that.globalData.status.tabbar;
-              for(let i=0; i<res.length; i++){
-                  if(res[i].type !=0 && res[i].read==0 ) moment++;
-                  if(res[i].type ==0 && res[i].read==0 ) system++;
-              }
-              if(setting.method == '1'){  //数字提示
-                tabbar[1] = { dot: false, number: moment}; //动态圈子
-                tabbar[3] = { dot: false, number: system}; //个人中心
-              }else if(setting.method == '0'){ //红点
-                tabbar[1] = { dot: true }; //动态圈子
-                tabbar[3] = { dot: true }; //动态圈子
-              }
-              if(type == 0){
-                that.setTabbar(3, tabbar[3]);  //设置个人中心tabbar数字
-              }else {  //全部设置tabbar数字
-                that.setTabbar(1, tabbar[1]);
-                that.setTabbar(3, tabbar[3]);
-              }
-              
-              // that.globalData.status.tabbar.forEach(function(item,index){
-              //   that.setTabbar(index, item)
-              // })
-              resolved({moment, system});
-          })
-        }
+          if(setting.method != '2'){  //非免打扰
+            if(setting.method == '1'){  //数字提示
+              tabbar[1] = { dot: false, number: moment}; //动态圈子
+              tabbar[3] = { dot: false, number: system}; //个人中心
+            }else if(setting.method == '0'){ //红点
+              tabbar[1] = { dot: true }; //动态圈子
+              tabbar[3] = { dot: true }; //动态圈子
+            }
+            if(type == 0){
+              that.setTabbar(3, tabbar[3]);  //设置个人中心tabbar数字
+            }else {  //全部设置tabbar数字
+              that.setTabbar(1, tabbar[1]);
+              that.setTabbar(3, tabbar[3]);
+            }
+          }else{ //免打扰
+            that.setTabbar(1, { dot: false });
+            that.setTabbar(3, { dot: false });
+          }
+          // that.globalData.status.tabbar.forEach(function(item,index){
+          //   that.setTabbar(index, item)
+          // })
+          resolved({moment, system});  //返回数据页面内使用
+        })
       }
     })
   },
