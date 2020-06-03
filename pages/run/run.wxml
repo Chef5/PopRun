@@ -119,7 +119,7 @@
         </i-drawer>
       </cover-view>
       <view class="start-btn">
-        <button >开始</button>
+        <button bindtap="countDown" >开始</button>
         <view bindtap="countDown" class="out"></view>
         <view class="swiper-text">
           <!-- 属性:衔接滑动、自动切换、滑动间隔、滑动时长 -->
