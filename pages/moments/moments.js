@@ -107,8 +107,8 @@ Page({
         that.setData({
             isShowloading: true
         });
-        //获取当前页和页面大小
-        if(!pageindex && !pagesize){
+        //获取当前页和页面大小 !!0 = false
+        if(!pageindex && !pagesize && pageindex!=0){
             pageindex = this.data.pageindex;
             pagesize = this.data.pagesize;
         }
