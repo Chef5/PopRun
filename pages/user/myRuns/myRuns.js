@@ -128,7 +128,7 @@ Page({
     getMyRuns: function(pageindex, pagesize) {
         let that = this;
         //获取当前页和页面大小
-        if(!pageindex && !pagesize){
+        if(!pageindex && !pagesize && pageindex!=0){
             pageindex = that.data.pageindex;
             pagesize = that.data.pagesize;
         }

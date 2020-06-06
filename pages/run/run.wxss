@@ -331,3 +331,18 @@ map {
   top: 20rpx;
 }
 /* 跑步结束结束 */
+
+/* canvas 坑 */
+#shareNon, #shareMon {
+  position: fixed;
+	left: -9999px;
+	background-color: transparent;
+}
+#shareNon {
+  width: 500px;
+  height: 400px;
+}
+#shareMon {
+  width: 500px;
+  height: 555px;
+}

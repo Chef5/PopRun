@@ -42,4 +42,4 @@
     </view>
   </view>
 </van-popup>
-<canvas type="2d" hidden="true" id="runImg"></canvas>
+<canvas type="2d" id="runImg"></canvas>
