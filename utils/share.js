@@ -87,8 +87,8 @@ const getFile = (nodeID, iswx) => {
                 y: 0,
                 width: Width,
                 height: Height,
-                destWidth: Width,  //*2是为了让图片分辨率更大，显得更清晰
-                destHeight: Height,
+                destWidth: Width*2,  //*2是为了让图片分辨率更大，显得更清晰
+                destHeight: Height*2,
                 canvas: canvas,
                 success: function (res) {
                     console.log("生成图片", res)
@@ -122,8 +122,8 @@ const save = (nodeID, iswx) => {
                 y: 0,
                 width: Width,
                 height: Height,
-                destWidth: Width,  //*2是为了让图片分辨率更大，显得更清晰
-                destHeight: Height,
+                destWidth: Width*2,  //*2是为了让图片分辨率更大，显得更清晰
+                destHeight: Height*2,
                 canvas: canvas,
                 success: function (res) {
                     console.log("生成图片", res)
@@ -165,8 +165,8 @@ const getFileWX6B = (nodeID, that, iswx) => {
                 y: 0,
                 width: Width,
                 height: Height,
-                destWidth: Width,  //*2是为了让图片分辨率更大，显得更清晰
-                destHeight: Height,
+                destWidth: Width*2,  //*2是为了让图片分辨率更大，显得更清晰
+                destHeight: Height*2,
                 canvas: canvas,
                 success: function (res) {
                     console.log("生成图片", res)
@@ -202,8 +202,8 @@ const saveWX6B = (nodeID, that, iswx) => {
                 y: 0,
                 width: Width,
                 height: Height,
-                destWidth: Width,  //*2是为了让图片分辨率更大，显得更清晰
-                destHeight: Height,
+                destWidth: Width*2,  //*2是为了让图片分辨率更大，显得更清晰
+                destHeight: Height*2,
                 canvas: canvas,
                 success: function (res) {
                     console.log("生成图片", res)
@@ -450,7 +450,7 @@ const formatData = run => {
     run.distance = run.distance || "未完成";
     run.calorie = run.calorie || "--";
     run.period = format.formatPeriod2time(run.time_run);
-    run.speed =  run.speed+''.indexOf('′')==-1 ? format.formatSpeed(run.speed) : run.speed;
+    run.speed =  (run.speed+'').indexOf('′') == -1 ? format.formatSpeed(run.speed) : run.speed;
     run.month = format.formatNumber(format.string2date(run.time_start).getMonth()+1);
     run.day = format.formatNumber(format.string2date(run.time_start).getDate());
     return run;

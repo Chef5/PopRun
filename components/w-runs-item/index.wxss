@@ -97,3 +97,10 @@
   margin-left: 30rpx;
   margin-right: 30rpx;
 }
+#runImg {
+  position: fixed;
+  left: -9999px;
+  background-color: transparent;
+  width: 500px;
+  height: 400px;
+}

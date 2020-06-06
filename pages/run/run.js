@@ -471,7 +471,8 @@ Page({
       heat: "0",
       polyLine: [],
       nonImg: null,
-      monImg: null
+      monImg: null,
+      isShowShareMenu: false
     })
   },
 
@@ -482,22 +483,7 @@ Page({
    */
   // 显示分享菜单
   showShareMenu: function() {
-    let that = this;
-    if(!this.data.nonImg || !this.data.monImg){
-      setTimeout(()=>{
-        Share.getFileWX6B(monID, this, true).then(monImg=>{
-            Share.getFileWX6B(nonID, this, false).then(nonImg=>{
-                console.log("一般分享：", nonImg)
-                console.log("含头像小程序码：", monImg)
-                that.setData({
-                  nonImg,
-                  monImg
-                })
-            })
-        })
-      },300) //延迟防止绘制未完成
-    }
-    that.setData({
+    this.setData({
       isShowShareMenu: true
     })
   },
@@ -520,12 +506,8 @@ Page({
               url: 'sharePage/sharePage?isDraw=0&ruid='+ruid,
               events: {
                 // 获取分享结果
-                whenShared: function(isSuccess) {
-                  //这个在页面返回之前就执行了，应在onShow里显示结果
-                  that.setData({
-                    isShareSuccess: isSuccess,
-                    isShowShareSuccess: false
-                  })
+                whenShared: function(res) {
+                  Dialog.alert(res.msg);
                 },
               },
               success: (res)=>{
@@ -597,6 +579,11 @@ Page({
               user.ercode = ercode;
             }
             Share.makeShareImg(canvas, run, iswx, user);
+            setTimeout(()=>{
+              Share.getFileWX6B(monID, this, iswx).then(imgurl=>{
+                  iswx ? this.setData({ monImg: imgurl }) : this.setData({ nonImg: imgurl });
+              })
+            },300) //延迟防止绘制未完成
             resolved(canvas);
         }).catch(err=>{
             rejected(err);
@@ -613,14 +600,6 @@ Page({
       });
     }else{
       wx.hideLoading();
-    }
-  },
-  //显示分享结果
-  shareResult(success){
-    if(success){
-      Toast('分享成功');
-    }else{
-      Toast('分享失败');
     }
   },
   //关闭所有弹窗

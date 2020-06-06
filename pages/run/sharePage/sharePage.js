@@ -86,12 +86,12 @@ Page({
                             type: 'success',
                             message: result.data.msg
                         });
-                        this.eventChannel.emit('whenShared', true);
+                        this.eventChannel.emit('whenShared', {isSuccess: true, msg: '分享成功'});
                         wx.navigateBack();
                     }
                 },
                 fail: ()=>{
-                    this.eventChannel.emit('whenShared', false);
+                    this.eventChannel.emit('whenShared', {isSuccess: false, msg: '分享失败'});
                     wx.navigateBack();
                 },
                 complete: ()=>{}
