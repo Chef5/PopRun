@@ -95,7 +95,7 @@
                           <image src="{{myRank.rankImg}}"></image>
                         </view>
                         <view class="num lf" wx:if="{{ !myRank.isShowRankIcon }}">
-                          <text class="rankNum">{{myRank.index?myRank.index+1:"no"}}</text>
+                          <text class="rankNum">{{ myRank.index ? myRank.index : "no" }}</text>
                         </view>
                       <view class="cell-info lf">
                         <view class="photo">
