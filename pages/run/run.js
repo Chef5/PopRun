@@ -152,15 +152,15 @@ Page({
       url: app.config.getHostUrl() + '/api/run/getRanking',
       data: {
         team: user.team,
-        type:_type
+        type: _type
       },
       success: (res) => {
-        this.setData({ rankArr: that.showImg(res.data.data)})
-        let rankArr=this.data.rankArr;
-        for (let i = 0; i<rankArr.length;i++){
+        let rankArr = that.showImg(res.data.data);
+        for (let i = 0; i<rankArr.length; i++){
           rankArr[i].avgS = format.formatSpeed(rankArr[i].avgS)
           if (rankArr[i].rid == user.rid) {
-            user = rankArr[i]
+            user = rankArr[i];
+            user.index = i < 10 ? '0' + (i + 1) : i + 1;
           }
         }
         this.setData({rankArr, myRank: user})
@@ -580,9 +580,15 @@ Page({
             }
             Share.makeShareImg(canvas, run, iswx, user);
             setTimeout(()=>{
-              Share.getFileWX6B(monID, this, iswx).then(imgurl=>{
-                  iswx ? this.setData({ monImg: imgurl }) : this.setData({ nonImg: imgurl });
-              })
+              if(iswx) {
+                Share.getFileWX6B(monID, this, iswx).then(imgurl=>{
+                    this.setData({ monImg: imgurl });
+                })
+              }else {
+                Share.getFileWX6B(nonID, this, iswx).then(imgurl=>{
+                    this.setData({ nonImg: imgurl });
+                })
+              }
             },300) //延迟防止绘制未完成
             resolved(canvas);
         }).catch(err=>{
