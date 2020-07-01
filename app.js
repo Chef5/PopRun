@@ -38,22 +38,16 @@ App({
    * value: { dot:boolean, number:number }
    */
   setTabbar: function(index, value){
-    if(value.number==0 || value.number==null || value.number==undefined){//取消数字，设置红点
-      wx.removeTabBarBadge({
-        index: index,
-      })
+    if(!value.number){//取消数字，设置红点
+      wx.removeTabBarBadge({ index })
       if(value.dot){
-        wx.showTabBarRedDot({
-          index: index,
-        })
+        wx.showTabBarRedDot({ index })
       }else{
-        wx.hideTabBarRedDot({
-          index: index,
-        })
+        wx.hideTabBarRedDot({ index })
       }
     }else{  //设置数字
       wx.setTabBarBadge({
-        index: index,
+        index,
         text: value.number+'',
       })
     }
