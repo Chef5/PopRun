@@ -3,7 +3,7 @@
 这是我的毕业设计：“跑鸭”微信小程序-一款基于校园跑步的社交小程序
 使用了：Less / Vant-Weapp / Iview-Weapp
 
-后端使用的PHP的Lravel开发
+后端使用的PHP的Laravel开发
 
 - 后端项目：https://github.com/Patrick-Jun/PopRun-b
 
