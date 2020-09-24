@@ -5,6 +5,24 @@
 
 **如果觉得有参考价值，请给个star支持一下吧**
 
+首页：
+
+<img src="https://i.loli.net/2020/09/24/Iw6WB9vFMNGTDtx.jpg" alt="首页" style="zoom: 80%;" />
+
+动态圈子（仿微信朋友圈）：
+
+<img src="https://i.loli.net/2020/09/24/xbQN3gKmy9TVfrG.jpg" alt="动态圈子" style="zoom: 80%;" />
+
+活动广场：
+
+<img src="https://i.loli.net/2020/09/24/dcPpgH9TJXRnoBE.jpg" alt="活动广场" style="zoom: 80%;" />
+
+
+
+个人中心：
+
+<img src="https://i.loli.net/2020/09/24/gpoEsAklY1MGyd3.jpg" alt="个人中心" style="zoom: 80%;" />
+
 后端使用的PHP的Laravel开发
 
 - 后端项目：https://github.com/Patrick-Jun/PopRun-b
@@ -90,6 +108,7 @@ npm install
 完成前面的步骤你已经能够正常运行程序了，如果不需要使用less，直接编辑wxss文件，就不用安装下面插件了
 
 - VS Code：Easy Less
+  
   > 配置文件在 /.vscode/settings.json
 
 ## LICENSE
