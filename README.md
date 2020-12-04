@@ -3,29 +3,19 @@
 这是我的毕业设计：“跑鸭”微信小程序-一款基于校园跑步的社交小程序
 使用了：Less / Vant-Weapp / Iview-Weapp
 
-**如果觉得有参考价值，请给个star支持一下吧**
-
-首页：
-
-<img src="https://i.loli.net/2020/09/24/Iw6WB9vFMNGTDtx.jpg" alt="首页" style="zoom: 80%;" />
-
-动态圈子（仿微信朋友圈）：
-
-<img src="https://i.loli.net/2020/09/24/xbQN3gKmy9TVfrG.jpg" alt="动态圈子" style="zoom: 80%;" />
-
-活动广场：
-
-<img src="https://i.loli.net/2020/09/24/dcPpgH9TJXRnoBE.jpg" alt="活动广场" style="zoom: 80%;" />
-
-
-
-个人中心：
-
-<img src="https://i.loli.net/2020/09/24/gpoEsAklY1MGyd3.jpg" alt="个人中心" style="zoom: 80%;" />
-
-后端使用的PHP的Laravel开发
+后端使用的PHP的Laravel框架开发
 
 - 后端项目：https://github.com/Patrick-Jun/PopRun-b
+
+**如果觉得有参考价值，请给个star支持一下吧**
+
+首页、动态圈子（仿微信朋友圈）、活动广场、个人中心：
+
+<img src="http://img.cdn.1zdz.cn/github/readme/poprun/1.jpg" alt="首页" style="zoom: 25%;" /> <img src="http://img.cdn.1zdz.cn/github/readme/poprun/2.jpg" alt="动态圈子" style="zoom: 25%;" /> <img src="http://img.cdn.1zdz.cn/github/readme/poprun/3.jpg" alt="活动广场" style="zoom: 25%;" /> <img src="http://img.cdn.1zdz.cn/github/readme/poprun/4.jpg" alt="个人中心" style="zoom: 25%;" />
+
+设置：
+
+<img src="http://img.cdn.1zdz.cn/github/readme/poprun/5.png" alt="设置" style="zoom: 33%;" /> <img src="http://img.cdn.1zdz.cn/github/readme/poprun/6.png" alt="设置-通用设置" style="zoom: 33%;" /> <img src="http://img.cdn.1zdz.cn/github/readme/poprun/7.png" alt="设置-隐私设置" style="zoom: 33%;" />
 
 ## 一、功能设计
 
@@ -39,8 +29,8 @@
 
 （4）个人中心：运动管理、动态管理、设置（通用设置、隐私设置）、勋章墙、等级称号、个人主页、资料编辑。
 
-- 产品原型：https://orgnext.modao.cc/team/panel/teyfrxdefault
-- 开发手册：https://www.yuque.com/hg64tq
+- <del>产品原型：https://orgnext.modao.cc/team/panel/teyfrxdefault</del>（已失效）
+- <del>开发手册：https://www.yuque.com/hg64tq</del>（已失效）
 
 **目录结构：**
 
@@ -93,21 +83,31 @@ npm install
 
 ### 2.3 构建npm
 
-在微信开发者工具，启用npm：
+（1）在微信开发者工具，启用npm：
 
-> 详细-本地设置-使用npm模块
+​	点击详细-本地设置-使用npm模块
 
-然后：
+（2）构建
 
-> 微信开发者工具-工具-构建npm
+​	点击工具-构建npm
 
-### 2.4 插件安装
+### 2.4 完成
 
-如果我服务器上没有下线后端代码的话（下线了就需要在本地构建后端项目），
+恭喜！完成前面的步骤你已经能够正常运行程序了，前提是我服务器上没有下线后端程序，如果发现接口不能用，就说明时下线了，你就需要在本地构建后端项目，具体后端项目见：https://github.com/Patrick-Jun/PopRun-b
 
-完成前面的步骤你已经能够正常运行程序了，如果不需要使用less，直接编辑wxss文件，就不用安装下面插件了
+### 2.5 创建活动和教程
 
-- VS Code：Easy Less
+如果我没有下线后端程序，以下创建接口可在线使用：
+
+- 创建活动：https://dev.run.nunet.cn/addActivity
+
+- 创建课程：https://dev.run.nunet.cn/addCourse
+
+### 2.6 如果需要使用less
+
+如果不需要使用less，直接编辑wxss文件，以下内容请忽略
+
+- VS Code：Easy Less 插件-可以将less编译为wxss
   
   > 配置文件在 /.vscode/settings.json
 
