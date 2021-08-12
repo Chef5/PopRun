@@ -31,6 +31,16 @@
 
 - <del>产品原型：https://orgnext.modao.cc/team/panel/teyfrxdefault</del>（已失效）
 - <del>开发手册：https://www.yuque.com/hg64tq</del>（已失效）
+- 
+**E-R图：**
+
+根据功能分析，一共规划出11个实体，形成E-R图：
+![20200618185938.jpeg](http://img.cdn.1zdz.cn/github/readme/poprun/20200618185938.jpeg)
+
+**数据模型图：**
+
+由E-R图，共转换成16张表，数据模型图由Navicat导出
+![20200618191037.jpeg](http://img.cdn.1zdz.cn/github/readme/poprun/20200618191037.jpeg)
 
 **目录结构：**
 
