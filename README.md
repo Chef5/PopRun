@@ -5,7 +5,7 @@
 
 后端使用的PHP的Laravel框架开发
 
-- 后端项目：https://github.com/Patrick-Jun/PopRun-b
+- 后端项目：https://github.com/Chef5/PopRun-b
 
 **如果觉得有参考价值，请给个star支持一下吧**
 
@@ -78,7 +78,7 @@
 ### 2.1 克隆代码到本地
 
 ``` shell
-git clone https://github.com/Patrick-Jun/PopRun.git
+git clone https://github.com/Chef5/PopRun.git
 ```
 
 ### 2.2 安装依赖
@@ -101,17 +101,13 @@ npm install
 
 ​	点击工具-构建npm
 
-### 2.4 完成
+### 2.4 修改appid
 
-恭喜！完成前面的步骤你已经能够正常运行程序了，前提是我服务器上没有下线后端程序，如果发现接口不能用，就说明时下线了，你就需要在本地构建后端项目，具体后端项目见：https://github.com/Patrick-Jun/PopRun-b
+修改小程序appid为你自己的
 
-### 2.5 创建活动和教程
+### 2.5 构建后端项目
 
-如果我没有下线后端程序，以下创建接口可在线使用：
-
-- 创建活动：https://dev.run.nunet.cn/addActivity
-
-- 创建课程：https://dev.run.nunet.cn/addCourse
+完成以上步骤，小程序基本是没有什么问题了，但用户注册生成openid需要通过自己的小程序appid和secret，因此你还需要在本地构建后端项目，具体后端项目见：https://github.com/Chef5/PopRun-b
 
 ### 2.6 如果需要使用less
 
