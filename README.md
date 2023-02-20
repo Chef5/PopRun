@@ -15,8 +15,6 @@
   <tr>
     <td><img src="http://img.cdn.1zdz.cn/github/readme/poprun/1.jpg" alt="首页" /></td>
     <td><img src="http://img.cdn.1zdz.cn/github/readme/poprun/2.jpg" alt="动态圈子" /></td>
-  </tr>
-  <tr>
     <td><img src="http://img.cdn.1zdz.cn/github/readme/poprun/3.jpg" alt="活动广场" /></td>
     <td><img src="http://img.cdn.1zdz.cn/github/readme/poprun/4.jpg" alt="个人中心" /></td>
   </tr>
