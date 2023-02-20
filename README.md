@@ -11,11 +11,26 @@
 
 首页、动态圈子（仿微信朋友圈）、活动广场、个人中心：
 
-<img src="http://img.cdn.1zdz.cn/github/readme/poprun/1.jpg" alt="首页" style="zoom: 25%;" /> <img src="http://img.cdn.1zdz.cn/github/readme/poprun/2.jpg" alt="动态圈子" style="zoom: 25%;" /> <img src="http://img.cdn.1zdz.cn/github/readme/poprun/3.jpg" alt="活动广场" style="zoom: 25%;" /> <img src="http://img.cdn.1zdz.cn/github/readme/poprun/4.jpg" alt="个人中心" style="zoom: 25%;" />
+<table>
+  <tr>
+    <td><img src="http://img.cdn.1zdz.cn/github/readme/poprun/1.jpg" alt="首页" /></td>
+    <td><img src="http://img.cdn.1zdz.cn/github/readme/poprun/2.jpg" alt="动态圈子" /></td>
+  </tr>
+  <tr>
+    <td><img src="http://img.cdn.1zdz.cn/github/readme/poprun/3.jpg" alt="活动广场" /></td>
+    <td><img src="http://img.cdn.1zdz.cn/github/readme/poprun/4.jpg" alt="个人中心" /></td>
+  </tr>
+</table>
 
 设置：
 
-<img src="http://img.cdn.1zdz.cn/github/readme/poprun/5.png" alt="设置" style="zoom: 33%;" /> <img src="http://img.cdn.1zdz.cn/github/readme/poprun/6.png" alt="设置-通用设置" style="zoom: 33%;" /> <img src="http://img.cdn.1zdz.cn/github/readme/poprun/7.png" alt="设置-隐私设置" style="zoom: 33%;" />
+<table>
+  <tr>
+    <td><img src="http://img.cdn.1zdz.cn/github/readme/poprun/5.png" alt="设置" /></td>
+    <td><img src="http://img.cdn.1zdz.cn/github/readme/poprun/6.png" alt="设置-通用设置" /></td>
+    <td><img src="http://img.cdn.1zdz.cn/github/readme/poprun/7.png" alt="设置-隐私设置" /></td>
+  </tr>
+</table>
 
 ## 一、功能设计
 
@@ -107,6 +122,8 @@ npm install
 微信开发者工具导入项目，填写自己的AppID（不能用测试号，后面需要申请插件，测试号无法申请）
 不使用云服务
 
+<img src="http://img.cdn.1zdz.cn/github/readme/poprun/WX20230220-161057@2x.png" alt="导入项目" style="zoom: 25%;" />
+
 ### 2.4 构建npm
 
 在微信开发者工具（必须npm install后才能构建npm）
@@ -130,6 +147,9 @@ VM23:3 插件文档: https://mp.weixin.qq.com/wxopen/plugindevdoc?appid=wx76a9a0
 ```
 
 A: 点击报错中的蓝色文字`添加插件`，就可以便捷添加。
+
+<img src="http://img.cdn.1zdz.cn/github/readme/poprun/WX20230220-170429@2x.png" alt="导入项目" style="zoom: 25%;" />
+<img src="http://img.cdn.1zdz.cn/github/readme/poprun/WX20230220-170230@2x.png" alt="导入项目" style="zoom: 25%;" />
 
 可能因为你的小程序没有开通相关类目，无法开通，可以根据这个文档：https://developers.weixin.qq.com/miniprogram/dev/api/location/wx.getLocation.html
 
