@@ -32,7 +32,7 @@ function distance(lat1, lng1, lat2, lng2) {
   //输出为公里
   s = Math.round(s * 10000) / 10000;
   // s = Number(s.toFixed(2));
-  distanceSum += s
+  distanceSum += s;
   return distanceSum;
 }
 // 比较最大最小速度
@@ -213,26 +213,16 @@ Page({
       altitude: true, //高精度定位
       //定位成功，更新定位结果
       success: function(res) {
-        let latitude = res.latitude
-        let longitude = res.longitude
-        let speed=res.speed;
-        const speedArr_i = speed <= 0 ? 0 : speed;
-        spdCheck(speedArr_i);
-        // speed=speed*3.6;
-        let accuracy = res.accuracy
+        const latitude = res.latitude
+        const longitude = res.longitude
         that.setData({
-          speed: format.formatSpeed(speed),
-          latitude: latitude,
-          longitude: longitude
+          latitude,
+          longitude,
         })
-        point.push({
-          latitude: latitude,
-          longitude: longitude,
-        });
-        // console.log(speedArr)
       },
       //定位失败回调
-      fail: function() {
+      fail: function(err) {
+        console.error(err);
         wx.showToast({
           title: "定位失败",
           icon: "none"
@@ -300,7 +290,6 @@ Page({
         } else {
           clearInterval(timer);
           Toast.clear();
-          that.startInterface();
           that.startRun();
         }
       }, 1000);
@@ -340,13 +329,66 @@ Page({
   // 开始运动
   startRun: function() {
     let that = this;
-    timer = setInterval(that.repeat, 1000);
+    wx.getLocation({
+      type: 'gcj02',
+      altitude: true, //高精度定位
+      success: function(res) {
+        const latitude = res.latitude
+        const longitude = res.longitude
+        point.push({
+          latitude,
+          longitude,
+        });
+        // 创建跑步记录
+        that.startInterface();
+
+        // 开始监听位置
+        wx.startLocationUpdate({
+          type: 'gcj02',
+          success: function(res) {
+            console.log('location start', res)
+            wx.onLocationChange(that.handleLocationChangeFn); // 监听位置变化
+            timer = setInterval(that.repeat, 1000); // 计时
+          },
+          //定位失败回调
+          fail: function(err) {
+            console.error(err);
+            wx.showToast({
+              title: "定位失败",
+              icon: "none"
+            })
+          },
+        });
+      },
+      //定位失败回调
+      fail: function(err) {
+        console.error(err);
+        wx.showToast({
+          title: "定位失败",
+          icon: "none"
+        })
+      },
+    })
   },
-  repeat() {
-    let that = this;
-    this.getlocation();
-    this.getTime();
-    let distance = (+that.getDistance()).toFixed(2);
+  handleLocationChangeFn(res) {
+    console.log('location change', res)
+    let latitude = res.latitude
+    let longitude = res.longitude
+    let speed = res.speed;
+    const speedArr_i = speed <= 0 ? 0 : speed;
+    spdCheck(speedArr_i);
+    // speed=speed*3.6;
+    let accuracy = res.accuracy
+    this.setData({
+      speed: format.formatSpeed(speed),
+      latitude,
+      longitude,
+    })
+    point.push({
+      latitude,
+      longitude,
+    });
+    let distance = (this.getDistance()).toFixed(2);
     this.setData({ distance });
     if(this.data.setting.shake){ //整公里震动提醒
       if(!this._shake) this._shake = 1;
@@ -356,15 +398,20 @@ Page({
       }
     }
   },
+  repeat() {
+    this.getTime();
+  },
   // 暂停运动
   pauseRun: function() {
-    let that = this;
+    const that = this;
     if (this.data.pause == "暂停") {
       clearInterval(timer);
+      wx.offLocationChange(that.handleLocationChangeFn)
+      wx.stopLocationUpdate();
       timer = null,
-        this.setData({
-          pause: "继续",
-        })
+      this.setData({
+        pause: "继续",
+      })
     } else {
       this.startRun();
       this.setData({
@@ -375,15 +422,17 @@ Page({
   },
   // 结束运动按钮
   endRun: function() {
+    const that = this;
     if(this.data.setting.screen){ //设置屏幕常亮-结束
       wx.setKeepScreenOn({
         keepScreenOn: false
       })
     }
     clearInterval(timer);
+    wx.offLocationChange(that.handleLocationChangeFn)
+    wx.stopLocationUpdate();
     timer = null;
     let spdAvr = 0;
-    let that = this;
     const endTime = format.formatTime(new Date());
     const runTime = Math.ceil(count / 60);
     const endLat = point[point.length - 1].latitude
@@ -406,7 +455,7 @@ Page({
     spdAvr = distanceSum ? (distanceSum*1000) / count : 0;
     
     this.setData({
-      distance: (+that.getDistance()).toFixed(2),
+      distance: (that.getDistance()).toFixed(2),
       avrSpeed: format.formatSpeed(spdAvr),
       maxSpeed: spdMax,
       minSpeed: spdMin,

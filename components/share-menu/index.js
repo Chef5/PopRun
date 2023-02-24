@@ -16,7 +16,7 @@ Component({
         },
         run: {
             type: Object,
-            value: {}
+            value: ({})
         }
     },
 

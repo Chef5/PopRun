@@ -24,6 +24,11 @@
             "desc": "你的位置信息将用于小程序运动定位"
         }
     },
+    "requiredPrivateInfos": [
+        "getLocation",
+        "onLocationChange",
+        "startLocationUpdate"
+    ],
     "window": {
         "backgroundTextStyle": "light",
         "navigationBarBackgroundColor": "#63b7af",

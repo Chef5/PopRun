@@ -32,6 +32,19 @@ map {
   position: relative;
   overflow: hidden;
 }
+.run-start {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 300;
+  width: 100%;
+}
+.run-end {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 500;
+}
 .speed {
   background: #fff;
   margin: 0 auto;
@@ -124,9 +137,10 @@ map {
 }
 /* 排行榜开始 */
 .ranking{
-  height: 100%;
-  position: relative;
+  position: absolute;
   z-index: 1000;
+  top: 0;
+  right: 0;
 }
 .ranking-con {
   height: 80vh;
@@ -237,7 +251,12 @@ map {
 
 /* 正在跑步开始 */
 .running {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
   height: 100%;
+  width: 100%;
   background: linear-gradient(to top, #63b7af, transparent);
   text-align: center;
   overflow: hidden;
@@ -288,12 +307,15 @@ map {
 /* 正在跑步结束 */
 /* 跑步结束开始 */
 .go-back {
-  color: #80848f;
-  /* background: #fff; */
+  position: absolute;
+  z-index: 1000;
+  top: 20rpx;
+  left: 20rpx;
+  font-size: 28rpx;
+  color: #fff;
+  background: #63b7af;
   width: 150rpx;
   line-height: 80rpx;
-  position: relative;
-  z-index: 1000;
 }
 .runRes {
   width: 96vw;
