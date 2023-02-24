@@ -7,7 +7,7 @@
     position: relative;
     text-align: center;
     /* background-color: #abf0e9; */
-    background: url(https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3578319078,1874142836&fm=26&gp=0.jpg) center no-repeat;
+    background: url('http://img.cdn.1zdz.cn/app/poprun/poprun-bg.webp') center no-repeat;
     background-size: cover;
     display: flex;
     flex-direction: column;
