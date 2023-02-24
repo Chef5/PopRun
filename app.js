@@ -1,6 +1,7 @@
 //app.js
 import Dialog from '@vant/weapp/dialog/dialog';
 import Notify from '@vant/weapp/notify/notify';
+import { hostUrl, appInfo } from './config';
 App({
   onLaunch: function () {
     let that = this;
@@ -65,9 +66,7 @@ App({
   config: {
     //获取请求环境
     getHostUrl: function(){
-      let hosturl = "http://127.0.0.1:8000"; //后端本地：需开发工具中设置不校验合法域名
-      return hosturl;
-　　      
+      return hostUrl;
     }
   },
 
@@ -78,18 +77,32 @@ App({
     let that = this;
     return new Promise(
       (resolve, reject) => {
+        const openid = wx.getStorageSync('openid');
+        if (openid && openid.length > 10) {
+          resolve(openid); // 本地有openid缓存，直接返回
+        }
+        const isMyHost = !/nunet\.cn/.test(hostUrl);
+        if (!isMyHost) {
+          if (!appInfo.appid || !appInfo.secret) {
+            throw new Error('请在 config.js 中配置自己的appid和secret');
+          }
+        }
+        const api = !isMyHost
+          ? `/api/main/getOpenid?appid=${appInfo.appid}&secret=${appInfo.secret}`
+          : '/api/main/getOpenid';
         wx.login({
           success (res) {
             if (res.code) {
               wx.request({
-                url: that.config.getHostUrl()+'/api/main/getOpenid',
+                url: that.config.getHostUrl()+api,
                 method: 'post',
                 data: {
                   code: res.code
                 },
                 success: function(res){
-                  if(res.statusCode == 200){
+                  if(res.statusCode == 200 && res.data.isSuccess){
                     resolve(res.data.data.openid);
+                    wx.setStorageSync('openid', res.data.data.openid); // 缓存openid
                   }else{
                     // 服务器故障  标识：500
                     reject({error: 500, errMsg: "服务器故障", data: res});
