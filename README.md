@@ -6,6 +6,7 @@
 后端使用的PHP的Laravel框架开发
 
 - 后端项目：https://github.com/Chef5/PopRun-b
+- 接口文档：https://chef5.github.io/PopRun/
 
 **如果觉得有参考价值，请给个star支持一下吧**
 
@@ -42,9 +43,6 @@
 
 （4）个人中心：运动管理、动态管理、设置（通用设置、隐私设置）、勋章墙、等级称号、个人主页、资料编辑。
 
-- <del>产品原型：https://orgnext.modao.cc/team/panel/teyfrxdefault</del>（已失效）
-- <del>开发手册：https://www.yuque.com/hg64tq</del>（已失效）
-- 
 **E-R图：**
 
 根据功能分析，一共规划出11个实体，形成E-R图：

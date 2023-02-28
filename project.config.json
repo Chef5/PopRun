@@ -1,7 +1,28 @@
 {
   "description": "项目配置文件",
   "packOptions": {
-    "ignore": [],
+    "ignore": [
+      {
+        "type": "folder",
+        "value": ".vscode"
+      },
+      {
+        "type": "suffix",
+        "value": ".less"
+      },
+      {
+        "type": "suffix",
+        "value": ".map"
+      },
+      {
+        "type": "suffix",
+        "value": ".html"
+      },
+      {
+        "type": "regexp",
+        "value": "^\\.[git|es|ed]"
+      }
+    ],
     "include": []
   },
   "setting": {
