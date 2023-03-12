@@ -16,3 +16,4 @@ node_modules/
 # Mini program
 miniprogram_npm/
 project.config.json
+project.private.config.json

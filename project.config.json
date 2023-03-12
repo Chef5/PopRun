@@ -3,24 +3,24 @@
   "packOptions": {
     "ignore": [
       {
-        "type": "folder",
-        "value": ".vscode"
+        "value": ".vscode",
+        "type": "folder"
       },
       {
-        "type": "suffix",
-        "value": ".less"
+        "value": ".less",
+        "type": "suffix"
       },
       {
-        "type": "suffix",
-        "value": ".map"
+        "value": ".map",
+        "type": "suffix"
       },
       {
-        "type": "suffix",
-        "value": ".html"
+        "value": ".html",
+        "type": "suffix"
       },
       {
-        "type": "regexp",
-        "value": "^\\.[git|es|ed]"
+        "value": "^\\.[git|es|ed]",
+        "type": "regexp"
       }
     ],
     "include": []

@@ -198,27 +198,42 @@ App({
                 },
                 success: (res)=>{
                     if(res.data.data != null){ //已注册，未登录
-                      Dialog.confirm({
+                      wx.showModal({
                         title: '提示',
-                        message: '当前操作需要登录才能进行，请登录'
-                      }).then(() => {
-                        Notify({ type: 'success', message: res.data.msg });
-                        wx.setStorageSync('user', JSON.stringify(res.data.data));
-                        user = res.data.data;
-                      }).catch(() => {
-                        //点击取消，啥也不干
-                        Notify({ type: 'warning', message: "取消登录" });
-                      });
+                        content: '当前操作需要登录才能进行，请登录',
+                        success (r) {
+                          if (r.confirm) {
+                            wx.showToast({
+                              title: '登录成功',
+                              icon: 'success',
+                            })
+                            wx.setStorageSync('user', JSON.stringify(res.data.data));
+                            user = res.data.data;
+                          } else if (r.cancel) {
+                            //点击取消，啥也不干
+                            wx.showToast({
+                              title: '取消登录',
+                              icon: 'error',
+                            })
+                          }
+                        }
+                      })
                     }else{ //未注册
-                      Dialog.confirm({
+                      wx.showModal({
                         title: '提示',
-                        message: '您还未授权注册，是否立即授权注册？'
-                      }).then(() => {
-                        that.getUserInfo();
-                      }).catch(() => {
-                        //点击取消，啥也不干
-                        Notify({ type: 'warning', message: "取消注册" });
-                      });
+                        content: '您还未授权注册，是否立即授权注册？',
+                        success (res) {
+                          if (res.confirm) {
+                            that.getUserInfo();
+                          } else if (res.cancel) {
+                            //点击取消，啥也不干
+                            wx.showToast({
+                              title: '取消注册',
+                              icon: 'error',
+                            })
+                          }
+                        }
+                      })
                     }
                 }
             })
@@ -226,13 +241,10 @@ App({
       ).catch(
           (err)=>{
               console.log(err);
-              Dialog.alert({
-                title: '提示',
-                message: err,
-
-              }).then(() => {
-                // on close
-              });
+              wx.showToast({
+                title: err,
+                icon: 'none',
+              })
           }
       )
       return user;
@@ -280,10 +292,11 @@ App({
 
   // 未注册提示
   showNoticToTraveler: function(){
-    Dialog.alert({
+    wx.showModal({
       title: '提示',
-      message: '您还未注册，为了保障你的良好体验，请在个人中心点击授权注册'
-    });
+      content: '您还未注册，为了保障你的良好体验，请在个人中心点击授权注册',
+      showCancel: false,
+    })
   },
 
   /**  
