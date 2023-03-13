@@ -24,6 +24,7 @@ Page({
   onLoad: function(options) {
     let that = this;
     acid = options;
+    user = app.getUser();
     this.getListDetail();
     this.getSignNum();
   },
@@ -32,9 +33,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function() {
-    setTimeout(()=>{
-      this.activityAlert()
-    }, 500);
+    
   },
 
   /**
@@ -63,6 +62,7 @@ Page({
               status: 1,
               signText: "活动已结束!"
             })
+            this.activityAlert()
           }else if (dateNow < dateStart) {
             that.setData({
               signDisabled: true,
@@ -71,6 +71,7 @@ Page({
               status: 0,
               signText: "活动还未开始哦~"
             })
+            this.activityAlert()
           }else {
             that.signSearch();
           }
@@ -99,13 +100,6 @@ Page({
   },
   // 报名参加活动
   signActivity() {
-    let that = this;
-    if (!user) {
-      user = wx.getStorageSync('user');
-      if (!user) return;
-    }
-    // 判断是否报名
-    
     wx.request({
       url: app.config.getHostUrl() + '/api/pub/signActivity',
       header: {
@@ -117,9 +111,13 @@ Page({
         acid:acid.acid,
       },
       success: (res) => {
-        this.signSearch()
-          this.getSignNum();
-        // }
+        if (res.data.isSuccess) {
+          Dialog.alert({
+            message: res.data.msg,
+          })
+        }
+        this.signSearch();
+        this.getSignNum();
       }
     })
   },
@@ -141,6 +139,7 @@ Page({
               signText: "活动挑战完成",
               status: 3,
             })
+            this.activityAlert()
             return;
           }else {
             that.setData({
@@ -149,6 +148,7 @@ Page({
               signText: "已报名",
               status: 2
             })
+            this.activityAlert()
             return;
           }
         }
