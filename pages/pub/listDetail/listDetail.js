@@ -112,12 +112,12 @@ Page({
       },
       success: (res) => {
         if (res.data.isSuccess) {
-          Dialog.alert({
-            message: res.data.msg,
-          })
+          this.signSearch();
+          this.getSignNum();
         }
-        this.signSearch();
-        this.getSignNum();
+        Dialog.alert({
+          message: res.data.msg,
+        })
       }
     })
   },
