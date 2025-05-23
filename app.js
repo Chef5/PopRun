@@ -39,24 +39,28 @@ App({
    * value: { dot:boolean, number:number }
    */
   setTabbar: function(index, value){
-    if(value.number==0 || value.number==null || value.number==undefined){//取消数字，设置红点
-      wx.removeTabBarBadge({
-        index: index,
-      })
-      if(value.dot){
-        wx.showTabBarRedDot({
-          index: index,
-        })
-      }else{
-        wx.hideTabBarRedDot({
-          index: index,
-        })
-      }
-    }else{  //设置数字
+    if (value.number && value.number > 0) {
       wx.setTabBarBadge({
         index: index,
-        text: value.number+'',
-      })
+        text: value.number + '',
+      });
+      // If number is shown, typically red dot is not separately shown
+      wx.hideTabBarRedDot({
+        index: index,
+      });
+    } else {
+      wx.removeTabBarBadge({
+        index: index,
+      });
+      if (value.dot) {
+        wx.showTabBarRedDot({
+          index: index,
+        });
+      } else {
+        wx.hideTabBarRedDot({
+          index: index,
+        });
+      }
     }
   },
 
@@ -105,17 +109,17 @@ App({
                     wx.setStorageSync('openid', res.data.data.openid); // 缓存openid
                   }else{
                     // 服务器故障  标识：500
-                    reject({error: 500, errMsg: "服务器故障", data: res});
+                    reject({error: 500, errMsg: res.data.msg || "服务器故障", data: res});
                   }
                 },
                 fail: function(res){
                   // 请求错误
-                  reject({error: 400, errMsg:"请求错误", data: res});
+                  reject({error: 400, errMsg: res.errMsg || "请求错误", data: res});
                 }
               })
             } else {
               // 登录失败
-              reject({error: 400, errMsg:res.errMsg, data: res});
+              reject({error: 400, errMsg: res.errMsg || "微信登录失败", data: res});
             }
           }
         })
@@ -149,29 +153,58 @@ App({
                     success: (res) => {
                       if(res.data.isSuccess){
                         //注册成功处理逻辑
-                        console.log(res.data)
+                        console.log(res.data);
                         //用户信息本地缓存
                         wx.setStorageSync('user', JSON.stringify(res.data.data));
+                        wx.showToast({
+                          title: '注册成功',
+                          icon: 'success'
+                        });
                       }else{
                         // 注册失败
-                        console.log(res.data.msg)
+                        console.error("微信授权注册失败:", res.data.msg);
+                        wx.showToast({
+                          title: res.data.msg || '注册失败',
+                          icon: 'none'
+                        });
                       }
                     },
-                    fail: (res) => {
+                    fail: (err) => {
                       // 请求失败
+                      console.error("微信授权请求失败:", err);
+                      wx.showToast({
+                        title: '授权请求失败',
+                        icon: 'none'
+                      });
                     }
                   })
                 }
               ).catch(
-                (data) => {
+                (err) => {
                   // 错误处理 data: {error, errMsg, data}
-                  console.log(data)
+                  console.error("getOpenid 失败:", err);
+                  wx.showToast({
+                    title: err.errMsg || '获取用户信息失败',
+                    icon: 'none'
+                  });
                 }
               )
             },
+            fail: (err) => {
+              console.error("wx.getUserInfo 失败:", err);
+              wx.showToast({
+                title: '获取微信用户信息失败',
+                icon: 'none'
+              });
+            }
           })
         }else{
             //用户未授权，提示框用户授权
+            wx.showModal({
+              title: '授权提示',
+              content: '您尚未授权获取用户信息，这将影响部分功能的使用。请在设置中开启授权。',
+              showCancel: false
+            });
         }
       },
     })
@@ -206,14 +239,17 @@ App({
                             wx.showToast({
                               title: '登录成功',
                               icon: 'success',
-                            })
+                            });
                             wx.setStorageSync('user', JSON.stringify(res.data.data));
-                            user = res.data.data;
+                            // Note: Assigning to 'user' here updates the local callback variable.
+                            // The outer 'user' variable won't be updated for the synchronous return.
+                            // This function ideally should return a Promise for proper async handling.
+                            user = res.data.data; 
                           } else if (r.cancel) {
                             //点击取消，啥也不干
                             wx.showToast({
                               title: '取消登录',
-                              icon: 'error',
+                              icon: 'none', // 'error' icon is not standard, use 'none' or 'success'
                             })
                           }
                         }
@@ -222,32 +258,39 @@ App({
                       wx.showModal({
                         title: '提示',
                         content: '您还未授权注册，是否立即授权注册？',
-                        success (res) {
-                          if (res.confirm) {
+                        success (modalRes) { // Renamed 'res' to 'modalRes' to avoid conflict
+                          if (modalRes.confirm) {
                             that.getUserInfo();
-                          } else if (res.cancel) {
+                          } else if (modalRes.cancel) {
                             //点击取消，啥也不干
                             wx.showToast({
                               title: '取消注册',
-                              icon: 'error',
+                              icon: 'none', // 'error' icon is not standard
                             })
                           }
                         }
                       })
                     }
+                },
+                fail: (err) => { // Added fail callback for /api/user/getUser request
+                    console.error("获取用户数据请求失败:", err);
+                    wx.showToast({
+                        title: '获取用户信息失败',
+                        icon: 'none'
+                    });
                 }
             })
         }
       ).catch(
           (err)=>{
-              console.log(err);
+              console.error("getOpenid in getUser failed:", err);
               wx.showToast({
-                title: err,
+                title: err.errMsg || '获取用户信息失败',
                 icon: 'none',
               })
           }
       )
-      return user;
+      return user; // This returns the user synchronously, potentially before async operations complete.
     }
   },
 
@@ -280,12 +323,19 @@ App({
               }
             } else {
               // 服务器故障
+              console.error("checkUser - 服务器故障:", res);
+              wx.showToast({ title: '服务暂不可用', icon: 'none' });
             }
           },
-          fail: function (res) {
+          fail: function (err) {
             // 请求错误
+            console.error("checkUser - 请求错误:", err);
+            wx.showToast({ title: '网络请求失败', icon: 'none' });
           }
         })
+      }).catch(err => {
+        console.error("checkUser - getOpenid failed:", err);
+        wx.showToast({ title: err.errMsg || '获取用户信息失败', icon: 'none' });
       })
     }
   },
@@ -315,10 +365,13 @@ App({
    * read: 0未读，1已读
    */
   getNotices: function(rid, read, type){
-    if(!rid) return false;
+    // if(!rid) return false; // Returning false from a promise-returning function is an anti-pattern
+    if(!rid) {
+      return Promise.reject("请求用户ID (rid) 不能为空");
+    }
     let data = { rid };
-    if(type==0 || type) data.type = type;
-    if(read==0 || read) data.read = read;
+    if(type === 0 || type) data.type = type; // Use === for strict equality if type can be 0
+    if(read === 0 || read) data.read = read; // Use === for strict equality if read can be 0
     return new Promise((resolve, reject)=>{
       wx.request({
         url: this.config.getHostUrl()+'/api/main/getNotice',
@@ -328,10 +381,13 @@ App({
           if(result.data.isSuccess){
             resolve(result.data.data)
           }else{
-            reject(result.data.msg)
+            reject(result.data.msg || "获取通知失败")
           }
         },
-        fail: ()=>{},
+        fail: (err)=>{
+            console.error("getNotices request failed:", err);
+            reject(err.errMsg || "获取通知请求失败");
+        },
         complete: ()=>{}
       });
     })
@@ -383,7 +439,14 @@ App({
           //   that.setTabbar(index, item)
           // })
           resolved({moment, system});  //返回数据页面内使用
+        }).catch(errMsg => {
+          console.error("updateNotices - getNotices failed:", errMsg);
+          // Optionally show a toast or handle the error for the user
+          // wx.showToast({ title: '更新通知失败', icon: 'none' });
+          rejected(errMsg); // Propagate the rejection
         })
+      } else {
+        rejected("用户未登录"); // Or handle this case as appropriate
       }
     })
   },
@@ -400,12 +463,15 @@ App({
             method: 'POST',
             success: (result)=>{
                 if(result.data.isSuccess){
-                    resolve(result)
+                    resolve(result.data) // Usually resolve with result.data or result.data.data
                 }else{
                     reject(result.data.msg)
                 }
             },
-            fail: ()=>{},
+            fail: (err)=>{ // Added error handling for fail callback
+                console.error("doRead request failed:", err);
+                reject(err.errMsg || "阅读消息请求失败");
+            },
             complete: ()=>{}
         });
     })
@@ -423,12 +489,15 @@ App({
             method: 'POST',
             success: (result)=>{
                 if(result.data.isSuccess){
-                    resolve(result)
+                    resolve(result.data) // Usually resolve with result.data or result.data.data
                 }else{
                     reject(result.data.msg)
                 }
             },
-            fail: ()=>{},
+            fail: (err)=>{ // Added error handling for fail callback
+                console.error("doDelete request failed:", err);
+                reject(err.errMsg || "删除消息请求失败");
+            },
             complete: ()=>{}
         });
     })

@@ -5,7 +5,7 @@ import Dialog from '@vant/weapp/dialog/dialog';
 
 const app = getApp();
 // 滑动手势变量
-var startX, endX, moveFlag = true;
+var startX, endX; // moveFlag will be initialized in onLoad
 Page({
 
     /**
@@ -33,6 +33,7 @@ Page({
      * 生命周期函数--监听页面加载
      */
     onLoad: function (options) {
+        this.moveFlag = true; // Initialize moveFlag here
         let that = this;
         this.refreshMoments();
         this.setData({
@@ -87,8 +88,9 @@ Page({
                     Toast('没有更多了');
                 }
             })
-            .catch((res)=>{
-                console.log(res);
+            .catch((err)=>{ // Changed res to err for clarity
+                console.error("onReachBottom error:", err);
+                Toast.fail('加载更多失败');
             })
     },
 
@@ -136,7 +138,8 @@ Page({
                         that.setData({
                             isShowloading: false
                         });
-                        reject({error: 400, errMsg:"请求错误", data: res});
+                        Toast.fail('加载动态失败，请稍后重试');
+                        reject({error: 400, errMsg: res.errMsg || "请求错误", data: res});
                     }
                 })
             }
@@ -144,28 +147,57 @@ Page({
     },
 
     // 刷新动态
-    refreshMoments: function(){
-        let that = this, pagesize = this.data.pagesize;
-        that.setData({ moments:[] });  // 需要清空，不然不更新？why
-        that.getMoments(0, pagesize)
-            .then((res)=>{
-                console.log(res)
-                if(res.data.isSuccess){
-                    Notify({ type: 'success', message: res.data.msg });
-                    that.setData({ 
-                        pageindex: res.data.data.pageindex,
-                        pagesize : res.data.data.pagesize
-                    });
-                    that.getHot(res.data.data.moments);//获取热门推荐,并判断动态里是否含有热门
-                }else{
-                    Notify({ type: 'danger', message: res.data.msg });
+    refreshMoments: function() {
+        let that = this;
+        let pagesize = this.data.pagesize;
+        // that.setData({ moments: [] }); // Clear moments for refresh, or handle updates more gracefully
+
+        // Promise.all simplifies handling multiple async operations
+        Promise.all([
+            that.getMoments(0, pagesize), // Fetch initial moments
+            that.fetchHotMomentData()      // Fetch hot moment data
+        ]).then(([momentsRes, hotMomentRes]) => {
+            if (momentsRes.data.isSuccess) {
+                Notify({ type: 'success', message: momentsRes.data.msg || '动态加载成功' });
+                let initialMoments = momentsRes.data.data.moments;
+                let finalMoments = initialMoments;
+                let hotMomentDataToShow = null;
+                let showHotFlag = false;
+
+                if (hotMomentRes && hotMomentRes.isSuccess && hotMomentRes.data) {
+                    // Filter out the hot moment from the initial list if it exists
+                    finalMoments = initialMoments.filter(moment => moment.moid !== hotMomentRes.data.moid);
+                    hotMomentDataToShow = hotMomentRes.data;
+                    showHotFlag = true;
+                } else if (hotMomentRes && !hotMomentRes.isSuccess) {
+                    // Hot moment fetch failed, but moments might be okay
+                    // Notify({ type: 'warning', message: hotMomentRes.msg || '热门推荐加载失败' });
+                    // console.warn("Hot moment fetch failed:", hotMomentRes.msg);
                 }
-                app.stopRefresh();  //停止刷新状态的显示
-            })
-            .catch((res)=>{
-                console.log(res)
-            })
+                // else hotMomentRes is null (e.g. network error in fetchHotMomentData)
+
+                that.setData({
+                    moments: finalMoments,
+                    hotMoment: hotMomentDataToShow,
+                    isShowHot: showHotFlag,
+                    pageindex: momentsRes.data.data.pageindex,
+                    pagesize: momentsRes.data.data.pagesize,
+                });
+            } else {
+                Notify({ type: 'danger', message: momentsRes.data.msg || '动态加载失败' });
+            }
+        }).catch(error => {
+            console.error("Error in refreshMoments (Promise.all):", error);
+            if (error && error.errMsg) { // Catch errors from getMoments or fetchHotMomentData
+                 Notify({ type: 'danger', message: error.errMsg });
+            } else {
+                 Notify({ type: 'danger', message: '刷新失败，请稍后重试' });
+            }
+        }).finally(() => {
+            app.stopRefresh(); // Stop pull-down refresh animation
+        });
     },
+
 
     // 跳转到新建页面
     openNewMoment: function() {
@@ -185,25 +217,25 @@ Page({
 
     touchStart: function (e) {
         startX = e.touches[0].pageX; // 获取触摸时的原点
-        moveFlag = true;
+        this.moveFlag = true; // Use this.moveFlag
     },
     // 触摸移动事件
     touchMove: function (e) {
         endX = e.touches[0].pageX; // 获取触摸时的原点
-        if (moveFlag) {
+        if (this.moveFlag) { // Use this.moveFlag
             if (startX - endX > 200) {
                 console.log("move to left");
                 this.setData({
                     isShowMenu: true
-                })
-                moveFlag = false;
+                });
+                this.moveFlag = false; // Use this.moveFlag
             }
             // if (endX - startX > 50) {
             //     console.log("move to right");
             //     this.setData({
             //         isShowMenu: false
             //     })
-            //     moveFlag = false;
+            //     this.moveFlag = false; // Use this.moveFlag
             // }
         }
     },
@@ -260,67 +292,54 @@ Page({
                 },
                 success: (res)=>{
                     if(res.data.isSuccess){
-                        // let moments  = that.data.moments;  //这样删了，页面为何不生效
-                        // moments.splice(moments.findIndex(item=>item.moid==e.detail.moid),1);
-                        that.refreshMoments();
+                        let currentMoments = that.data.moments;
+                        const moidToDelete = e.detail.moid;
+                        const updatedMoments = currentMoments.filter(moment => moment.moid !== moidToDelete);
+                        that.setData({
+                            moments: updatedMoments
+                        });
+                        Toast.success('删除成功');
                     }else{
-                        Notify({ type: 'danger', message: res.data.msg });
+                        Notify({ type: 'danger', message: res.data.msg || '删除失败' });
                     }                                                                       
                 },
-                fail: (res)=>{
-                console.log(res);
+                fail: (err)=>{ // Changed res to err
+                    console.error("Delete moment request failed:", err);
+                    Notify({ type: 'danger', message: err.errMsg || '删除请求失败' });
                 }
             })
         }).catch(() => {
-        // on cancel
+        // on cancel - user clicked cancel on the dialog
         });
     },
 
-    // 获取热门推荐
-    getHot: function(moments){
+    // Fetches hot moment data - refactored from getHot
+    fetchHotMomentData: function() {
         let that = this;
-        that.setData({
-            hotMoment: {},
-            isShowHot: false
-        })
-        wx.request({
-            url: app.config.getHostUrl()+'/api/moments/getHot',
-            method: 'get',
-            success: (res)=>{
-                if(res.statusCode == 200){
-                    if(res.data.isSuccess){
-                        for(let i=0; i<moments.length; i++){
-                            if(moments[i].moid == res.data.data.moid){
-                                moments.splice(i, 1);
-                                break;
-                            }
+        return new Promise((resolve, reject) => {
+            wx.request({
+                url: app.config.getHostUrl() + '/api/moments/getHot',
+                method: 'get',
+                success: (res) => {
+                    if (res.statusCode == 200) {
+                        if (res.data.isSuccess) {
+                            resolve({ isSuccess: true, data: res.data.data, msg: res.data.msg });
+                        } else {
+                            resolve({ isSuccess: false, msg: res.data.msg || "获取热门推荐失败" }); // Resolve with success:false
                         }
-                        that.setData({
-                            hotMoment: res.data.data,
-                            moments,
-                            isShowHot: true
-                        })
-                    }else{
-                        that.setData({
-                            moments,
-                            isShowHot: false
-                        })
+                    } else {
+                        // 服务器故障
+                        console.error("fetchHotMomentData server error:", res);
+                        reject({ error: 500, errMsg: "服务器故障", data: res }); // Reject on server error
                     }
-                }else{
-                    // 服务器故障
-                    that.setData({
-                        moments,
-                        isShowHot: false
-                    })
+                },
+                fail: (err) => {
+                    console.error("fetchHotMomentData request failed:", err);
+                    Toast.fail('热门推荐加载失败');
+                    reject({ error: 400, errMsg: err.errMsg || "热门推荐请求失败", data: err }); // Reject on request fail
                 }
-            },
-            fail: (res)=>{
-                that.setData({
-                    moments,
-                    isShowHot: false
-                })
-            }
-        })
+            });
+        });
     }
-
+    // Original getHot function is removed as its logic is now part of refreshMoments and fetchHotMomentData
 })

@@ -32,8 +32,15 @@ Page({
           that.setData({
             swiperArr: res.data.data
           })
+        } else {
+          console.warn("getSwiper API error:", res.data.msg);
+          Toast.fail(res.data.msg || '加载轮播图失败');
         }
       },
+      fail: (err) => {
+        console.error("getSwiper request failed:", err);
+        Toast.fail('加载轮播图网络失败');
+      }
     });
   },
   // 获取活动
@@ -57,8 +64,15 @@ Page({
           that.setData({
             list: res.data.data.activitys
           })
+        } else {
+          console.warn("getList API error:", res.data.msg);
+          Toast.fail(res.data.msg || '加载活动列表失败');
         }
       },
+      fail: (err) => {
+        console.error("getList request failed:", err);
+        Toast.fail('加载活动列表网络失败');
+      }
     });
   },
   // 获取课程
@@ -67,14 +81,21 @@ Page({
     wx.request({
       url: app.config.getHostUrl() + '/api/pub/getCourses',
       success: (res) => {
-        if (res.data.isSuccess) {
+        if (res.statusCode === 200 && res.data.isSuccess) {
           res.data.data.forEach(e => {
             e.imgLink = "blockDetail/blockDetail?rcid=" + e.rcid
           })
           that.setData({
             block: res.data.data
           })
+        } else {
+          console.warn("getBlock API error or non-200 status:", res.data.msg, "status:", res.statusCode);
+          Toast.fail(res.data.msg || '加载课程失败');
         }
+      },
+      fail: (err) => {
+        console.error("getBlock request failed:", err);
+        Toast.fail('加载课程网络失败');
       }
     })
   },

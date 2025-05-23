@@ -72,6 +72,7 @@ Page({
   bindViewTap: function() {},
   onLoad: function() {
     let that = this
+    this._shake = 1; // Initialize _shake
     wx.showLoading({
       title: "定位中",
       mask: true
@@ -119,6 +120,10 @@ Page({
           text: res.data.data
         })
       },
+      fail: (err) => {
+        console.error("getText request failed:", err);
+        Toast.fail('获取一言数据失败');
+      }
     })
   },
   // 排行榜栏显示隐藏
@@ -165,6 +170,10 @@ Page({
         }
         this.setData({rankArr, myRank: user})
       },
+      fail: (err) => {
+        console.error("getRanking request failed:", err);
+        Toast.fail('获取排行榜数据失败');
+      }
     })
   },
  
@@ -251,19 +260,22 @@ Page({
           cancelButtonText: '没电也要跑步',
           message: '当前电量较低('+battery.level+'%)，GPS定位会不准确，本次运动可能无法完整记录',
         })
-        .then(() => {
-
+        .then(() => { // Confirmed "回家充电"
+            Toast('跑步已取消');
+            // Do NOT proceed to countDownStart
         })
-        .catch(()=>{
-          countDownStart(that);
-        })
-      }else{
-        countDownStart(that);
+        .catch(() => { // Canceled "没电也要跑步" OR dialog closed via other means
+            originalCountDownStart(); // Proceed with countdown
+        });
+      } else { // Battery level is fine
+        originalCountDownStart();
       }
-    }else{
-      countDownStart(that);
+    } else { // Low power mode is off
+      originalCountDownStart();
     }
-    function countDownStart(that) {
+
+    // Renamed to avoid confusion if Dialog.catch also triggers original `countDownStart`
+    function originalCountDownStart() { 
       if(that.data.setting.voice){ //倒计时语音
         const audioctx = wx.createInnerAudioContext();
         audioctx.src = '/voice/countDown.mp3';
@@ -322,8 +334,15 @@ Page({
       success: (result) => {
         if (result.data.isSuccess) {
           params = result.data.data
+        } else {
+          console.warn("startInterface API error:", result.data.msg);
+          Toast.fail(result.data.msg || '开始运动接口调用失败');
         }
       },
+      fail: (err) => {
+        console.error("startInterface request failed:", err);
+        Toast.fail('开始运动请求失败');
+      }
     });
   },
   // 开始运动
@@ -488,10 +507,17 @@ Page({
         }else {
           Dialog.alert({
             title: '错误提示',
-            message: '本次运动数据异常'
+            message: result.data.msg || '本次运动数据异常，未能保存'
           })
         }
       },
+      fail: (err) => {
+        console.error("doEnd request failed:", err);
+        Dialog.alert({
+          title: '请求失败',
+          message: '结束运动请求失败，数据可能未保存'
+        });
+      }
     });
   },
 
@@ -559,8 +585,12 @@ Page({
                   Dialog.alert(res.msg);
                 },
               },
-              success: (res)=>{
-                res.eventChannel.emit('getImgFromRunPage', img)
+              success: (navRes)=>{ // Renamed res to navRes
+                navRes.eventChannel.emit('getImgFromRunPage', img)
+              },
+              fail: (navErr) => { // Added fail callback for navigateTo
+                console.error("Navigate to sharePage failed:", navErr);
+                Dialog.alert({ title: '错误', message: '打开分享页面失败' });
               }
             });
           }else{
@@ -570,7 +600,10 @@ Page({
             })
           }
         },
-        fail: ()=>{},
+        fail: (err)=>{ // Added fail callback for getRunById
+          console.error("getRunById request failed:", err);
+          Dialog.alert({ title: '错误', message: '获取跑步数据失败' });
+        },
         complete: ()=>{}
       });
     }else{
@@ -628,6 +661,9 @@ Page({
               user.ercode = ercode;
             }
             Share.makeShareImg(canvas, run, iswx, user);
+            // The setTimeout is a workaround for potential drawing delays before generating the file.
+            // A more robust solution would involve Share.makeShareImg returning a promise that resolves
+            // once drawing is truly complete and the canvas is ready for file generation.
             setTimeout(()=>{
               if(iswx) {
                 Share.getFileWX6B(monID, this, iswx).then(imgurl=>{
